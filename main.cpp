@@ -21,12 +21,12 @@ struct things
     int yv;//y's velocity
     int red,green,blue;
     int apocity;
-}star[100];
+}star[150];
 
 int make_new_star_line(int total_stars , int screenwidth)
 {
     int this_line_stars_count;
-    this_line_stars_count = (rand() % 5)+1;
+    this_line_stars_count = (rand() % 4);
     for(int i = total_stars ; i < total_stars + this_line_stars_count ; i++)
     {
         star[i].x = (rand() % screenwidth - 10) + 5;
@@ -48,7 +48,7 @@ void stars_y_change(int total_stars)
 {
     for(int i = 0 ; i < total_stars ; i++)
     {
-        star[i].y += star[i].xv;
+        star[i].y += star[i].yv;
     }
 }
 
@@ -63,10 +63,10 @@ void draw_stars(SDL_Surface * screen , int total_stars)
 
 int main(int argc ,char * args[])
 {
-    int screenwidth;
-    int screenhieght;
-    int frame = 0;
-    int last_stars_frame = 0;
+    int screenwidth = 1000;
+    int screenhieght = 1000;
+    long long int frame = 0;
+    long long int last_stars_frame = 0;
     int stars_frame_difference = 5;
     int total_stars = 0;// total number of stars that made till now
     srand(time(0));
@@ -74,10 +74,12 @@ int main(int argc ,char * args[])
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
     while(true)
     {
-        boxRGBA(screen , 0 , 0 , screenwidth , screenhieght , 0 , 0 , 100 , 250);
+        boxRGBA(screen , 0 , 0 , screenwidth , screenhieght , 0 , 0 , 50 , 250);
         if(frame - last_stars_frame == stars_frame_difference)
         {
             total_stars = make_new_star_line(total_stars , screenwidth);
+            last_stars_frame = frame;
+            stars_frame_difference = (rand() % 10) + 5;
         }
         stars_y_change(total_stars);
 
@@ -85,7 +87,9 @@ int main(int argc ,char * args[])
 
         SDL_Flip(screen);
 
-        SDL_Delay(20);
+        frame++;
+
+        SDL_Delay(10);
 
     }
 
