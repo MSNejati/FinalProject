@@ -21,44 +21,44 @@ struct things
     int yv;//y's velocity
     int red,green,blue;
     int apocity;
-}star[80],star2[80];
+}star[80];
 
 
-void first_space_draw(int total_stars2 , int screenheight , int screenwidth)
+void first_space_draw(int total_stars , int screenheight , int screenwidth)
 {
-    for(int i = 0 ; i < total_stars2 ; i++)
+    for(int i = 0 ; i < total_stars ; i++)
     {
-        star2[i].x = (rand() % screenwidth - 10) + 5;
-        star2[i].y = (rand() % screenheight -10);
-        star2[i].yv = 2;
-        star2[i].r = 1;
-        star2[i].blue = 255;
-        star2[i].red = 200;
-        star2[i].green = 200;
-        star2[i].apocity = 255;
-        star2[i].ingame = true ;
+        star[i].x = (rand() % screenwidth - 10) + 5;
+        star[i].y = (rand() % screenheight -10);
+        star[i].yv = 2;
+        star[i].r = 1;
+        star[i].blue = 255;
+        star[i].red = 200;
+        star[i].green = 200;
+        star[i].apocity = 255;
+        star[i].ingame = true ;
     }
 }
 
-void make_new_star_line(int total_stars2 , int screenwidth)
+void make_new_star_line(int total_stars , int screenwidth)
 {
     int this_line_stars_count;
     this_line_stars_count = (rand() % 4);
     for(int j = 0 ; j < this_line_stars_count ; j++)
     {
-        for(int i = 0 ; i < 80 ; i++)
+        for(int i = 0 ; i < total_stars ; i++)
         {
-            if(star2[i].ingame == false)
+            if(star[i].ingame == false)
             {
-                star2[i].x = (rand() % screenwidth - 10) + 5;
-                star2[i].y = 0;
-                star2[i].yv = 2;
-                star2[i].r = 1;
-                star2[i].blue = 255;
-                star2[i].red = 200;
-                star2[i].green = 200;
-                star2[i].apocity = 255;
-                star2[i].ingame = true;
+                star[i].x = (rand() % screenwidth - 10) + 5;
+                star[i].y = 0;
+                star[i].yv = 2;
+                star[i].r = 1;
+                star[i].blue = 255;
+                star[i].red = 200;
+                star[i].green = 200;
+                star[i].apocity = 255;
+                star[i].ingame = true;
             }
         }
     }
@@ -67,27 +67,27 @@ void make_new_star_line(int total_stars2 , int screenwidth)
 
 
 
-void stars_y_change(int total_stars2 , int screenwidth)
+void stars_y_change(int total_stars , int screenwidth ,int screenheight)
 {
     for(int i = 0 ; i < 80 ; i++)
     {
-        if(star2[i].ingame == true)
+        if(star[i].ingame == true)
         {
-            star2[i].y += star[i].yv;
+            star[i].y += star[i].yv;
         }
-        if(star2[i].y >= screenwidth)
+        if(star[i].y >= screenheight)
         {
-            star2[i].ingame = false;
+            star[i].ingame = false;
         }
     }
 }
 
 
-void draw_stars(SDL_Surface * screen , int total_stars2)
+void draw_stars(SDL_Surface * screen , int total_stars)
 {
-    for(int i = 0 ; i < total_stars2 ; i++)
+    for(int i = 0 ; i < total_stars ; i++)
     {
-        filledCircleRGBA(screen , star2[i].x , star2[i].y , star2[i].r , star2[i].red , star2[i].green , star2[i].blue , star2[i].apocity);
+        filledCircleRGBA(screen , star[i].x , star[i].y , star[i].r , star[i].red , star[i].green , star[i].blue , star[i].apocity);
     }
 }
 
@@ -96,26 +96,20 @@ int main(int argc ,char * args[])
     int screenwidth = 1000;
     int screenhieght = 1000;
     int frame = 0;
-    int last_stars_frame = 0;
-    int stars_frame_difference = 5;
-    int total_stars = 0;// total number of stars that made till now
-    int total_stars2 = 80;
+    int total_stars = 80;// total number of stars that made till now
     srand(time(0));
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
-    first_space_draw(total_stars2 , screenhieght , screenwidth);
+    first_space_draw(total_stars , screenhieght , screenwidth);
     while(true)
     {
         boxRGBA(screen , 0 , 0 , screenwidth , screenhieght , 0 , 0 , 50 , 250);
-        if(frame - last_stars_frame == stars_frame_difference)
-        {
-            make_new_star_line(total_stars2 , screenwidth);
-            last_stars_frame = frame;
-            stars_frame_difference = (rand() % 15) + 5;
-        }
-        stars_y_change(total_stars2 , screenwidth);
 
-        draw_stars(screen , total_stars2);
+        make_new_star_line(total_stars , screenwidth);
+
+        stars_y_change(total_stars , screenwidth , screenhieght);
+
+        draw_stars(screen , total_stars);
 
         SDL_Flip(screen);
 
