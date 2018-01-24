@@ -10,6 +10,7 @@
 #include <fstream>
 #include "background.h"
 #include "applysurface.h"
+#include "spaceship_Move.h"
 
 using namespace std;
 
@@ -21,6 +22,9 @@ int main(int argc ,char * args[])
     int total_stars = 80;// total number of stars that made till now
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
+    float our_spaceship_right_v = 0;
+    float our_spaceship_left_v = 0;
+
     srand(time(0));
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
@@ -39,6 +43,10 @@ int main(int argc ,char * args[])
         stars_y_change(total_stars , screenwidth , screenhieght);
 
         draw_stars(screen , total_stars);
+
+        our_spaceship_v_initialize(&our_spaceship_right_v , &our_spaceship_left_v);
+
+        our_spaceship_move ( &our_spaceshipx , &our_spaceship_right_v, &our_spaceship_left_v);
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
 
