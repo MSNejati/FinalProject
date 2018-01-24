@@ -9,6 +9,7 @@
 #include <cmath>
 #include <fstream>
 #include "background.h"
+#include "applysurface.h"
 
 using namespace std;
 
@@ -22,20 +23,19 @@ int main(int argc ,char * args[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
     first_space_draw(total_stars , screenhieght , screenwidth);
+    SDL_Surface* our_spaceship = load_image("our_spaceship.jpg"); 
+    apply_surface(450, 870, our_spaceship, screen);
+
     while(true)
     {
+
         boxRGBA(screen , 0 , 0 , screenwidth , screenhieght , 0 , 0 , 50 , 250);
-
         make_new_star_line(total_stars , screenwidth);
-
         stars_y_change(total_stars , screenwidth , screenhieght);
-
         draw_stars(screen , total_stars);
-
+	apply_surface(450, 870, our_spaceship, screen);
         SDL_Flip(screen);
-
         frame++;
-
         SDL_Delay(5);
 
     }
