@@ -25,6 +25,7 @@ int main(int argc ,char * args[])
     first_space_draw(total_stars , screenhieght , screenwidth);
     SDL_Surface* our_spaceship = load_image("our_spaceship.png"); 
     apply_surface(450, 870, our_spaceship, screen);
+    SDL_WM_SetCaption( "Star Wars", NULL );
 
     while(true)
     {
