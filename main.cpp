@@ -23,7 +23,7 @@ int main(int argc ,char * args[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
     first_space_draw(total_stars , screenhieght , screenwidth);
-    SDL_Surface* our_spaceship = load_image("spaceship.jpg"); 
+    SDL_Surface* our_spaceship = load_image("myspaceship.png"); 
     apply_surface(450, 870, our_spaceship, screen);
 
     while(true)
