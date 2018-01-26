@@ -10,12 +10,15 @@
 #include <fstream>
 #include "background.h"
 #include "applysurface.h"
+#include "throw_arrows.h"
 #include "spaceship_Move.h"
 
 using namespace std;
 
 int main(int argc ,char * args[])
 {
+    Uint8 *keystates = SDL_GetKeyState( NULL ); 
+    int arrow_number = 0; // arrow's number that after pressing the space key throw
     int screenwidth = 1000;
     int screenhieght = 1000;
     int frame = 0;
@@ -49,6 +52,14 @@ int main(int argc ,char * args[])
         our_spaceship_move ( &our_spaceshipx , &our_spaceship_right_v, &our_spaceship_left_v);
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
+
+	if (keystates[SDLK_SPACE]) {
+		make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+		arrow_number++;
+	}
+	
+	cout << arrow_number << '\n';
+	move_arrow(screen, arrow_number);
 
         SDL_Flip(screen);
 
