@@ -17,7 +17,7 @@ using namespace std;
 
 int main(int argc ,char * args[])
 {
-    Uint8 *keystates = SDL_GetKeyState( NULL ); 
+    Uint8 *keystates = SDL_GetKeyState( NULL );
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int screenwidth = 1000;
     int screenhieght = 1000;
@@ -49,7 +49,7 @@ int main(int argc ,char * args[])
 
         our_spaceship_v_initialize(&our_spaceship_right_v , &our_spaceship_left_v);
 
-        our_spaceship_move ( &our_spaceshipx , &our_spaceship_right_v, &our_spaceship_left_v);
+        our_spaceship_move ( &our_spaceshipx , &our_spaceship_right_v, &our_spaceship_left_v ,screenwidth , screenhieght);
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
 
@@ -57,7 +57,7 @@ int main(int argc ,char * args[])
 		make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
 		arrow_number++;
 	}
-	
+
 	cout << arrow_number << '\n';
 	move_arrow(screen, arrow_number);
 

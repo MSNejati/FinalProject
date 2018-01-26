@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SDL/SDL.h>
 
 
@@ -53,10 +54,14 @@ void our_spaceship_v_initialize(float * our_spaceship_right_v , float * our_spac
 
 
 
-void our_spaceship_move (int * our_spaceshipx ,float * our_spaceship_right_v, float * our_spaceship_left_v)
+void our_spaceship_move (int * our_spaceshipx ,float * our_spaceship_right_v, float * our_spaceship_left_v ,int screenwidth ,int screenheight)
 {
-
-    *(our_spaceshipx) += *(our_spaceship_right_v);
-    *(our_spaceshipx) -= *(our_spaceship_left_v);
-
+    if(*our_spaceshipx < screenwidth - 100)
+    {
+        *(our_spaceshipx) += *(our_spaceship_right_v);
+    }
+    if(*our_spaceshipx > 0)
+    {
+        *(our_spaceshipx) -= *(our_spaceship_left_v);
+    }
 }
