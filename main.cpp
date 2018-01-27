@@ -19,6 +19,7 @@ using namespace std;
 int main(int argc ,char * args[])
 {
     Uint8 *keystates = SDL_GetKeyState( NULL );
+    int arrow_delay = 0;
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int screenwidth = 1000;
     int screenhieght = 1000;
@@ -57,8 +58,16 @@ int main(int argc ,char * args[])
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
 	if (keystates[SDLK_SPACE]) {
-		make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-		arrow_number++;
+        if(arrow_delay % 10 ==0)
+        {
+            make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+            arrow_number++;
+            arrow_delay = 1;
+		}
+		else
+		{
+            arrow_delay++;
+		}
 	}
 
 	cout << arrow_number << '\n';
