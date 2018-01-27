@@ -12,6 +12,7 @@
 #include "applysurface.h"
 #include "throw_arrows.h"
 #include "spaceship_Move.h"
+#include "sensors.h"
 
 using namespace std;
 
@@ -52,6 +53,8 @@ int main(int argc ,char * args[])
         our_spaceship_move ( &our_spaceshipx , &our_spaceship_right_v, &our_spaceship_left_v ,screenwidth , screenhieght);
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
+
+        sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
 	if (keystates[SDLK_SPACE]) {
 		make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
