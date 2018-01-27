@@ -72,7 +72,7 @@ int main(int argc ,char * args[])
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number, our_spaceship_bullet);
 
 	move_arrow(screen, arrow_number);
 
