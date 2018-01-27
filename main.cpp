@@ -20,16 +20,11 @@ int main(int argc ,char * args[])
 {
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
-<<<<<<< HEAD
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 500; // the spaceship's bullet in the beginning
     int screenwidth = 1010;
-    int screenhieght = 1010;
-=======
+    int screenheight = 1010;
     int enemy_spaceship_delay;
-    int screenwidth = 1000;
-    int screenheight = 1000;
->>>>>>> master
     int frame = 0;
     int total_stars = 80;// total number of stars that made till now
     int our_spaceshipx = 450;
@@ -40,17 +35,12 @@ int main(int argc ,char * args[])
     srand(time(0));
     enemy_spaceship_delay = (rand() % 20) + 100;
     SDL_Init(SDL_INIT_EVERYTHING);
-<<<<<<< HEAD
-    SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenhieght,32,0);
-    first_space_draw(total_stars , screenhieght , screenwidth);
+
+    SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenheight,32,0);
+    first_space_draw(total_stars , screenheight , screenwidth);
     SDL_Surface* our_spaceship = load_ourspaceship("our_spaceship.png");
     SDL_Surface* heart = load_image("heart.png");
     SDL_Surface* gun_bullet = load_image("gun_bullet.png");
-=======
-    SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenheight,32,0);
-    first_space_draw(total_stars , screenheight , screenwidth);
-    SDL_Surface* our_spaceship = load_image("our_spaceship.png");
->>>>>>> master
     apply_surface(our_spaceshipx , our_spaceshipy , our_spaceship, screen);
     apply_surface(45, 10, heart, screen);
     apply_surface(930, 10, gun_bullet, screen);
@@ -85,10 +75,15 @@ int main(int argc ,char * args[])
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-<<<<<<< HEAD
 	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number, our_spaceship_bullet);
 
 	move_arrow(screen, arrow_number);
+
+	enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
+
+        enemy_spaceships_move(screenheight ,our_spaceshipx);
+
+        show_enemy_spaceships(screen);
 
 	show_toolbar(screen);
 
@@ -99,21 +94,8 @@ int main(int argc ,char * args[])
 	apply_surface(5, 15, heart_value, screen);
 
         apply_surface(855, 15, bullet, screen);
-        
-	SDL_Flip(screen);
-=======
-        arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-
-        move_arrow(screen, arrow_number);
-
-        enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
-
-        enemy_spaceships_move(screenheight ,our_spaceshipx);
-
-        show_enemy_spaceships(screen);
 
         SDL_Flip(screen);
->>>>>>> master
 
         frame++;
 
