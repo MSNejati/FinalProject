@@ -8,27 +8,29 @@ void our_spaceship_v_initialize(float * our_spaceship_right_v , float * our_spac
     SDL_Event our_spaceship_move;
     if(SDL_PollEvent(&our_spaceship_move))
     {
+	*our_spaceship_right_v = 0;
+	*our_spaceship_left_v = 0;
         if(keystates[SDLK_RIGHT] /* *(our_spaceship_right_v) <= 5*/)
         {
-            if( *(our_spaceship_left_v) > 0 )
-            {
-                *our_spaceship_left_v = 0;
-            }
-            else
-            {
-                *our_spaceship_right_v += 1;
-            }
+            //if( *(our_spaceship_left_v) > 0 )
+            //{
+            //    *our_spaceship_left_v = 0;
+            //}
+            //else
+            //{
+                *our_spaceship_right_v += 2;
+            //}
         }
         if(keystates[SDLK_LEFT]  /* *(our_spaceship_left_v) <= 5*/)
         {
-            if(*(our_spaceship_right_v) > 0)
-            {
-                *our_spaceship_right_v = 0;
-            }
-            else
-            {
-            *our_spaceship_left_v += 1;
-            }
+            //if(*(our_spaceship_right_v) > 0)
+            //{
+            //    *our_spaceship_right_v = 0;
+            //}
+            //else
+            //{
+            	*our_spaceship_left_v += 2;
+            //}
         }
     }
 }

@@ -58,19 +58,18 @@ int main(int argc ,char * args[])
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
 	if (keystates[SDLK_SPACE]) {
-        if(arrow_delay % 10 ==0)
-        {
-            make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-            arrow_number++;
-            arrow_delay = 1;
-		}
+        	if(arrow_delay % 10 == 0)
+        	{
+            		make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+            		arrow_number++;
+            		arrow_delay = 1;
+			}
 		else
 		{
-            arrow_delay++;
+            		arrow_delay++;
 		}
 	}
 
-	cout << arrow_number << '\n';
 	move_arrow(screen, arrow_number);
 
         SDL_Flip(screen);
