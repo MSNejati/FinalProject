@@ -64,7 +64,7 @@ int main(int argc ,char * args[])
 
         enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
 
-        enemy_spaceships_move(screenheight);
+        enemy_spaceships_move(screenheight ,our_spaceshipx);
 
         show_enemy_spaceships(screen);
 

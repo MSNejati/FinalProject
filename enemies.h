@@ -12,6 +12,7 @@ struct enemy_spaceships
 {
     int x;
     int y;
+    int xv;
     int yv;
     bool ingame = false;
 }classic_enemies[15];
@@ -23,7 +24,7 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
     if(*enemy_spaceship_delay == 0)
     {
         *enemy_spaceship_delay = (rand() % 200) + 100;
-        enemy_spaceship_count = (rand() % 3) + 1;
+        enemy_spaceship_count = (rand() % 2) + 1;
         for(int i = 0 ; i < enemy_spaceship_count ; i++)
         {
             for(int j = 0 ; j < 15 ; j++)
@@ -46,7 +47,7 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
     }
 }
 
-void enemy_spaceships_move(int screenheight)
+void enemy_spaceships_move(int screenheight ,int our_spaceshipx)
 {
     for(int j = 0 ; j < 15 ; j++)
     {
@@ -57,6 +58,19 @@ void enemy_spaceships_move(int screenheight)
             {
                 classic_enemies[j].ingame = false;
             }
+          /*  if(classic_enemies[j].x < our_spaceshipx)
+            {
+                classic_enemies[j].xv = 2 ;
+            }
+            if(classic_enemies[j].x > our_spaceshipx)
+            {
+                classic_enemies[j].xv = -2;
+            }
+            if(classic_enemies[j].x == our_spaceshipx)
+            {
+                classic_enemies[j].xv = 0;
+            }
+            classic_enemies[j].x += classic_enemies[j].xv;*/
        }
     }
 }
