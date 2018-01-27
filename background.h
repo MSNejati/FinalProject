@@ -1,9 +1,14 @@
+#include <iostream>
 #include <cstdlib>
+#include <string>
 #include <ctime>
 #include <SDL/SDL.h>
 #include <SDL/SDL_gfxPrimitives.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
+#include "sstream"
+
+using namespace std;
 
 struct things {
     int x;
@@ -67,4 +72,18 @@ void draw_stars(SDL_Surface *screen, int total_stars) {
         filledCircleRGBA(screen, star[i].x, star[i].y, star[i].r, star[i].red, star[i].green, star[i].blue,
                          star[i].apocity);
     }
+}
+
+void show_toolbar(SDL_Surface *screen) {
+	boxRGBA(screen, 0, 0, 1010, 73, 30, 0, 100, 255);
+	boxRGBA(screen, 0, 73, 1010, 75, 255, 255, 255, 255);
+}
+
+SDL_Surface* make_toolbar_informations(SDL_Surface *message, TTF_Font *font, SDL_Color textcolor, int info) {
+	
+	stringstream s1;
+        s1 << info;
+        message = TTF_RenderText_Solid(font, s1.str().c_str(), textcolor);
+	return message;
+
 }

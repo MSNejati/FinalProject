@@ -6,7 +6,6 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-int total_arrows = 500; // arrows that player has in the beginning
 int new_arrows = 0; // arrows that player gets in game
 int velocity = -4;
 int arrow_delay = 0;
