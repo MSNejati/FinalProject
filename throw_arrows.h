@@ -18,7 +18,7 @@ struct shot {
 }arrow[100000];
 
 
-int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int arrow_number, int our_spaceship_bullet ) {
+int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int arrow_number, int *our_spaceship_bullet) {
 
 	Uint8 *keystates = SDL_GetKeyState( NULL );
 	if (keystates[SDLK_SPACE]) 
@@ -32,6 +32,7 @@ int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int 
        			boxRGBA(screen, arrow[arrow_number].x, arrow[arrow_number].y, arrow[arrow_number].x + 2, arrow[arrow_number].y + 10, 255, 255, 0, 255);
 			arrow_number++;
 			arrow_delay = 1;
+			*our_spaceship_bullet--;
 		
 		}
 		else

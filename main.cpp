@@ -9,7 +9,7 @@
 #include <cmath>
 #include <fstream>
 #include "background.h"
-#include "applysurface.h"
+//#include "applysurface.h"
 #include "throw_arrows.h"
 #include "spaceship_Move.h"
 #include "sensors.h"
@@ -50,8 +50,8 @@ int main(int argc ,char * args[])
     SDL_Color textcolor = {255, 255, 255};
     SDL_Surface *heart_value;
     SDL_Surface *bullet;
-    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
-    bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
+    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, &our_spaceship_heart);
+    bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, &our_spaceship_bullet);
     apply_surface(5, 15, heart_value, screen);
     apply_surface(855, 15, bullet, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
@@ -75,7 +75,7 @@ int main(int argc ,char * args[])
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number, our_spaceship_bullet);
+	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number, &our_spaceship_bullet);
 
 	move_arrow(screen, arrow_number);
 
@@ -91,6 +91,10 @@ int main(int argc ,char * args[])
 
 	apply_surface(930, 10, gun_bullet, screen);
 	
+	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, &our_spaceship_heart);
+    
+        bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, &our_spaceship_bullet);
+
 	apply_surface(5, 15, heart_value, screen);
 
         apply_surface(855, 15, bullet, screen);

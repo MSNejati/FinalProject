@@ -18,7 +18,7 @@ void our_spaceship_v_initialize(float * our_spaceship_right_v , float * our_spac
             //}
             //else
             //{
-                *our_spaceship_right_v += 2;
+                *our_spaceship_right_v += 5;
             //}
         }
         if(keystates[SDLK_LEFT]  /* *(our_spaceship_left_v) <= 5*/)
@@ -29,7 +29,7 @@ void our_spaceship_v_initialize(float * our_spaceship_right_v , float * our_spac
             //}
             //else
             //{
-            	*our_spaceship_left_v += 2;
+            	*our_spaceship_left_v += 5;
             //}
         }
     }
