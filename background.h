@@ -79,10 +79,10 @@ void show_toolbar(SDL_Surface *screen) {
 	boxRGBA(screen, 0, 73, 1010, 75, 255, 255, 255, 255);
 }
 
-SDL_Surface* make_toolbar_informations(SDL_Surface *message, TTF_Font *font, SDL_Color textcolor, int *info) {
+SDL_Surface* make_toolbar_informations(SDL_Surface *message, TTF_Font *font, SDL_Color textcolor, int info) {
 	
 	stringstream s1;
-        s1 << *info;
+        s1 << info;
         message = TTF_RenderText_Solid(font, s1.str().c_str(), textcolor);
 	return message;
 

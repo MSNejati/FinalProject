@@ -44,7 +44,6 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
     else
     {
         *(enemy_spaceship_delay) = *enemy_spaceship_delay - 1;
-        cout << *enemy_spaceship_delay << endl;
     }
 }
 

@@ -36,6 +36,7 @@ int main(int argc ,char * args[])
     enemy_spaceship_delay = (rand() % 20) + 100;
     SDL_Init(SDL_INIT_EVERYTHING);
 
+    Uint8 *keystates = SDL_GetKeyState( NULL );
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenheight,32,0);
     first_space_draw(total_stars , screenheight , screenwidth);
     SDL_Surface* our_spaceship = load_ourspaceship("our_spaceship.png");
@@ -50,8 +51,8 @@ int main(int argc ,char * args[])
     SDL_Color textcolor = {255, 255, 255};
     SDL_Surface *heart_value;
     SDL_Surface *bullet;
-    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, &our_spaceship_heart);
-    bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, &our_spaceship_bullet);
+    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
+    bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
     apply_surface(5, 15, heart_value, screen);
     apply_surface(855, 15, bullet, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
@@ -74,8 +75,21 @@ int main(int argc ,char * args[])
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
+	
+	if (keystates[SDLK_SPACE]) 
+	{
+		if(arrow_delay % 10 == 0)
+       		{
+			arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+			arrow_delay = 1;
+			our_spaceship_bullet--;
+		}
+		else
+		{
+			arrow_delay++;
+		}
 
-	arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number, &our_spaceship_bullet);
+	}
 
 	move_arrow(screen, arrow_number);
 
@@ -91,9 +105,9 @@ int main(int argc ,char * args[])
 
 	apply_surface(930, 10, gun_bullet, screen);
 	
-	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, &our_spaceship_heart);
+	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
     
-        bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, &our_spaceship_bullet);
+        bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
 
 	apply_surface(5, 15, heart_value, screen);
 
