@@ -10,7 +10,7 @@
 using namespace std;
 
 int new_arrows = 0; // arrows that player gets in game
-int velocity = -4;
+int velocity = -6;
 int arrow_delay = 0;
 
 struct shot {

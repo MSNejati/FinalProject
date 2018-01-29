@@ -54,11 +54,11 @@ void enemy_spaceships_move(int screenheight ,int our_spaceshipx)
        if(classic_enemies[j].ingame)
        {
             classic_enemies[j].y += classic_enemies[j].yv;
-            if(classic_enemies[j].y >= screenheight)
+            /*if(classic_enemies[j].y >= screenheight)
             {
                 classic_enemies[j].ingame = false;
             }
-          /*  if(classic_enemies[j].x < our_spaceshipx)
+            if(classic_enemies[j].x < our_spaceshipx)
             {
                 classic_enemies[j].xv = 2 ;
             }
