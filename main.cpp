@@ -12,7 +12,7 @@
 //#include "applysurface.h"
 #include "throw_arrows.h"
 #include "spaceship_Move.h"
-#include "sensors.h"
+#include "sensors & collision.h"
 
 using namespace std;
 
@@ -118,6 +118,8 @@ int main(int argc ,char * args[])
         apply_surface(855, 15, bullet, screen);
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
+
+        collision();
 
         SDL_Flip(screen);
 
