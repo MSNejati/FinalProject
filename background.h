@@ -75,8 +75,8 @@ void draw_stars(SDL_Surface *screen, int total_stars) {
 }
 
 void show_toolbar(SDL_Surface *screen) {
-	boxRGBA(screen, 0, 0, 1010, 73, 30, 0, 100, 255);
-	boxRGBA(screen, 0, 73, 1010, 75, 255, 255, 255, 255);
+	boxRGBA(screen, 0, 0, 1000, 73, 30, 0, 100, 255);
+	boxRGBA(screen, 0, 73, 1000, 75, 255, 255, 255, 255);
 }
 
 SDL_Surface* make_toolbar_informations(SDL_Surface *message, TTF_Font *font, SDL_Color textcolor, int info) {
