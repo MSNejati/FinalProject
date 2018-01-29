@@ -42,9 +42,13 @@ int main(int argc ,char * args[])
     SDL_Surface* our_spaceship = load_ourspaceship("our_spaceship.png");
     SDL_Surface* heart = load_image("heart.png");
     SDL_Surface* gun_bullet = load_image("gun_bullet.png");
+    SDL_Surface* highscore = load_image("highscore.png");
+    SDL_Surface* score = load_image("score.png");
     apply_surface(our_spaceshipx , our_spaceshipy , our_spaceship, screen);
     apply_surface(45, 10, heart, screen);
     apply_surface(930, 10, gun_bullet, screen);
+    apply_surface(675, 10, highscore, screen);
+    apply_surface(325, 10, score, screen);
     TTF_Init();
     TTF_Font *toolbar_font;
     toolbar_font = TTF_OpenFont("toolbar.ttf", 32);
@@ -56,6 +60,7 @@ int main(int argc ,char * args[])
     apply_surface(5, 15, heart_value, screen);
     apply_surface(855, 15, bullet, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
+    
     for(int i = 0; i < 5 ; i++)
     {
         our[i].ingame = true ; //make our spaceship sensor in game
@@ -108,6 +113,10 @@ int main(int argc ,char * args[])
 	apply_surface(45, 10, heart, screen);
 
 	apply_surface(930, 10, gun_bullet, screen);
+
+	apply_surface(675, 10, highscore, screen);
+
+        apply_surface(325, 10, score, screen);
 
 	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
 
