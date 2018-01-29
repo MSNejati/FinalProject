@@ -13,7 +13,7 @@
 #include "throw_arrows.h"
 #include "spaceship_Move.h"
 #include "sensors.h"
-#include "enemies.h"
+
 using namespace std;
 
 int main(int argc ,char * args[])
@@ -56,6 +56,10 @@ int main(int argc ,char * args[])
     apply_surface(5, 15, heart_value, screen);
     apply_surface(855, 15, bullet, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
+    for(int i = 0; i < 5 ; i++)
+    {
+        our[i].ingame = true ; //make our spaceship sensor in game
+    }
 
     while(true)
     {
@@ -74,9 +78,9 @@ int main(int argc ,char * args[])
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
 
-        sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
-	
-	if (keystates[SDLK_SPACE]) 
+
+
+	if (keystates[SDLK_SPACE])
 	{
 		if(arrow_delay % 10 == 0)
        		{
@@ -104,14 +108,16 @@ int main(int argc ,char * args[])
 	apply_surface(45, 10, heart, screen);
 
 	apply_surface(930, 10, gun_bullet, screen);
-	
+
 	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
-    
+
         bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
 
 	apply_surface(5, 15, heart_value, screen);
 
         apply_surface(855, 15, bullet, screen);
+
+        sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
         SDL_Flip(screen);
 

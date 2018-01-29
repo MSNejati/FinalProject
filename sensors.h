@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_gfxPrimitives.h>
+#include "enemies.h"
 
 struct sensors
 {
@@ -8,7 +9,8 @@ struct sensors
     int y1;
     int x2;
     int y2;
-}our[5];
+    bool ingame = false;
+}our[5],enemies[15][5];
 
 void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshipy)
 {
@@ -32,4 +34,50 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
     our[4].y1 = our_spaceshipy + 90;
     our[4].x2 = our_spaceshipx + 60;
     our[4].y2 = our_spaceshipy + 100;
+    for (int i = 0 ; i < 15 ; i++)
+    {
+        if(classic_enemies[i].ingame)
+        {
+            enemies[i][0].x1 = classic_enemies[i].x + 0;
+            enemies[i][0].y1 = classic_enemies[i].y + 20;
+            enemies[i][0].x2 = classic_enemies[i].x + 100;
+            enemies[i][0].y2 = classic_enemies[i].y + 40;
+            enemies[i][0].ingame = true;
+            enemies[i][1].x1 = classic_enemies[i].x + 15;
+            enemies[i][1].y1 = classic_enemies[i].y + 40;
+            enemies[i][1].x2 = classic_enemies[i].x + 80;
+            enemies[i][1].y2 = classic_enemies[i].y + 50;
+            enemies[i][1].ingame = true;
+            enemies[i][2].x1 = classic_enemies[i].x + 25;
+            enemies[i][2].y1 = classic_enemies[i].y + 50;
+            enemies[i][2].x2 = classic_enemies[i].x + 70;
+            enemies[i][2].y2 = classic_enemies[i].y + 60;
+            enemies[i][2].ingame = true;
+            enemies[i][3].x1 = classic_enemies[i].x + 35;
+            enemies[i][3].y1 = classic_enemies[i].y + 60;
+            enemies[i][3].x2 = classic_enemies[i].x + 60;
+            enemies[i][3].y2 = classic_enemies[i].y + 70;
+            enemies[i][3].ingame = true;
+            enemies[i][4].x1 = classic_enemies[i].x + 40;
+            enemies[i][4].y1 = classic_enemies[i].y + 70;
+            enemies[i][4].x2 = classic_enemies[i].x + 55;
+            enemies[i][4].y2 = classic_enemies[i].y + 80;
+            enemies[i][4].ingame = true;
+        }
+        if(!classic_enemies[i].ingame)
+        {
+            for(int j = 0 ; j < 5 ; j++)
+            {
+                enemies[i][j].ingame = false;
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
