@@ -10,9 +10,9 @@
 #include <fstream>
 #include "background.h"
 //#include "applysurface.h"
-#include "throw_arrows.h"
+//#include "throw_arrows.h"
 #include "spaceship_Move.h"
-#include "sensors & collision.h"
+#include "sensorsandcollision.h"
 
 using namespace std;
 
@@ -82,7 +82,7 @@ int main(int argc ,char * args[])
 
 	if (keystates[SDLK_SPACE])
 	{
-		if(arrow_delay % 10 == 0)
+		if(arrow_delay % 7 == 0 && our_spaceship_bullet > 0)
        		{
 			arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
 			arrow_delay = 1;

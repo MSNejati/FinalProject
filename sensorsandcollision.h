@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_gfxPrimitives.h>
 #include "enemies.h"
+#include "throw_arrows.h"
 
 struct sensors
 {

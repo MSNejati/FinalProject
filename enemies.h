@@ -25,7 +25,7 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
     if(*enemy_spaceship_delay == 0)
     {
         *enemy_spaceship_delay = (rand() % 200) + 120;
-        enemy_spaceship_count = (rand() % 2) + 1;
+        enemy_spaceship_count = (rand() % 3) + 1;
         for(int i = 0 ; i < enemy_spaceship_count ; i++)
         {
             for(int j = 0 ; j < 15 ; j++)
