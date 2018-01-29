@@ -87,7 +87,7 @@ int main(int argc ,char * args[])
 
 	if (keystates[SDLK_SPACE])
 	{
-		if(arrow_delay % 7 == 0 && our_spaceship_bullet > 0)
+		if(arrow_delay % 10 == 0 && our_spaceship_bullet > 0)
        		{
 			arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
 			arrow_delay = 1;
@@ -98,6 +98,10 @@ int main(int argc ,char * args[])
 			arrow_delay++;
 		}
 
+	}
+	if (!keystates[SDLK_SPACE]) {
+	
+		arrow_delay = 0;
 	}
 
 	move_arrow(screen, arrow_number);
