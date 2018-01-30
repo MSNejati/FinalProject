@@ -60,7 +60,7 @@ int main(int argc ,char * args[])
     apply_surface(5, 15, heart_value, screen);
     apply_surface(845, 15, bullet, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
-    
+
     for(int i = 0; i < 5 ; i++)
     {
         our[i].ingame = true ; //make our spaceship sensor in game
@@ -100,17 +100,21 @@ int main(int argc ,char * args[])
 
 	}
 	if (!keystates[SDLK_SPACE]) {
-	
+
 		arrow_delay = 0;
 	}
 
-	move_arrow(screen, arrow_number);
+	move_arrow(screen);
 
 	enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
 
         enemy_spaceships_move(screenheight ,our_spaceshipx);
 
         show_enemy_spaceships(screen);
+
+        enemy_shooting();
+
+        move_enemy_arrow (screen);
 
 	show_toolbar(screen);
 
