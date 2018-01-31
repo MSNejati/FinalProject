@@ -63,7 +63,7 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
     }
 }
 
-void enemy_spaceships_move(int screenheight ,int our_spaceshipx)
+void enemy_spaceships_move(int screenheight ,int our_spaceshipx, int * heart)
 {
     for(int j = 0 ; j < 15 ; j++)
     {
@@ -73,6 +73,7 @@ void enemy_spaceships_move(int screenheight ,int our_spaceshipx)
             if(classic_enemies[j].y >= screenheight)
             {
                 classic_enemies[j].ingame = false;
+		*heart -= 1;
             }
             if(classic_enemies[j].x < our_spaceshipx)
             {

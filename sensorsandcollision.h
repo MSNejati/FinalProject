@@ -91,7 +91,7 @@ int collision(int * score)
             {
                 for(int k = 0 ; k < 100 ; k++)
                 {
-                    if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 &&arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
+                    if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 && arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
                     {
                         for(int p = 0 ; p < 5 ; p++)
                         {
