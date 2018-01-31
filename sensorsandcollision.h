@@ -37,33 +37,38 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
     our[4].y2 = our_spaceshipy + 100;
     for (int i = 0 ; i < 15 ; i++)
     {
-        if(classic_enemies[i].ingame)
+        if(classic_enemies[i].ingame )
         {
             enemies[i][0].x1 = classic_enemies[i].x + 0;
             enemies[i][0].y1 = classic_enemies[i].y + 20;
             enemies[i][0].x2 = classic_enemies[i].x + 100;
             enemies[i][0].y2 = classic_enemies[i].y + 40;
             enemies[i][0].ingame = true;
+
             enemies[i][1].x1 = classic_enemies[i].x + 15;
             enemies[i][1].y1 = classic_enemies[i].y + 40;
             enemies[i][1].x2 = classic_enemies[i].x + 80;
             enemies[i][1].y2 = classic_enemies[i].y + 50;
             enemies[i][1].ingame = true;
+
             enemies[i][2].x1 = classic_enemies[i].x + 25;
             enemies[i][2].y1 = classic_enemies[i].y + 50;
             enemies[i][2].x2 = classic_enemies[i].x + 70;
             enemies[i][2].y2 = classic_enemies[i].y + 60;
             enemies[i][2].ingame = true;
+
             enemies[i][3].x1 = classic_enemies[i].x + 35;
             enemies[i][3].y1 = classic_enemies[i].y + 60;
             enemies[i][3].x2 = classic_enemies[i].x + 60;
             enemies[i][3].y2 = classic_enemies[i].y + 70;
             enemies[i][3].ingame = true;
+
             enemies[i][4].x1 = classic_enemies[i].x + 40;
             enemies[i][4].y1 = classic_enemies[i].y + 70;
             enemies[i][4].x2 = classic_enemies[i].x + 55;
             enemies[i][4].y2 = classic_enemies[i].y + 80;
             enemies[i][4].ingame = true;
+
         }
         if(!classic_enemies[i].ingame)
         {
@@ -82,7 +87,7 @@ int collision()
     {
         for(int j = 0 ; j < 5 ; j++)
         {
-            if(enemies[i][j].ingame == true )
+            if(enemies[i][j].ingame)
             {
                 for(int k = 0 ; k < 100 ; k++)
                 {
@@ -101,6 +106,7 @@ int collision()
                 {
                     if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
                     {
+                        classic_enemies[i].ingame = false;
                         return 1;
                     }
                 }
@@ -113,6 +119,7 @@ int collision()
         {
             if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
             {
+                enemy_arrow[k].ingame = false;
                 return 1;
             }
         }

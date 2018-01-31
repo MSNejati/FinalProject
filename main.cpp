@@ -147,12 +147,16 @@ int main(int argc ,char * args[])
         apply_surface(845, 15, bullet_value, screen);
 
         apply_surface(240, 15, score_value, screen);
-    
+
 	apply_surface(590, 15, highscore_value, screen);
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
         if(collision() == 1)
+        {
+            our_spaceship_heart--;
+        }
+        if(our_spaceship_heart <= 0)
         {
             break;
         }

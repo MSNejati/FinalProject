@@ -23,7 +23,7 @@ struct enemy_shot {
 	int x;
 	int y;
 	int y_velocity = 6; // i don't use it now but maybe we use it later
-	bool ingame;
+	bool ingame = false;
 }enemy_arrow[100];
 
 
