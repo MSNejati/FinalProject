@@ -41,7 +41,14 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
             {
                 if(classic_enemies[j].ingame == false)
                 {
-                    classic_enemies[j].x = (rand() % (screenwidth)/100) * 100;
+                    for(int k = 0 ; k < j ; k++)
+                    {
+                        do
+                        {
+                            classic_enemies[j].x = (rand() % (screenwidth)/100) * 100;
+                        }
+                        while(classic_enemies[k].x == classic_enemies[j].x && classic_enemies[k].y < 100);
+                    }
                     classic_enemies[j].y = -100;
                     classic_enemies[j].yv = 3;
                     classic_enemies[j].ingame = true;

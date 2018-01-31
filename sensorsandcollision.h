@@ -97,6 +97,13 @@ int collision()
                         break;
                     }
                 }
+                for(int k = 0 ; k < 5 ; k++)
+                {
+                    if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
+                    {
+                        return 1;
+                    }
+                }
             }
         }
     }
