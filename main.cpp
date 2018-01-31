@@ -22,6 +22,8 @@ int main(int argc ,char * args[])
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 500; // the spaceship's bullet in the beginning
+    int score = 0;
+    int highscore = score;
     int screenwidth = 1000;
     int screenheight = 1000;
     int enemy_spaceship_delay;
@@ -40,25 +42,31 @@ int main(int argc ,char * args[])
     SDL_Surface* screen = SDL_SetVideoMode(screenwidth,screenheight,32,0);
     first_space_draw(total_stars , screenheight , screenwidth);
     SDL_Surface* our_spaceship = load_ourspaceship("our_spaceship.png");
-    SDL_Surface* heart = load_image("heart.png");
-    SDL_Surface* gun_bullet = load_image("gun_bullet.png");
-    SDL_Surface* highscore = load_image("highscore.png");
-    SDL_Surface* score = load_image("score.png");
+    SDL_Surface* heart_image = load_image("heart.png");
+    SDL_Surface* gun_bullet_image = load_image("gun_bullet.png");
+    SDL_Surface* highscore_image = load_image("highscore.png");
+    SDL_Surface* score_image = load_image("score.png");
     apply_surface(our_spaceshipx , our_spaceshipy , our_spaceship, screen);
-    apply_surface(45, 10, heart, screen);
-    apply_surface(920, 10, gun_bullet, screen);
-    apply_surface(665, 10, highscore, screen);
-    apply_surface(315, 10, score, screen);
+    apply_surface(45, 10, heart_image, screen);
+    apply_surface(920, 10, gun_bullet_image, screen);
+    apply_surface(665, 10, highscore_image, screen);
+    apply_surface(315, 10, score_image, screen);
     TTF_Init();
     TTF_Font *toolbar_font;
     toolbar_font = TTF_OpenFont("toolbar.ttf", 32);
     SDL_Color textcolor = {255, 255, 255};
     SDL_Surface *heart_value;
-    SDL_Surface *bullet;
+    SDL_Surface *bullet_value;
+    SDL_Surface *score_value;
+    SDL_Surface *highscore_value;
     heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
-    bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
+    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
+    score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
     apply_surface(5, 15, heart_value, screen);
-    apply_surface(845, 15, bullet, screen);
+    apply_surface(845, 15, bullet_value, screen);
+    apply_surface(240, 15, score_value, screen);
+    apply_surface(590, 15, highscore_value, screen);
     SDL_WM_SetCaption( "Star Wars", NULL );
 
     for(int i = 0; i < 5 ; i++)
@@ -118,21 +126,29 @@ int main(int argc ,char * args[])
 
 	show_toolbar(screen);
 
-	apply_surface(45, 10, heart, screen);
+	apply_surface(45, 10, heart_image, screen);
 
-	apply_surface(920, 10, gun_bullet, screen);
+	apply_surface(920, 10, gun_bullet_image, screen);
 
-	apply_surface(665, 10, highscore, screen);
+	apply_surface(665, 10, highscore_image, screen);
 
-        apply_surface(315, 10, score, screen);
+        apply_surface(315, 10, score_image, screen);
 
 	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
 
-        bullet = make_toolbar_informations(bullet, toolbar_font, textcolor, our_spaceship_bullet);
+        bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
+
+	score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+
+        highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
 
 	apply_surface(5, 15, heart_value, screen);
 
-        apply_surface(845, 15, bullet, screen);
+        apply_surface(845, 15, bullet_value, screen);
+
+        apply_surface(240, 15, score_value, screen);
+    
+	apply_surface(590, 15, highscore_value, screen);
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
