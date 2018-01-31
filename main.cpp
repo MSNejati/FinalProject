@@ -21,7 +21,7 @@ int main(int argc ,char * args[])
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
-    int our_spaceship_bullet = 500; // the spaceship's bullet in the beginning
+    int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
     int score = 0;
     int highscore = score;
     int screenwidth = 1000;
