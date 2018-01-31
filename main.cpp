@@ -136,7 +136,10 @@ int main(int argc ,char * args[])
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-        collision();
+        if(collision() == 1)
+        {
+            break;
+        }
 
         SDL_Flip(screen);
 

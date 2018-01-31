@@ -76,7 +76,7 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
 }
 
 
-void collision()
+int collision()
 {
     for(int i = 0 ; i < 15 ; i++)
     {
@@ -86,32 +86,31 @@ void collision()
             {
                 for(int k = 0 ; k < 100 ; k++)
                 {
-                    if(arrow[k].ingame == true )
+                    if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 &&arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
                     {
-                        if(arrow[k].x > enemies[i][j].x1)
+                        for(int p = 0 ; p < 5 ; p++)
                         {
-                            if(arrow[k].x < enemies[i][j].x2)
-                            {
-                                if(arrow[k].y > enemies[i][j].y1)
-                                {
-                                    if(arrow[k].y < enemies[i][j].y2)
-                                    {
-                                        for(int p = 0 ; p < 5 ; p++)
-                                        {
-                                            enemies[i][p].ingame = false;
-                                        }
-                                        classic_enemies[i].ingame = false;
-                                        arrow[k].ingame = false;
-
-                                    }
-                                }
-                            }
+                            enemies[i][p].ingame = false;
                         }
+                        classic_enemies[i].ingame = false;
+                        arrow[k].ingame = false;
+                        break;
                     }
                 }
             }
         }
     }
+    for(int j = 0 ; j < 5 ; j++)
+    {
+        for(int k = 0 ; k < 100 ; k++)
+        {
+            if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 
