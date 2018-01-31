@@ -112,17 +112,17 @@ int main(int argc ,char * args[])
 		arrow_delay = 0;
 	}
 
-	move_arrow(screen);
+    move_arrow(screen);
 
-	enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
+    enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
 
-        enemy_spaceships_move(screenheight ,our_spaceshipx);
+    enemy_spaceships_move(screenheight ,our_spaceshipx);
 
-        show_enemy_spaceships(screen);
+    show_enemy_spaceships(screen);
 
-        enemy_shooting();
+    enemy_shooting();
 
-        move_enemy_arrow (screen);
+    move_enemy_arrow (screen);
 
 	show_toolbar(screen);
 
@@ -132,40 +132,41 @@ int main(int argc ,char * args[])
 
 	apply_surface(665, 10, highscore_image, screen);
 
-        apply_surface(315, 10, score_image, screen);
+    apply_surface(315, 10, score_image, screen);
 
 	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
 
-        bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
+    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
 
 	score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
 
-        highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
 
 	apply_surface(5, 15, heart_value, screen);
 
-        apply_surface(845, 15, bullet_value, screen);
+    apply_surface(845, 15, bullet_value, screen);
 
-        apply_surface(240, 15, score_value, screen);
+    apply_surface(240, 15, score_value, screen);
 
 	apply_surface(590, 15, highscore_value, screen);
 
-        sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
+    sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-        if(collision() == 1)
-        {
-            our_spaceship_heart--;
-        }
-        if(our_spaceship_heart <= 0)
-        {
-            break;
-        }
+    if(collision(&score) == 1)
+    {
+        our_spaceship_heart--;
+    }
+    if(our_spaceship_heart <= 0)
+    {
+        break;
+    }
 
-        SDL_Flip(screen);
 
-        frame++;
+    SDL_Flip(screen);
 
-        SDL_Delay(5);
+    frame++;
+
+    SDL_Delay(5);
 
     }
 

@@ -81,7 +81,7 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
 }
 
 
-int collision()
+int collision(int * score)
 {
     for(int i = 0 ; i < 15 ; i++)
     {
@@ -99,6 +99,7 @@ int collision()
                         }
                         classic_enemies[i].ingame = false;
                         arrow[k].ingame = false;
+                        *score += 1;
                         break;
                     }
                 }
