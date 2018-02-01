@@ -29,7 +29,7 @@ int main() {
 	SDL_Surface* volume_on;
 	SDL_Surface* volume_off;
 	TTF_Font *menu_font;
-        menu_font = TTF_OpenFont("menu.ttf", 32);
+        menu_font = TTF_OpenFont("menu.ttf", 36);
 	SDL_Color menu_color = {255, 255, 255};
 	game_name = load_image("game_name.png");
 	meteorite = load_image("meteorite.png");
@@ -54,8 +54,8 @@ int main() {
 		boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 255, 75, 0, 200);
 		boxRGBA(screen, 50, screenheight - 150, 350, screenheight - 50, 255, 75, 0, 200);
 		apply_surface(250, 100, game_name, screen);
-		apply_surface(110, screenheight - 245, start, screen);
-		apply_surface(100, screenheight - 120, highscore, screen);
+		apply_surface(100, screenheight - 248, start, screen);
+		apply_surface(95, screenheight - 123, highscore, screen);
 		if (volume == true) {		
 			apply_surface(screenwidth - 200, screenheight - 200, volume_on, screen);
 		
