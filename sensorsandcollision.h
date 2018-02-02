@@ -128,7 +128,7 @@ int collision(int * score)
     return 0;
 }
 
-void boss_sensors_position()
+void boss_sensors_position(SDL_Surface * screen)
 {
     boss_s[0].x1 = boss[0].x + 10;
     boss_s[0].y1 = boss[0].y + 200;
@@ -155,10 +155,35 @@ void boss_sensors_position()
     boss_s[4].x2 = boss[0].x + 190;
     boss_s[4].y2 = boss[0].y + 80;
     boss_s[4].ingame = true;
+
+    for(int i = 0 ; i < 5 ; i++)
+    {
+        boxRGBA(screen ,boss_s[i].x1 ,boss_s[i].y1 ,boss_s[i].x2 ,boss_s[i].y2 ,255 ,255 ,255,255);
+    }
 }
 
 
 
+void boss_collision_check(bool boss_fight)
+{
+    for(int i = 0 ; i < 5 ; i++)
+    {
+        for(int k = 0 ; k < 100 ; k++)
+        {
+            if(arrow[k].ingame && arrow[k].y > boss_s[i].y1 && arrow[k].y < boss_s[i].y2 && arrow[k].x > boss_s[i].x1 && arrow[k].x < boss_s[i].x2)
+            {
+                cout << 1 << "\n";
+                for(int p = 0 ; p < 5 ; p++)
+                {
+                    boss_s[p].ingame = false;
+                }
+                boss_fight = false;
+                arrow[k].ingame = false;
+                break;
+            }
+        }
+    }
+}
 
 
 

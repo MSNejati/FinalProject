@@ -157,6 +157,7 @@ void boss_first_initialize(int screenwidth ,int boss_size)
     boss[0].y = -1*boss_size;
     boss[0].yv = 3;
     boss[0].xv = 2;
+    boss[0].ingame = true;
 }
 
 void boss_enters()

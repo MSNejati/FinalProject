@@ -136,11 +136,15 @@ int main(int argc ,char * args[])
             else
             {
                 boss_x_change(screenwidth ,boss_size);
+
+
             }
 
             show_boss(screen ,boss_size);
 
-            boss_sensors_position();
+            boss_sensors_position(screen);
+
+            boss_collision_check(boss_fight);
         }
         show_toolbar(screen);
 
@@ -182,7 +186,7 @@ int main(int argc ,char * args[])
             break;
         }
 
-        if(score % 10 == 0 && score != 0 && boss_fight == false)
+        if(score % 2 == 0 && score != 0 && boss_fight == false)
         {
             boss_first_initialize(screenwidth ,boss_size);
 
