@@ -142,7 +142,6 @@ void move_enemy_arrow (SDL_Surface *screen) {
 		if (enemy_arrow[i].y >= 0 && enemy_arrow[i].ingame == true) {
 			enemy_arrow[i].y = enemy_arrow[i].y + enemy_arrow[i].y_velocity;
 			filledCircleRGBA(screen,enemy_arrow[i].x, enemy_arrow[i].y, 3, 255, 255, 0, 255);
-            		//boxRGBA(screen, arrow[i].x, arrow[i].y, arrow[i].x + 2, arrow[i].y + 10, 255, 255, 0, 255);
 		}
 		if (enemy_arrow[i].y < -2 && enemy_arrow[i].ingame == true)
 		{
@@ -167,7 +166,10 @@ void boss_enters()
 
 void show_boss(SDL_Surface * screen ,int boss_size)
 {
-    boxRGBA(screen ,boss[0].x ,boss[0].y ,boss[0].x + boss_size ,boss[0].y + boss_size ,255 ,255 ,255 ,255);
+    SDL_Surface* boss_spaceship;
+    boss_spaceship = load_enemyspaceship("big_enemy.png");
+    apply_surface(boss[0].x ,boss[0].y , boss_spaceship ,screen );
+
 }
 
 void boss_x_change(int screenwidth , int boss_size)
