@@ -31,6 +31,7 @@ int main(int argc ,char * args[])
     int total_stars = 80;// total number of stars that made till now
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
+    int boss_size = 200;
     float stars_speed = 2 ;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -132,8 +133,12 @@ int main(int argc ,char * args[])
             {
                 boss_enters();
             }
+            else
+            {
+                boss_x_change(screenwidth ,boss_size);
+            }
 
-            show_boss(screen);
+            show_boss(screen ,boss_size);
         }
         show_toolbar(screen);
 
@@ -177,7 +182,7 @@ int main(int argc ,char * args[])
 
         if(score >= 5 && boss_fight == false)
         {
-            boss_first_initialize(screenwidth);
+            boss_first_initialize(screenwidth ,boss_size);
 
             boss_fight = true;
         }

@@ -152,11 +152,12 @@ void move_enemy_arrow (SDL_Surface *screen) {
 	}
 }
 
-void boss_first_initialize(int screenwidth)
+void boss_first_initialize(int screenwidth ,int boss_size)
 {
-    boss[0].x = (screenwidth / 2) - 100;
-    boss[0].y = -200;
+    boss[0].x = (screenwidth - boss_size) / 2;
+    boss[0].y = -1*boss_size;
     boss[0].yv = 3;
+    boss[0].xv = 2;
 }
 
 void boss_enters()
@@ -164,11 +165,20 @@ void boss_enters()
     boss[0].y += boss[0].yv;
 }
 
-void show_boss(SDL_Surface * screen)
+void show_boss(SDL_Surface * screen ,int boss_size)
 {
-    boxRGBA(screen ,boss[0].x ,boss[0].y ,boss[0].x + 200 ,boss[0].y + 200 ,255 ,255 ,255 ,255);
+    boxRGBA(screen ,boss[0].x ,boss[0].y ,boss[0].x + boss_size ,boss[0].y + boss_size ,255 ,255 ,255 ,255);
 }
 
+void boss_x_change(int screenwidth , int boss_size)
+{
+    boss[0].x += boss[0].xv;
+
+    if(boss[0].x <= 0 || boss[0].x >= screenwidth - boss_size)
+    {
+        boss[0].xv *= -1;
+    }
+}
 
 
 
