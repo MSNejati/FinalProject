@@ -180,7 +180,7 @@ int main(int argc ,char * args[])
             break;
         }
 
-        if(score >= 5 && boss_fight == false)
+        if(score % 10 == 0 && score != 0 && boss_fight == false)
         {
             boss_first_initialize(screenwidth ,boss_size);
 
