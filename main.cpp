@@ -139,6 +139,8 @@ int main(int argc ,char * args[])
             }
 
             show_boss(screen ,boss_size);
+
+            boss_sensors_position();
         }
         show_toolbar(screen);
 

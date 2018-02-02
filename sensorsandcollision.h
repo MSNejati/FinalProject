@@ -11,7 +11,7 @@ struct sensors
     int x2;
     int y2;
     bool ingame = false;
-}our[5],enemies[15][5];
+}our[5] ,enemies[15][5] ,boss_s[5];
 
 void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshipy)
 {
@@ -127,6 +127,37 @@ int collision(int * score)
     }
     return 0;
 }
+
+void boss_sensors_position()
+{
+    boss_s[0].x1 = boss[0].x + 10;
+    boss_s[0].y1 = boss[0].y + 200;
+    boss_s[0].x2 = boss[0].x + 40;
+    boss_s[0].y2 = boss[0].y + 80;
+    boss_s[0].ingame = true;
+    boss_s[1].x1 = boss[0].x + 40;
+    boss_s[1].y1 = boss[0].y + 170;
+    boss_s[1].x2 = boss[0].x + 60;
+    boss_s[1].y2 = boss[0].y + 150;
+    boss_s[1].ingame = true;
+    boss_s[2].x1 = boss[0].x + 60;
+    boss_s[2].y1 = boss[0].y + 200;
+    boss_s[2].x2 = boss[0].x + 140;
+    boss_s[2].y2 = boss[0].y + 0;
+    boss_s[2].ingame = true;
+    boss_s[3].x1 = boss[0].x + 140;
+    boss_s[3].y1 = boss[0].y + 170;
+    boss_s[3].x2 = boss[0].x + 160;
+    boss_s[3].y2 = boss[0].y + 150;
+    boss_s[3].ingame = true;
+    boss_s[4].x1 = boss[0].x + 160;
+    boss_s[4].y1 = boss[0].y + 200;
+    boss_s[4].x2 = boss[0].x + 190;
+    boss_s[4].y2 = boss[0].y + 80;
+    boss_s[4].ingame = true;
+}
+
+
 
 
 
