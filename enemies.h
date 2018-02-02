@@ -17,7 +17,7 @@ struct enemy_spaceships
     int yv;
     int shoot_delay = (rand() % 70) + 60;
     bool ingame = false;
-}classic_enemies[15];
+}classic_enemies[15],boss[1];
 
 struct enemy_shot {
 	int x;
@@ -151,6 +151,24 @@ void move_enemy_arrow (SDL_Surface *screen) {
 		}
 	}
 }
+
+void boss_first_initialize(int screenwidth)
+{
+    boss[0].x = (screenwidth / 2) - 100;
+    boss[0].y = -200;
+    boss[0].yv = 3;
+}
+
+void boss_enters()
+{
+    boss[0].y += boss[0].yv;
+}
+
+void show_boss(SDL_Surface * screen)
+{
+    boxRGBA(screen ,boss[0].x ,boss[0].y ,boss[0].x + 200 ,boss[0].y + 200 ,255 ,255 ,255 ,255);
+}
+
 
 
 

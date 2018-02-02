@@ -31,8 +31,10 @@ int main(int argc ,char * args[])
     int total_stars = 80;// total number of stars that made till now
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
+    float stars_speed = 2 ;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
+    bool boss_fight = false;
 
     srand(time(0));
     enemy_spaceship_delay = (rand() % 20) + 100;
@@ -91,29 +93,31 @@ int main(int argc ,char * args[])
 
         apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
 
-	if (keystates[SDLK_SPACE])
-	{
-		if(arrow_delay % 10 == 0 && our_spaceship_bullet > 0)
-       		{
-			arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-			arrow_delay = 1;
-			our_spaceship_bullet--;
-		}
-		else
-		{
-			arrow_delay++;
-		}
+        if (keystates[SDLK_SPACE])
+        {
+            if(arrow_delay % 10 == 0 && our_spaceship_bullet > 0)
+                {
+                arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+                arrow_delay = 1;
+                our_spaceship_bullet--;
+            }
+            else
+            {
+                arrow_delay++;
+            }
 
-	}
-	if (!keystates[SDLK_SPACE]) {
+        }
+        if (!keystates[SDLK_SPACE]) {
 
-		arrow_delay = 0;
-	}
+            arrow_delay = 0;
+        }
 
         move_arrow(screen);
 
-        enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
-
+        if(boss_fight == false)
+        {
+            enemy_spaceships_start_pos(screenwidth ,&enemy_spaceship_delay);
+        }
         enemy_spaceships_move(screenheight ,our_spaceshipx, &our_spaceship_heart);
 
         show_enemy_spaceships(screen);
@@ -122,31 +126,40 @@ int main(int argc ,char * args[])
 
         move_enemy_arrow (screen);
 
+        if(boss_fight)
+        {
+            if(boss[0].y <= 150)
+            {
+                boss_enters();
+            }
+
+            show_boss(screen);
+        }
         show_toolbar(screen);
 
-	apply_surface(45, 10, heart_image, screen);
+        apply_surface(45, 10, heart_image, screen);
 
-	apply_surface(920, 10, gun_bullet_image, screen);
+        apply_surface(920, 10, gun_bullet_image, screen);
 
-	apply_surface(665, 10, highscore_image, screen);
+        apply_surface(665, 10, highscore_image, screen);
 
         apply_surface(315, 10, score_image, screen);
 
-	heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
+        heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
 
         bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
 
-	score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+        score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
 
         highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
 
-	apply_surface(5, 15, heart_value, screen);
+        apply_surface(5, 15, heart_value, screen);
 
         apply_surface(845, 15, bullet_value, screen);
 
         apply_surface(240, 15, score_value, screen);
 
-	apply_surface(590, 15, highscore_value, screen);
+        apply_surface(590, 15, highscore_value, screen);
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
@@ -155,11 +168,18 @@ int main(int argc ,char * args[])
             our_spaceship_heart--;
         }
 
-	highscore = score;
+        highscore = score;
 
         if(our_spaceship_heart <= 0)
         {
             break;
+        }
+
+        if(score >= 5 && boss_fight == false)
+        {
+            boss_first_initialize(screenwidth);
+
+            boss_fight = true;
         }
 
         SDL_Flip(screen);
@@ -169,7 +189,7 @@ int main(int argc ,char * args[])
         SDL_Delay(5);
 
         }
-  
+
         SDL_Quit();
 
         return 0;
