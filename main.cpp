@@ -141,10 +141,14 @@ int main(int argc ,char * args[])
 
                 move_enemy_boss_arrow (screen ,screenheight);
 
+
                 if(collision(&score ,boss_fight) == 1)
                 {
                     our_spaceship_heart--;
                 }
+
+
+                show_boss_health_bar(screen);
 
             }
 
@@ -153,6 +157,11 @@ int main(int argc ,char * args[])
             boss_sensors_position(screen);
 
             boss_collision_check();
+
+            if(boss[0].hitpoint <= 0)
+            {
+                break;
+            }
         }
         show_toolbar(screen);
 
