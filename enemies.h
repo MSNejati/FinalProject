@@ -22,9 +22,10 @@ struct enemy_spaceships
 struct enemy_shot {
 	int x;
 	int y;
+	int x_velocity;
 	int y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
-}enemy_arrow[100];
+}enemy_arrow[100] ,boss_arrow[100];
 
 
 
@@ -184,5 +185,74 @@ void boss_x_change(int screenwidth , int boss_size)
 }
 
 
+void enemy_boss_shooting()
+{
+            if(boss[0].shoot_delay == 0)
+            {
+                boss[0].shoot_delay = (rand() % 70) + 60;
+                for(int i = 0 ; i < 5 ; i++)
+                {
+                    for(int j = 0 ; j < 100 ; j++)
+                    {
+                        if(boss_arrow[j].ingame == false)
+                        {
+                            boss_arrow[j].ingame = true;
+                            if(i == 0)
+                            {
+                                boss_arrow[j].x = boss[0].x + 20;
+                                boss_arrow[j].y = boss[0].y + 200;
+                                boss_arrow[j].x_velocity = 0;
+                            }
+                            if(i == 1)
+                            {
+                                boss_arrow[j].x = boss[0].x + 80;
+                                boss_arrow[j].y = boss[0].y + 200;
+                                boss_arrow[j].x_velocity = -2;
+                            }
+                            if(i == 2)
+                            {
+                                boss_arrow[j].x = boss[0].x + 100;
+                                boss_arrow[j].y = boss[0].y + 200;
+                                boss_arrow[j].x_velocity = 0;
+                            }
+                            if(i == 3)
+                            {
+                                boss_arrow[j].x = boss[0].x + 120;
+                                boss_arrow[j].y = boss[0].y + 200;
+                                boss_arrow[j].x_velocity = 2;
+                            }
+                            if(i == 4)
+                            {
+                                boss_arrow[j].x = boss[0].x + 180;
+                                boss_arrow[j].y = boss[0].y + 200;
+                                boss_arrow[j].x_velocity = 0;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                boss[0].shoot_delay--;
+            }
+}
 
+
+void move_enemy_boss_arrow (SDL_Surface *screen ,int screenheight)
+{
+	for (int i = 0; i < 100; i++) {
+		if (boss_arrow[i].y >= 0 && boss_arrow[i].ingame == true)
+		 {
+			boss_arrow[i].y += boss_arrow[i].y_velocity;
+			boss_arrow[i].x += boss_arrow[i].x_velocity;
+			filledCircleRGBA(screen,boss_arrow[i].x, boss_arrow[i].y, 3, 255, 255, 0, 255);
+		}
+		if (boss_arrow[i].y > screenheight && boss_arrow[i].ingame == true)
+		{
+            boss_arrow[i].ingame = false;
+
+		}
+	}
+}
 

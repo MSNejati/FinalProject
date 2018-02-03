@@ -137,6 +137,14 @@ int main(int argc ,char * args[])
             {
                 boss_x_change(screenwidth ,boss_size);
 
+                enemy_boss_shooting();
+
+                move_enemy_boss_arrow (screen ,screenheight);
+
+                if(collision(&score ,boss_fight) == 1)
+                {
+                    our_spaceship_heart--;
+                }
 
             }
 
@@ -144,7 +152,7 @@ int main(int argc ,char * args[])
 
             boss_sensors_position(screen);
 
-            boss_collision_check(boss_fight);
+            boss_collision_check();
         }
         show_toolbar(screen);
 
@@ -174,7 +182,8 @@ int main(int argc ,char * args[])
 
         sensors_position(screen ,our_spaceshipx ,our_spaceshipy);
 
-        if(collision(&score) == 1)
+
+        if(collision(&score ,boss_fight) == 1)
         {
             our_spaceship_heart--;
         }

@@ -81,47 +81,62 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
 }
 
 
-int collision(int * score)
+int collision(int * score ,bool boss_fight)
 {
-    for(int i = 0 ; i < 15 ; i++)
-    {
-        for(int j = 0 ; j < 5 ; j++)
+        for(int i = 0 ; i < 15 ; i++)
         {
-            if(enemies[i][j].ingame)
+            if(classic_enemies[i].ingame)
             {
-                for(int k = 0 ; k < 100 ; k++)
+                for(int j = 0 ; j < 5 ; j++)
                 {
-                    if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 && arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
+                    for(int k = 0 ; k < 100 ; k++)
                     {
-                        for(int p = 0 ; p < 5 ; p++)
+                        if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 && arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
                         {
-                            enemies[i][p].ingame = false;
+                            for(int p = 0 ; p < 5 ; p++)
+                            {
+                                enemies[i][p].ingame = false;
+                            }
+                            classic_enemies[i].ingame = false;
+                            arrow[k].ingame = false;
+                            *score += 1;
+                            break;
                         }
-                        classic_enemies[i].ingame = false;
-                        arrow[k].ingame = false;
-                        *score += 1;
-                        break;
                     }
-                }
-                for(int k = 0 ; k < 5 ; k++)
-                {
-                    if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
+                    for(int k = 0 ; k < 5 ; k++)
                     {
-                        classic_enemies[i].ingame = false;
-                        return 1;
+                        if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
+                        {
+                            classic_enemies[i].ingame = false;
+                            return 1;
+                        }
                     }
                 }
             }
         }
-    }
-    for(int j = 0 ; j < 5 ; j++)
-    {
-        for(int k = 0 ; k < 100 ; k++)
+        for(int j = 0 ; j < 5 ; j++)
         {
-            if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
+            for(int k = 0 ; k < 100 ; k++)
             {
-                enemy_arrow[k].ingame = false;
-                return 1;
+                if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
+                {
+                    enemy_arrow[k].ingame = false;
+                    return 1;
+                }
+            }
+        }
+
+    if(boss_fight)
+    {
+        for(int j = 0 ; j < 5 ; j++)
+        {
+            for(int k = 0 ; k < 100 ; k++)
+            {
+                if(boss_arrow[k].ingame && boss_arrow[k].y > our[j].y1 && boss_arrow[k].y < our[j].y2 && boss_arrow[k].x > our[j].x1 && boss_arrow[k].x < our[j].x2)
+                {
+                    boss_arrow[k].ingame = false;
+                    return 1;
+                }
             }
         }
     }
@@ -156,15 +171,11 @@ void boss_sensors_position(SDL_Surface * screen)
     boss_s[4].y2 = boss[0].y + 80;
     boss_s[4].ingame = true;
 
-    for(int i = 0 ; i < 5 ; i++)
-    {
-        boxRGBA(screen ,boss_s[i].x1 ,boss_s[i].y1 ,boss_s[i].x2 ,boss_s[i].y2 ,255 ,255 ,255,255);
-    }
 }
 
 
 
-void boss_collision_check(bool boss_fight)
+void boss_collision_check()
 {
     for(int i = 0 ; i < 5 ; i++)
     {
@@ -177,7 +188,6 @@ void boss_collision_check(bool boss_fight)
                 {
                     boss_s[p].ingame = false;
                 }
-                boss_fight = false;
                 arrow[k].ingame = false;
                 break;
             }
