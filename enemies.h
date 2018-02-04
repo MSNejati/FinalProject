@@ -14,7 +14,7 @@ struct enemy_spaceships
     int x;
     int y;
     int xv;
-    int yv;
+    float yv;
     int shoot_delay = (rand() % 70) + 60;
     int hitpoint;
     bool ingame = false;
@@ -24,7 +24,7 @@ struct enemy_shot {
 	int x;
 	int y;
 	int x_velocity;
-	int y_velocity = 6; // i don't use it now but maybe we use it later
+	float y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
 }enemy_arrow[100] ,boss_arrow[100];
 

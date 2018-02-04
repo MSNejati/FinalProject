@@ -16,7 +16,7 @@ struct things {
     int r;//radiance
     bool ingame;
     int xv;//x's velocity
-    int yv;//y's velocity
+    float yv;//y's velocity
     int red, green, blue;
     int apocity;
 } star[80];
@@ -80,7 +80,7 @@ void show_toolbar(SDL_Surface *screen) {
 }
 
 SDL_Surface* make_toolbar_informations(SDL_Surface *message, TTF_Font *font, SDL_Color textcolor, int info) {
-	
+
 	stringstream s1;
         s1 << info;
         message = TTF_RenderText_Solid(font, s1.str().c_str(), textcolor);

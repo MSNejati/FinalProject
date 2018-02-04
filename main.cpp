@@ -13,6 +13,7 @@
 #include "spaceship_Move.h"
 #include "sensorsandcollision.h"
 #include "move_pointer.h"
+#include "speed&level.h"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int main(int argc, char *args[]) {
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
     bool first_menu = false;
-    bool last_menu = true;
+    bool last_menu = false;
 
     srand(time(0));
     enemy_spaceship_delay = (rand() % 20) + 100;
@@ -195,6 +196,15 @@ int main(int argc, char *args[]) {
                 if (boss[0].hitpoint <= 0) {
                     break;
                 }
+            }
+
+            if(keystates[SDLK_w])
+            {
+                speed_change(1);
+            }
+            if(keystates[SDLK_s])
+            {
+                speed_change(-1);
             }
 
             show_toolbar(screen);
