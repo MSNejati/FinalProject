@@ -35,8 +35,8 @@ int main(int argc, char *args[]) {
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
-    bool first_menu = true;
-    bool last_menu = false;
+    bool first_menu = false;
+    bool last_menu = true;
 
     srand(time(0));
     enemy_spaceship_delay = (rand() % 20) + 100;
@@ -248,6 +248,9 @@ int main(int argc, char *args[]) {
             apply_surface(278, screenheight - 375, last_menu_score, screen);
             apply_surface(425, screenheight - 123, restart, screen);
 	    apply_surface(460, screenheight - 248, last_menu_exit, screen);
+	    last_menu_move_pointer(&last_menu_pointer_x, &last_menu_pointer_y);
+	    filledCircleRGBA(screen, last_menu_pointer_x, last_menu_pointer_y, 5, 0, 254, 0, 200);
+
         }
 
         SDL_Flip(screen);
