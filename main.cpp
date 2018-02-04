@@ -34,7 +34,7 @@ int main(int argc, char *args[]) {
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
-    bool first_menu = false;
+    bool first_menu = true;
     bool last_menu = false;
 
     srand(time(0));
@@ -49,11 +49,6 @@ int main(int argc, char *args[]) {
     SDL_Surface *gun_bullet_image = load_image("gun_bullet.png");
     SDL_Surface *highscore_image = load_image("highscore.png");
     SDL_Surface *score_image = load_image("score.png");
-    apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
-    apply_surface(45, 10, heart_image, screen);
-    apply_surface(920, 10, gun_bullet_image, screen);
-    apply_surface(665, 10, highscore_image, screen);
-    apply_surface(315, 10, score_image, screen);
     TTF_Init();
     TTF_Font *toolbar_font;
     toolbar_font = TTF_OpenFont("toolbar.ttf", 32);
@@ -66,10 +61,6 @@ int main(int argc, char *args[]) {
     bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
     score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
     highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
-    apply_surface(5, 15, heart_value, screen);
-    apply_surface(845, 15, bullet_value, screen);
-    apply_surface(240, 15, score_value, screen);
-    apply_surface(590, 15, highscore_value, screen);
     SDL_WM_SetCaption("Star Wars", NULL);
 
     for (int i = 0; i < 5; i++) {
@@ -77,6 +68,7 @@ int main(int argc, char *args[]) {
     }
 
     SDL_Surface *start;
+    SDL_Surface *first_menu_exit;
     SDL_Surface *game_name;
     SDL_Surface *first_menu_highscore;
     SDL_Surface *meteorite;
@@ -91,6 +83,7 @@ int main(int argc, char *args[]) {
     volume_off = load_image("volume_off.png");
     start = TTF_RenderText_Solid(menu_font, "NEW GAME", menu_color);
     first_menu_highscore = TTF_RenderText_Solid(menu_font, "HIGH SCORE", menu_color);
+    first_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
     int meteorite_x = 1200;
     int meteorite_y = -800;
     int m;
@@ -99,11 +92,14 @@ int main(int argc, char *args[]) {
     int meteorite_xv = -15;
     bool volume = true;
 
+    int gameover_y = -400;
     SDL_Surface* last_menu_score;
     SDL_Surface* restart;
     SDL_Surface* gameover;
+    SDL_Surface* last_menu_exit;
+    last_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
     gameover = load_image("gameover.png");
-    restart = load_image("restart.png");
+    restart = TTF_RenderText_Solid(menu_font, "RESTART", menu_color);
     last_menu_score = TTF_RenderText_Solid(menu_font, "SCORE :", menu_color);
 
     while (true) {
@@ -114,11 +110,13 @@ int main(int argc, char *args[]) {
             apply_surface(meteorite_x, meteorite_y, meteorite, screen);
             meteorite_x = meteorite_x + meteorite_xv;
             meteorite_y = meteorite_y + meteorite_yv;
+	    boxRGBA(screen, 50, screenheight - 400, 350, screenheight - 300, 255, 75, 0, 200);
             boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 255, 75, 0, 200);
             boxRGBA(screen, 50, screenheight - 150, 350, screenheight - 50, 255, 75, 0, 200);
             apply_surface(250, 100, game_name, screen);
-            apply_surface(100, screenheight - 248, start, screen);
-            apply_surface(95, screenheight - 123, first_menu_highscore, screen);
+            apply_surface(100, screenheight - 373, start, screen);
+            apply_surface(95, screenheight - 248, first_menu_highscore, screen);
+	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
 
             if (volume == true) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_on, screen);
@@ -229,12 +227,20 @@ int main(int argc, char *args[]) {
         if (last_menu == true) {
 
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
-            apply_surface(250, 100, gameover, screen);
-            boxRGBA(screen, 190, screenheight - 275, 490, screenheight - 175, 0, 175, 255, 200);
-            boxRGBA(screen, 510, screenheight - 275, 810, screenheight - 175, 0, 175, 255, 200);
-            apply_surface(278, screenheight - 250, last_menu_score, screen);
-            apply_surface(425, screenheight - 165, restart, screen);
-
+            if (gameover_y != 50) {
+		gameover_y += 1;
+	        apply_surface(250, gameover_y, gameover, screen);
+            }
+	    if (gameover_y == 50) {
+		apply_surface(250, gameover_y, gameover, screen);
+	    }
+	    boxRGBA(screen, 190, screenheight - 400, 490, screenheight - 300, 0, 175, 255, 200);
+            boxRGBA(screen, 510, screenheight - 400, 810, screenheight - 300, 0, 175, 255, 200);
+	    boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 255, 75, 0, 200);
+	    boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
+            apply_surface(278, screenheight - 375, last_menu_score, screen);
+            apply_surface(425, screenheight - 123, restart, screen);
+	    apply_surface(460, screenheight - 248, last_menu_exit, screen);
         }
 
         SDL_Flip(screen);
