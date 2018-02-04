@@ -43,7 +43,6 @@ void make_new_star_line(int total_stars, int screenwidth) {
             if (star[i].ingame == false) {
                 star[i].x = (rand() % screenwidth - 10) + 5;
                 star[i].y = 0;
-                star[i].yv = 2;
                 star[i].r = 1;
                 star[i].blue = 255;
                 star[i].red = 200;

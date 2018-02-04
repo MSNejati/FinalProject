@@ -196,7 +196,7 @@ int main(int argc, char *args[]) {
                 }
             }
 
-            if(keystates[SDLK_w])
+           if(keystates[SDLK_w])
             {
                 speed_change(1);
             }

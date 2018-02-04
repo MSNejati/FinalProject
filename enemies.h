@@ -14,7 +14,7 @@ struct enemy_spaceships
     int x;
     int y;
     int xv;
-    float yv;
+    float yv = 3;
     int shoot_delay = (rand() % 70) + 60;
     int hitpoint;
     bool ingame = false;
@@ -52,7 +52,6 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
                         while(classic_enemies[k].x == classic_enemies[j].x && classic_enemies[k].y < 100);
                     }
                     classic_enemies[j].y = -100;
-                    classic_enemies[j].yv = 3;
                     classic_enemies[j].ingame = true;
                     break;
                 }
