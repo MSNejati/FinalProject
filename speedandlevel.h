@@ -41,7 +41,7 @@ void speed_change(int comm)
         }
         for(int i = 0 ; i < 15 ; i++)
         {
-            if(classic_enemies[i].ingame && classic_enemies[i].yv > 3)
+            if(classic_enemies[i].yv > 3)
             {
                 classic_enemies[i].yv -= 0.5;
             }
