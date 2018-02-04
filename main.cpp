@@ -34,7 +34,7 @@ int main(int argc, char *args[]) {
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
-    bool first_menu = true;
+    bool first_menu = false;
     bool last_menu = false;
 
     srand(time(0));
@@ -124,7 +124,7 @@ int main(int argc, char *args[]) {
 	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
 	    first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
 	    filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
-	    
+
             if (keystates[SDLK_RCTRL]) {
 		if (first_menu_pointer_y == 650) {
 		    first_menu = false;
@@ -163,16 +163,16 @@ int main(int argc, char *args[]) {
 		    if (volume_delay % 10 == 0) {
 		    	if (volume == true) {
 		        	volume = false;
-				volume_delay = 1;				
+				volume_delay = 1;
 				//set volume to zero
-				
+
 		    	}
 		    	else {
 				volume = true;
-				volume_delay = 1;	
+				volume_delay = 1;
 				//set volume to 100%
 		    	}
-		    } 
+		    }
 		    else {
 			volume_delay++;
 		    }
@@ -263,7 +263,7 @@ int main(int argc, char *args[]) {
                 }
             }
 
-           if(keystates[SDLK_w])
+           if(keystates[SDLK_UP])
             {
                 speed_change(1);
             }
@@ -347,7 +347,7 @@ int main(int argc, char *args[]) {
 	    }
 	    last_menu_move_pointer(&last_menu_pointer_x, &last_menu_pointer_y);
 	    filledCircleRGBA(screen, last_menu_pointer_x, last_menu_pointer_y, 5, 0, 254, 0, 200);
-	    
+
 	    if (keystates[SDLK_RCTRL]) {
 		if (last_menu_pointer_y == 900) {
 		    TTF_CloseFont(menu_font);
