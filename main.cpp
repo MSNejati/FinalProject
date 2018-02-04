@@ -12,7 +12,7 @@
 #include "background.h"
 #include "spaceship_Move.h"
 #include "sensorsandcollision.h"
-#include "menu_pointer.h"
+#include "move_pointer.h"
 
 using namespace std;
 
@@ -122,6 +122,8 @@ int main(int argc, char *args[]) {
             apply_surface(100, screenheight - 373, start, screen);
             apply_surface(95, screenheight - 248, first_menu_highscore, screen);
 	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
+	    first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
+	    filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
 
             if (volume == true) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_on, screen);
