@@ -12,6 +12,7 @@
 #include "background.h"
 #include "spaceship_Move.h"
 #include "sensorsandcollision.h"
+#include "menu_pointer.h"
 
 using namespace std;
 
@@ -91,6 +92,8 @@ int main(int argc, char *args[]) {
     int meteorite_yv = 15;
     int meteorite_xv = -15;
     bool volume = true;
+    int first_menu_pointer_x = 40;
+    int first_menu_pointer_y = 650;
 
     int gameover_y = -400;
     SDL_Surface* last_menu_score;
@@ -101,6 +104,8 @@ int main(int argc, char *args[]) {
     gameover = load_image("gameover.png");
     restart = TTF_RenderText_Solid(menu_font, "RESTART", menu_color);
     last_menu_score = TTF_RenderText_Solid(menu_font, "SCORE :", menu_color);
+    int last_menu_pointer_x = 340;
+    int last_menu_pointer_y = 775;
 
     while (true) {
 
