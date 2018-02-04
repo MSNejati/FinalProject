@@ -1,4 +1,7 @@
 #include <iostream>
+#include "background.h"
+#include "sensorsandcollision.h"
+
 using namespace std;
 
 void speed_change(int comm)
@@ -10,12 +13,12 @@ void speed_change(int comm)
             star[i].yv += 0.5;
         }
         for(int i = 0 ; i < 15 ; i++)
-        (
+        {
             if(classic_enemies[i].ingame)
             {
                 classic_enemies[i].yv += 0.5;
             }
-        )
+        }
         for(int i = 0 ; i < 100 ; i++)
         {
             if(enemy_arrow[i].ingame)
@@ -31,12 +34,12 @@ void speed_change(int comm)
             star[i].yv -= 0.5;
         }
         for(int i = 0 ; i < 15 ; i++)
-        (
+        {
             if(classic_enemies[i].ingame)
             {
                 classic_enemies[i].yv -= 0.5;
             }
-        )
+        }
         for(int i = 0 ; i < 100 ; i++)
         {
             if(enemy_arrow[i].ingame)

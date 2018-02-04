@@ -9,11 +9,9 @@
 #include "sstream"
 #include <cmath>
 #include <fstream>
-#include "background.h"
 #include "spaceship_Move.h"
-#include "sensorsandcollision.h"
 #include "move_pointer.h"
-#include "speed&level.h"
+#include "speedandlevel.h"
 
 using namespace std;
 
