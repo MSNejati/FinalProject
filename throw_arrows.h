@@ -18,10 +18,10 @@ struct shot {
 	int y;
 	int y_velocity; 
 	bool ingame;
-}arrow[100];
+}arrow[10000];
 
 int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int arrow_number) {
-	for(int i = 0 ; i < 100 ; i++)
+	for(int i = 0 ; i < 10000 ; i++)
 	{
        		if(arrow[i].ingame == false)
         	{
@@ -37,10 +37,9 @@ int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int 
 
 void move_arrow (SDL_Surface *screen) {
 
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 10000; i++) {
 		if (arrow[i].y >= 0 && arrow[i].ingame == true) {
 			arrow[i].y = arrow[i].y + velocity;
-			//filledCircleRGBA(screen, arrow[i].x, arrow[i].y, 3, 255, 255, 0, 255);
             		boxRGBA(screen, arrow[i].x, arrow[i].y, arrow[i].x + 3, arrow[i].y + 10, 255, 130, 0, 255);
 		}
 		if (arrow[i].y < -2 && arrow[i].ingame == true)

@@ -182,7 +182,6 @@ void boss_collision_check()
         {
             if(arrow[k].ingame && arrow[k].y < boss_s[i].y1 && arrow[k].y > boss_s[i].y2 && arrow[k].x > boss_s[i].x1 && arrow[k].x < boss_s[i].x2)
             {
-                cout << 1 << "\n";
                 boss[0].hitpoint--;
                 arrow[k].ingame = false;
                 break;

@@ -34,7 +34,7 @@ int main(int argc, char *args[]) {
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
-    bool first_menu = false;
+    bool first_menu = true;
     bool last_menu = false;
 
     srand(time(0));
