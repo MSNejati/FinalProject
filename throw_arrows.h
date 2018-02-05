@@ -16,11 +16,13 @@ int arrow_delay = 0;
 struct shot {
 	int x;
 	int y;
-	int y_velocity; 
+	int y_velocity;
 	bool ingame;
 }arrow[10000];
 
-int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int arrow_number) {
+int make_arrow_ingame (SDL_Surface *screen, int spaceshipx, int spaceshipy, int arrow_number )
+{
+
 	for(int i = 0 ; i < 10000 ; i++)
 	{
        		if(arrow[i].ingame == false)

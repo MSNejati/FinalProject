@@ -16,21 +16,21 @@ struct enemy_spaceships
     int xv;
     float yv = 3;
     int shoot_delay = (rand() % 70) + 60;
-    int hitpoint;
+    int hitpoint = 1;
     bool ingame = false;
 }classic_enemies[15],boss[1];
 
 struct enemy_shot {
 	int x;
 	int y;
-	int x_velocity;
+	int x_velocity = 0;
 	float y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
 }enemy_arrow[10000] ,boss_arrow[100];
 
 
 
-void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay ,int max_enemies_enter_delay ,int max_enemies_count)
+void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay ,int max_enemies_enter_delay ,int max_enemies_count ,string enemy_type)
 {
     int enemy_spaceship_count;
     if(*enemy_spaceship_delay == 0)
@@ -50,6 +50,14 @@ void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay ,in
                             classic_enemies[j].x = (rand() % (screenwidth)/100) * 100;
                         }
                         while(classic_enemies[k].x == classic_enemies[j].x && classic_enemies[k].y < 100);
+                    }
+                    if(enemy_type == "enemyspaceship.png")
+                    {
+                        classic_enemies[j].hitpoint = 1;
+                    }
+                    if(enemy_type == "enemyspaceship2.png")
+                    {
+                        classic_enemies[j].hitpoint = 2;
                     }
                     classic_enemies[j].y = -100;
                     classic_enemies[j].ingame = true;
@@ -107,7 +115,7 @@ void show_enemy_spaceships(SDL_Surface * screen ,string enemy_type)
 }
 
 
-void enemy_shooting()
+void enemy_shooting(string enemy_type)
 {
     for(int i = 0 ; i < 15 ; i++)
     {
@@ -116,14 +124,64 @@ void enemy_shooting()
             if(classic_enemies[i].shoot_delay == 0)
             {
                 classic_enemies[i].shoot_delay = (rand() % 70) + 60;
-                for(int j = 0 ; j < 10000 ; j++)
+                if(enemy_type == "enemyspaceship.png")
                 {
-                    if(enemy_arrow[j].ingame == false)
+                    for(int j = 0 ; j < 10000 ; j++)
                     {
-                        enemy_arrow[j].ingame = true;
-                        enemy_arrow[j].x = classic_enemies[i].x + 50;
-                        enemy_arrow[j].y = classic_enemies[i].y + 80;
-                        break;
+                        if(enemy_arrow[j].ingame == false)
+                        {
+                            enemy_arrow[j].ingame = true;
+                            enemy_arrow[j].x = classic_enemies[i].x + 50;
+                            enemy_arrow[j].y = classic_enemies[i].y + 80;
+                            break;
+                        }
+                    }
+                }
+                if(enemy_type == "enemyspaceship2.png")
+                {
+                    for(int k = 0 ; k < 3 ; k++)
+                    {
+                        if(k == 0)
+                        {
+                            for(int j = 0 ; j < 10000 ; j++)
+                            {
+                                if(enemy_arrow[j].ingame == false)
+                                {
+                                    enemy_arrow[j].ingame = true;
+                                    enemy_arrow[j].x = classic_enemies[i].x + 20;
+                                    enemy_arrow[j].y = classic_enemies[i].y + 100;
+                                    enemy_arrow[j].x_velocity = -2;
+                                    break;
+                                }
+                            }
+                        }
+                        if(k == 1)
+                        {
+                            for(int j = 0 ; j < 10000 ; j++)
+                            {
+                                if(enemy_arrow[j].ingame == false)
+                                {
+                                    enemy_arrow[j].ingame = true;
+                                    enemy_arrow[j].x = classic_enemies[i].x + 80;
+                                    enemy_arrow[j].y = classic_enemies[i].y + 100;
+                                    enemy_arrow[j].x_velocity = 2;
+                                    break;
+                                }
+                            }
+                        }
+                        if(k == 2)
+                        {
+                            for(int j = 0 ; j < 10000 ; j++)
+                            {
+                                if(enemy_arrow[j].ingame == false)
+                                {
+                                    enemy_arrow[j].ingame = true;
+                                    enemy_arrow[j].x = classic_enemies[i].x + 50;
+                                    enemy_arrow[j].y = classic_enemies[i].y + 100;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -141,7 +199,8 @@ void move_enemy_arrow (SDL_Surface *screen) {
 
 	for (int i = 0; i < 10000; i++) {
 		if (enemy_arrow[i].y >= 0 && enemy_arrow[i].ingame == true) {
-			enemy_arrow[i].y = enemy_arrow[i].y + enemy_arrow[i].y_velocity;
+			enemy_arrow[i].y += enemy_arrow[i].y_velocity;
+			enemy_arrow[i].x += enemy_arrow[i].x_velocity;
 			filledCircleRGBA(screen,enemy_arrow[i].x, enemy_arrow[i].y, 3, 255, 255, 0, 255);
 		}
 		if (enemy_arrow[i].y < -2 && enemy_arrow[i].ingame == true)

@@ -93,13 +93,17 @@ int collision(bool boss_fight)
                     {
                         if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 && arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
                         {
-                            for(int p = 0 ; p < 5 ; p++)
+                            classic_enemies[i].hitpoint--;
+                            if(classic_enemies[i].hitpoint == 0)
                             {
-                                enemies[i][p].ingame = false;
+                                for(int p = 0 ; p < 5 ; p++)
+                                {
+                                    enemies[i][p].ingame = false;
+                                }
+                                classic_enemies[i].ingame = false;
+                                arrow[k].ingame = false;
+                                break;
                             }
-                            classic_enemies[i].ingame = false;
-                            arrow[k].ingame = false;
-                            break;
                         }
                     }
                     for(int k = 0 ; k < 5 ; k++)

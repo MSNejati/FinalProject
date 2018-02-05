@@ -241,12 +241,12 @@ int main(int argc, char *args[]) {
             move_arrow(screen);
 
             if (boss_fight == false) {
-                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay , max_enemies_enter_delay ,max_enemies_count);
+                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay , max_enemies_enter_delay ,max_enemies_count ,enemy_type );
             }
 
             enemy_spaceships_move(screenheight, our_spaceshipx, &our_spaceship_heart);
             show_enemy_spaceships(screen ,enemy_type);
-            enemy_shooting();
+            enemy_shooting(enemy_type);
             move_enemy_arrow(screen);
 
             if (boss_fight) {

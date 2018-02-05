@@ -60,7 +60,7 @@ void speed_change(int comm)
 
 void level_difficulity(int level ,int * max_enemies_count ,int * max_enemies_enter_delay ,string * enemy_type)
 {
-    if(level <= 3)
+    if(level <= 1)
     {
         *(max_enemies_count) = level;
         *(max_enemies_enter_delay) -= level*20;
@@ -68,6 +68,7 @@ void level_difficulity(int level ,int * max_enemies_count ,int * max_enemies_ent
     else
     {
         *(enemy_type) = "enemyspaceship2.png";
+
     }
 }
 
