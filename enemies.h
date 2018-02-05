@@ -30,13 +30,13 @@ struct enemy_shot {
 
 
 
-void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay)
+void enemy_spaceships_start_pos(int screenwidth ,int * enemy_spaceship_delay ,int max_enemies_enter_delay ,int max_enemies_count)
 {
     int enemy_spaceship_count;
     if(*enemy_spaceship_delay == 0)
     {
-        *enemy_spaceship_delay = (rand() % 200) + 120;
-        enemy_spaceship_count = (rand() % 3) + 1;
+        *enemy_spaceship_delay = (rand() % max_enemies_enter_delay) + 120;
+        enemy_spaceship_count = (rand() % max_enemies_count) + 1;
         for(int i = 0 ; i < enemy_spaceship_count ; i++)
         {
             for(int j = 0 ; j < 15 ; j++)
@@ -93,14 +93,14 @@ void enemy_spaceships_move(int screenheight ,int our_spaceshipx, int * heart)
     }
 }
 
-void show_enemy_spaceships(SDL_Surface * screen)
+void show_enemy_spaceships(SDL_Surface * screen ,string enemy_type)
 {
     SDL_Surface* enemyspaceship;
     for(int j = 0 ; j < 15 ; j++)
     {
         if(classic_enemies[j].ingame)
         {
-            enemyspaceship = load_enemyspaceship("enemyspaceship.png");
+            enemyspaceship = load_enemyspaceship(enemy_type);
             apply_surface(classic_enemies[j].x ,classic_enemies[j].y , enemyspaceship ,screen );
         }
     }
@@ -264,6 +264,15 @@ void show_boss_health_bar(SDL_Surface * screen)
     boxRGBA(screen ,245 ,115 ,755 ,145 ,255 ,255 ,0 ,200);
     boxRGBA(screen ,250 ,120 ,750 ,140 ,0 ,0 ,0 ,200);
     boxRGBA(screen ,250 ,120 ,250 + boss[0].hitpoint * 10 ,140 ,255 ,0 ,0 ,200);
+}
+
+void destroy_the_boss()
+{
+    for(int i = 0 ; i < 100 ;i++)
+    {
+        boss_arrow[i].ingame = false;
+    }
+
 }
 
 

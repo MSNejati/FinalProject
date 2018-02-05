@@ -21,6 +21,7 @@ int main(int argc, char *args[]) {
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
     int score = 0;
+    int level = 1;
     int highscore = score;
     int screenwidth = 1000;
     int screenheight = 1000;
@@ -30,15 +31,18 @@ int main(int argc, char *args[]) {
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
     int boss_size = 200;
+    int max_enemies_count = 1;
+    int max_enemies_enter_delay = 200;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
     bool boss_fight = false;
-    bool first_menu = false;
+    bool first_menu = true;
     bool last_menu = false;
+    string enemy_type = "enemyspaceship.png";
 
     srand(time(0));
-    enemy_spaceship_delay = (rand() % 20) + 100;
+    enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
     SDL_Init(SDL_INIT_EVERYTHING);
 
     Uint8 *keystates = SDL_GetKeyState(NULL);
@@ -170,19 +174,19 @@ int main(int argc, char *args[]) {
 
 		    	}
 		    	else {
-				volume = true;
-				volume_delay = 1;
-				//set volume to 100%
+                    volume = true;
+                    volume_delay = 1;
+                    //set volume to 100%
 		    	}
 		    }
 		    else {
-			volume_delay++;
+                volume_delay++;
 		    }
 		}
 	    }
 
 	    if(!keystates[SDLK_RCTRL]) {
-		volume_delay = 0;
+            volume_delay = 0;
 	    }
 
             if (meteorite_x <= -1 * n) {
@@ -237,11 +241,11 @@ int main(int argc, char *args[]) {
             move_arrow(screen);
 
             if (boss_fight == false) {
-                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay);
+                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay , max_enemies_enter_delay ,max_enemies_count);
             }
 
             enemy_spaceships_move(screenheight, our_spaceshipx, &our_spaceship_heart);
-            show_enemy_spaceships(screen);
+            show_enemy_spaceships(screen ,enemy_type);
             enemy_shooting();
             move_enemy_arrow(screen);
 
@@ -260,8 +264,12 @@ int main(int argc, char *args[]) {
                 show_boss(screen, boss_size);
                 boss_sensors_position(screen);
                 boss_collision_check();
-                if (boss[0].hitpoint <= 0) {
-                    break;
+                if (boss[0].hitpoint <= 0)
+                {
+                    level++;
+                    level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
+                    boss_fight = false ;
+                    destroy_the_boss();
                 }
             }
 
@@ -299,7 +307,7 @@ int main(int argc, char *args[]) {
                 last_menu = true;
             }
 
-            if(frame >= (100 - (star[0].yv*5)))
+            if(frame >= (100 - (star[0].yv*5)) && boss_fight == false)
             {
                 frame = 0;
                 score++;
