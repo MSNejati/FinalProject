@@ -71,6 +71,7 @@ int main(int argc, char *args[]) {
     SDL_Surface *first_menu_exit;
     SDL_Surface *game_name;
     SDL_Surface *first_menu_highscore;
+    SDL_Surface *first_menu_highscore_value;
     SDL_Surface *meteorite;
     SDL_Surface *volume_on;
     SDL_Surface *volume_off;
