@@ -10,8 +10,8 @@
 #include <cmath>
 #include <fstream>
 #include "spaceship_Move.h"
-#include "move_pointer.h"
 #include "speedandlevel.h"
+#include "move_pointer.h"
 
 using namespace std;
 
@@ -134,7 +134,6 @@ int main(int argc, char *args[]) {
 
         if (first_menu == true)
          {
-
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             apply_surface(meteorite_x, meteorite_y, meteorite, screen);
             meteorite_x = meteorite_x + meteorite_xv;
@@ -147,7 +146,7 @@ int main(int argc, char *args[]) {
 	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
 	    first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
 	    filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
-
+	    
             if (keystates[SDLK_RCTRL]) {
 		if (first_menu_pointer_y == 650) {
 		    first_menu = false;
@@ -227,7 +226,6 @@ int main(int argc, char *args[]) {
 	    if (bool_first_menu_highscore == false) {
 		apply_surface(95, screenheight - 248, first_menu_highscore, screen);
 	    }
-
         }
 
         if (first_menu == false && last_menu == false) {
@@ -346,7 +344,6 @@ int main(int argc, char *args[]) {
             }
 
             frame++;
-
         }
 
         if (last_menu == true) {
