@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "applysurface.h"
+#include "SDL/SDL_mixer.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ struct enemy_shot {
 	int x_velocity = 0;
 	float y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
-}enemy_arrow[10000] ,boss_arrow[100];
+}enemy_arrow[10000] ,boss_arrow[10000];
 
 
 
@@ -116,7 +117,7 @@ void show_enemy_spaceships(SDL_Surface * screen ,string enemy_type)
 }
 
 
-void enemy_shooting(string enemy_type)
+void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
 {
     for(int i = 0 ; i < 15 ; i++)
     {
@@ -134,6 +135,7 @@ void enemy_shooting(string enemy_type)
                             enemy_arrow[j].ingame = true;
                             enemy_arrow[j].x = classic_enemies[i].x + 50;
                             enemy_arrow[j].y = classic_enemies[i].y + 80;
+			    Mix_PlayChannel( -1, enemy_shot, 0 );
                             break;
                         }
                     }
@@ -152,6 +154,7 @@ void enemy_shooting(string enemy_type)
                                     enemy_arrow[j].x = classic_enemies[i].x + 20;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = -2;
+				    Mix_PlayChannel( -1, enemy_shot, 0 );
                                     break;
                                 }
                             }
@@ -166,6 +169,7 @@ void enemy_shooting(string enemy_type)
                                     enemy_arrow[j].x = classic_enemies[i].x + 80;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = 2;
+			  	    Mix_PlayChannel( -1, enemy_shot, 0 );
                                     break;
                                 }
                             }
@@ -179,6 +183,7 @@ void enemy_shooting(string enemy_type)
                                     enemy_arrow[j].ingame = true;
                                     enemy_arrow[j].x = classic_enemies[i].x + 50;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
+				    Mix_PlayChannel( -1, enemy_shot, 0 );
                                     break;
                                 }
                             }
@@ -246,14 +251,15 @@ void boss_x_change(int screenwidth , int boss_size)
 }
 
 
-void enemy_boss_shooting()
+void enemy_boss_shooting(Mix_Chunk *boss_shot)
 {
             if(boss[0].shoot_delay == 0)
             {
+		Mix_PlayChannel( -1, boss_shot, 0 );
                 boss[0].shoot_delay = (rand() % 70) + 60;
                 for(int i = 0 ; i < 5 ; i++)
                 {
-                    for(int j = 0 ; j < 100 ; j++)
+                    for(int j = 0 ; j < 10000 ; j++)
                     {
                         if(boss_arrow[j].ingame == false)
                         {
@@ -302,12 +308,12 @@ void enemy_boss_shooting()
 
 void move_enemy_boss_arrow (SDL_Surface *screen ,int screenheight)
 {
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 10000; i++) {
 		if (boss_arrow[i].y >= 0 && boss_arrow[i].ingame == true)
 		 {
 			boss_arrow[i].y += boss_arrow[i].y_velocity;
 			boss_arrow[i].x += boss_arrow[i].x_velocity;
-			filledCircleRGBA(screen,boss_arrow[i].x, boss_arrow[i].y, 3, 255, 255, 0, 255);
+			filledCircleRGBA(screen,boss_arrow[i].x, boss_arrow[i].y, 5, 255, 255, 0, 255);
 		}
 		if (boss_arrow[i].y > screenheight && boss_arrow[i].ingame == true)
 		{

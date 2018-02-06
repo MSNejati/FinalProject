@@ -17,6 +17,18 @@ using namespace std;
 
 int main(int argc, char *args[]) {
 
+    Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
+    Mix_Chunk *our_shot = NULL;
+    our_shot = Mix_LoadWAV("our_shoting_sound.wav");
+    Mix_Chunk *enemy_shot = NULL;
+    enemy_shot = Mix_LoadWAV("enemy_shoting_sound.wav");
+    Mix_Chunk *boss_shot = NULL;
+    boss_shot = Mix_LoadWAV("boss_shoting_sound.wav");
+    Mix_Music *first_menu_music = NULL;
+    first_menu_music = Mix_LoadMUS("first_menu_music.wav");
+    Mix_Chunk *gameover_sound = NULL;
+    gameover_sound = Mix_LoadWAV("gameover_sound.wav");
+
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
@@ -102,14 +114,17 @@ int main(int argc, char *args[]) {
     int first_menu_pointer_y = 650;
     bool bool_first_menu_highscore = false;
     int volume_delay = 0;
+    Mix_PlayMusic( first_menu_music, -1 );
 
     int gameover_y = -400;
     SDL_Surface* last_menu_score;
     SDL_Surface* restart;
     SDL_Surface* gameover;
     SDL_Surface* last_menu_exit;
+    SDL_Surface* new_highscore_image;
     last_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
     gameover = load_image("gameover.png");
+    new_highscore_image = load_image("new_highscore.png");
     restart = TTF_RenderText_Solid(menu_font, "RESTART", menu_color);
     last_menu_score = TTF_RenderText_Solid(menu_font, "SCORE :", menu_color);
     int last_menu_pointer_x = 340;
@@ -168,21 +183,18 @@ int main(int argc, char *args[]) {
 		    return 0;
 		}
 		if (first_menu_pointer_y == 875) {
-		    if (volume_delay % 10 == 0) {
+		    if (volume_delay % 15 == 0) {
 		    	if (volume == true) {
 		        	volume = false;
 				volume_delay = 1;
-				//set volume to zero
-
 		    	}
 		    	else {
-                    volume = true;
-                    volume_delay = 1;
-                    //set volume to 100%
+                    		volume = true;
+                   		volume_delay = 1;
 		    	}
 		    }
 		    else {
-                volume_delay++;
+                	volume_delay++;
 		    }
 		}
 	    }
@@ -200,10 +212,12 @@ int main(int argc, char *args[]) {
 
 	    if (volume == true) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_on, screen);
+		Mix_ResumeMusic();
             }
 
             if (volume == false) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_off, screen);
+		Mix_PauseMusic();
             }
 
 	    if (bool_first_menu_highscore == true) {
@@ -218,6 +232,7 @@ int main(int argc, char *args[]) {
 
         if (first_menu == false && last_menu == false) {
 
+	    Mix_HaltMusic();
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 0, 0, 50, 250);
             make_new_star_line(total_stars, screenwidth);
             stars_y_change(total_stars, screenwidth, screenheight);
@@ -229,6 +244,7 @@ int main(int argc, char *args[]) {
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
+		    Mix_PlayChannel( -1, our_shot, 0 );
                     arrow_delay = 1;
                     our_spaceship_bullet--;
                 } else {
@@ -248,7 +264,7 @@ int main(int argc, char *args[]) {
 
             enemy_spaceships_move(screenheight, our_spaceshipx, &our_spaceship_heart);
             show_enemy_spaceships(screen ,enemy_type);
-            enemy_shooting(enemy_type);
+            enemy_shooting(enemy_type, enemy_shot);
             move_enemy_arrow(screen);
 
             if (boss_fight) {
@@ -256,7 +272,7 @@ int main(int argc, char *args[]) {
                     boss_enters();
                 } else {
                     boss_x_change(screenwidth, boss_size);
-                    enemy_boss_shooting();
+                    enemy_boss_shooting(boss_shot);
                     move_enemy_boss_arrow(screen, screenheight);
                     if (collision( boss_fight) == 1) {
                         our_spaceship_heart--;
@@ -278,10 +294,12 @@ int main(int argc, char *args[]) {
            if(keystates[SDLK_UP])
             {
                 speed_change(1);
+		//change speed of score
             }
             if(keystates[SDLK_DOWN])
             {
                 speed_change(-1);
+		//chnage speed of score
             }
 
             show_toolbar(screen);
@@ -333,6 +351,7 @@ int main(int argc, char *args[]) {
 
         if (last_menu == true) {
 
+	    Mix_PlayChannel( -1, gameover_sound, 0 );
 	    score_value = score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             if (gameover_y != 50) {
@@ -349,6 +368,9 @@ int main(int argc, char *args[]) {
             apply_surface(278, screenheight - 375, last_menu_score, screen);
             apply_surface(425, screenheight - 248, restart, screen);
 	    apply_surface(460, screenheight - 123, last_menu_exit, screen);
+	    // if new highscore is higher than old highscore
+	    // apply_surface(425, screenheight - 600, new_highscore_image, screen);
+
 	    if (score < 10) {
 	    	apply_surface(650, screenheight - 372, score_value, screen);
 	    }
