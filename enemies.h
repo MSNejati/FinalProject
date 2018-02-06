@@ -17,6 +17,7 @@ struct enemy_spaceships
     float yv = 3;
     int shoot_delay = (rand() % 70) + 60;
     int hitpoint = 1;
+    int explosion_counter = 1;
     bool ingame = false;
 }classic_enemies[15],boss[1];
 

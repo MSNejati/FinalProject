@@ -3,6 +3,7 @@
 #include <SDL/SDL_gfxPrimitives.h>
 #include "enemies.h"
 #include "throw_arrows.h"
+#include "sstream"
 
 struct sensors
 {
@@ -13,7 +14,7 @@ struct sensors
     bool ingame = false;
 }our[5] ,enemies[15][5] ,boss_s[5];
 
-void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshipy)
+void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshipy ,string enemy_type)
 {
     our[0].x1 = our_spaceshipx + 40;
     our[0].y1 = our_spaceshipy + 5;
@@ -37,39 +38,80 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
     our[4].y2 = our_spaceshipy + 100;
     for (int i = 0 ; i < 15 ; i++)
     {
-        if(classic_enemies[i].ingame )
+        if(enemy_type == "enemyspaceship.png")
         {
-            enemies[i][0].x1 = classic_enemies[i].x + 0;
-            enemies[i][0].y1 = classic_enemies[i].y + 20;
-            enemies[i][0].x2 = classic_enemies[i].x + 100;
-            enemies[i][0].y2 = classic_enemies[i].y + 40;
-            enemies[i][0].ingame = true;
+            if(classic_enemies[i].ingame )
+            {
+                enemies[i][0].x1 = classic_enemies[i].x + 0;
+                enemies[i][0].y1 = classic_enemies[i].y + 20;
+                enemies[i][0].x2 = classic_enemies[i].x + 100;
+                enemies[i][0].y2 = classic_enemies[i].y + 40;
+                enemies[i][0].ingame = true;
 
-            enemies[i][1].x1 = classic_enemies[i].x + 15;
-            enemies[i][1].y1 = classic_enemies[i].y + 40;
-            enemies[i][1].x2 = classic_enemies[i].x + 80;
-            enemies[i][1].y2 = classic_enemies[i].y + 50;
-            enemies[i][1].ingame = true;
+                enemies[i][1].x1 = classic_enemies[i].x + 15;
+                enemies[i][1].y1 = classic_enemies[i].y + 40;
+                enemies[i][1].x2 = classic_enemies[i].x + 80;
+                enemies[i][1].y2 = classic_enemies[i].y + 50;
+                enemies[i][1].ingame = true;
 
-            enemies[i][2].x1 = classic_enemies[i].x + 25;
-            enemies[i][2].y1 = classic_enemies[i].y + 50;
-            enemies[i][2].x2 = classic_enemies[i].x + 70;
-            enemies[i][2].y2 = classic_enemies[i].y + 60;
-            enemies[i][2].ingame = true;
+                enemies[i][2].x1 = classic_enemies[i].x + 25;
+                enemies[i][2].y1 = classic_enemies[i].y + 50;
+                enemies[i][2].x2 = classic_enemies[i].x + 70;
+                enemies[i][2].y2 = classic_enemies[i].y + 60;
+                enemies[i][2].ingame = true;
 
-            enemies[i][3].x1 = classic_enemies[i].x + 35;
-            enemies[i][3].y1 = classic_enemies[i].y + 60;
-            enemies[i][3].x2 = classic_enemies[i].x + 60;
-            enemies[i][3].y2 = classic_enemies[i].y + 70;
-            enemies[i][3].ingame = true;
+                enemies[i][3].x1 = classic_enemies[i].x + 35;
+                enemies[i][3].y1 = classic_enemies[i].y + 60;
+                enemies[i][3].x2 = classic_enemies[i].x + 60;
+                enemies[i][3].y2 = classic_enemies[i].y + 70;
+                enemies[i][3].ingame = true;
 
-            enemies[i][4].x1 = classic_enemies[i].x + 40;
-            enemies[i][4].y1 = classic_enemies[i].y + 70;
-            enemies[i][4].x2 = classic_enemies[i].x + 55;
-            enemies[i][4].y2 = classic_enemies[i].y + 80;
-            enemies[i][4].ingame = true;
+                enemies[i][4].x1 = classic_enemies[i].x + 40;
+                enemies[i][4].y1 = classic_enemies[i].y + 70;
+                enemies[i][4].x2 = classic_enemies[i].x + 55;
+                enemies[i][4].y2 = classic_enemies[i].y + 80;
+                enemies[i][4].ingame = true;
 
+
+            }
         }
+             if(enemy_type == "enemyspaceship2.png")
+            {
+                if(classic_enemies[i].ingame )
+                {
+                    enemies[i][0].x1 = classic_enemies[i].x + 20;
+                    enemies[i][0].y1 = classic_enemies[i].y + 110;
+                    enemies[i][0].x2 = classic_enemies[i].x + 80;
+                    enemies[i][0].y2 = classic_enemies[i].y + 147;
+                    enemies[i][0].ingame = true;
+
+                    enemies[i][1].x1 = classic_enemies[i].x + 0;
+                    enemies[i][1].y1 = classic_enemies[i].y + 80;
+                    enemies[i][1].x2 = classic_enemies[i].x + 100;
+                    enemies[i][1].y2 = classic_enemies[i].y + 110;
+                    enemies[i][1].ingame = true;
+
+                    enemies[i][2].x1 = classic_enemies[i].x + 25;
+                    enemies[i][2].y1 = classic_enemies[i].y + 0;
+                    enemies[i][2].x2 = classic_enemies[i].x + 75;
+                    enemies[i][2].y2 = classic_enemies[i].y + 80;
+                    enemies[i][2].ingame = true;
+
+                    enemies[i][3].x1 = classic_enemies[i].x + 25;
+                    enemies[i][3].y1 = classic_enemies[i].y + 0;
+                    enemies[i][3].x2 = classic_enemies[i].x + 75;
+                    enemies[i][3].y2 = classic_enemies[i].y + 80;
+                    enemies[i][3].ingame = true;
+
+                    enemies[i][4].x1 = classic_enemies[i].x + 25;
+                    enemies[i][4].y1 = classic_enemies[i].y + 0;
+                    enemies[i][4].x2 = classic_enemies[i].x + 75;
+                    enemies[i][4].y2 = classic_enemies[i].y + 80;
+                    enemies[i][4].ingame = true;
+
+                }
+
+            }
         if(!classic_enemies[i].ingame)
         {
             for(int j = 0 ; j < 5 ; j++)
@@ -101,6 +143,7 @@ int collision(bool boss_fight)
                                     enemies[i][p].ingame = false;
                                 }
                                 classic_enemies[i].ingame = false;
+                                classic_enemies[i].explosion_counter++;
                                 arrow[k].ingame = false;
                                 break;
                             }
@@ -144,6 +187,26 @@ int collision(bool boss_fight)
         }
     }
     return 0;
+}
+
+void explosion(SDL_Surface * screen)
+{
+    string explosion_frame = "01.png";
+    SDL_Surface * explosion_frame_to_show;
+    for(int i = 0 ; i < 15 ; i++)
+    {
+        if(classic_enemies[i].ingame == false && classic_enemies[i].explosion_counter > 1)
+        {
+            explosion_frame[1] = ((classic_enemies[i].explosion_counter/3 + 1) + '0');
+            explosion_frame_to_show = load_image(explosion_frame);
+            apply_surface(classic_enemies[i].x ,classic_enemies[i].y ,explosion_frame_to_show ,screen);
+            classic_enemies[i].explosion_counter++;
+            if(classic_enemies[i].explosion_counter == 27)
+            {
+                classic_enemies[i].explosion_counter = 1;
+            }
+        }
+    }
 }
 
 void boss_sensors_position(SDL_Surface * screen)

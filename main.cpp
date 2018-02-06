@@ -295,11 +295,13 @@ int main(int argc, char *args[]) {
             apply_surface(845, 15, bullet_value, screen);
             apply_surface(240, 15, score_value, screen);
             apply_surface(590, 15, highscore_value, screen);
-            sensors_position(screen, our_spaceshipx, our_spaceshipy);
+            sensors_position(screen, our_spaceshipx, our_spaceshipy ,enemy_type);
 
             if (collision( boss_fight) == 1) {
                 our_spaceship_heart--;
             }
+
+            explosion(screen);
 
             highscore = score;
 
