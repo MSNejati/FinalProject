@@ -146,7 +146,7 @@ int main(int argc, char *args[]) {
 	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
 	    first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
 	    filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
-	    
+
             if (keystates[SDLK_RCTRL]) {
 		if (first_menu_pointer_y == 650) {
 		    first_menu = false;
@@ -326,7 +326,6 @@ int main(int argc, char *args[]) {
             if (our_spaceship_heart <= 0) {
                 game_over = true;
             }
-
             if(explosion(screen ,game_over ,our_spaceshipx ,our_spaceshipy ,&our_expo_frame) == 1)
             {
                 last_menu = true;
