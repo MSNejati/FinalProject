@@ -189,7 +189,7 @@ int collision(bool boss_fight)
     return 0;
 }
 
-int explosion(SDL_Surface * screen ,bool game_over ,int our_spaceshipx ,int our_spaceshipy ,int * our_expo_frame)
+int explosion(SDL_Surface * screen ,bool game_over ,int our_spaceshipx ,int our_spaceshipy ,int our_expo_frame)
 {
     string explosion_frame = "01.png";
     SDL_Surface * explosion_frame_to_show;
@@ -208,14 +208,14 @@ int explosion(SDL_Surface * screen ,bool game_over ,int our_spaceshipx ,int our_
         }
         if(game_over)
         {
-            if(*(our_expo_frame)/3 >=1 && *(our_expo_frame)/3 <= 9)
+            if((our_expo_frame)/3 >=1 && (our_expo_frame)/3 <= 9)
             {
-                explosion_frame[1] = (((*our_expo_frame)/3 + 1) + '0');
+                explosion_frame[1] = (((our_expo_frame)/3 + 1) + '0');
                 explosion_frame_to_show = load_image(explosion_frame);
             }
             apply_surface(our_spaceshipx ,our_spaceshipy ,explosion_frame_to_show ,screen);
-            *our_expo_frame++;
-            if(*our_expo_frame == 27)
+            our_expo_frame++;
+            if(our_expo_frame == 27)
             {
                 return 1;
             }

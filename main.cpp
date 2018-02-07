@@ -42,7 +42,7 @@ int main(int argc, char *args[]) {
     int total_stars = 80;// total number of stars that made till now
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
-    int our_expo_frame = 2;
+    int our_explo_frame = 2;
     int boss_size = 200;
     int max_enemies_count = 1;
     int max_enemies_enter_delay = 200;
@@ -323,12 +323,17 @@ int main(int argc, char *args[]) {
 
             highscore = score;
 
-            if (our_spaceship_heart <= 0) {
+            if (our_spaceship_heart <= 0)
+            {
                 game_over = true;
             }
-            if(explosion(screen ,game_over ,our_spaceshipx ,our_spaceshipy ,&our_expo_frame) == 1)
+            if(explosion(screen ,game_over ,our_spaceshipx ,our_spaceshipy ,our_explo_frame) == 1)
             {
                 last_menu = true;
+            }
+            if(game_over)
+            {
+                our_explo_frame++;
             }
 
             if(frame >= (100 - (star[0].yv*5)) && boss_fight == false)
