@@ -46,7 +46,7 @@ int main(int argc, char *args[]) {
     int boss_explo_frame = 0;
     int boss_size = 200;
     int max_enemies_count = 1;
-    int max_enemies_enter_delay = 200;
+    int max_enemies_enter_delay = 100;
     int show_level_frame = 1;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
@@ -239,8 +239,10 @@ int main(int argc, char *args[]) {
             draw_stars(screen, total_stars);
             our_spaceship_v_initialize(&our_spaceship_right_v, &our_spaceship_left_v);
             our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth, screenheight);
-            apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
-
+            if(game_over == false)
+            {
+                apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
+            }
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
@@ -273,7 +275,7 @@ int main(int argc, char *args[]) {
                 } else {
                     boss_x_change(screenwidth, boss_size);
                     enemy_boss_shooting(boss_shot);
-                    move_enemy_boss_arrow(screen, screenheight);
+
                     if (collision( boss_fight) == 1) {
                         our_spaceship_heart--;
                     }
@@ -289,9 +291,11 @@ int main(int argc, char *args[]) {
                     level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
                     boss_fight = false ;
                     boss_explo_frame = 1;
-                    destroy_the_boss();
+                  //  destroy_the_boss();
                 }
             }
+            move_enemy_boss_arrow(screen, screenheight);
+
             if(show_level_frame > 0 && show_level_frame <100)
             {
                 float counter = show_level_frame/2 + 1;
@@ -305,12 +309,12 @@ int main(int argc, char *args[]) {
 
            if(keystates[SDLK_UP])
             {
-                speed_change(1);
+                speed_change(1 ,&max_enemies_enter_delay);
 		//change speed of score
             }
             if(keystates[SDLK_DOWN])
             {
-                speed_change(-1);
+                speed_change(-1 ,&max_enemies_enter_delay);
 		//chnage speed of score
             }
 

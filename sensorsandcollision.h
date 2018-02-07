@@ -212,12 +212,13 @@ int explosion(SDL_Surface * screen ,bool game_over, bool boss_fight ,int our_spa
         if(game_over)
         {
             string explosion_frame = "01.png";
-            if((our_explo_frame)/3 >=1 && (our_explo_frame)/3 <= 9)
+           if((our_explo_frame)/3 >=1 && (our_explo_frame)/3 <= 8)
             {
                 explosion_frame[1] = (((our_explo_frame)/3 + 1) + '0');
                 explosion_frame_to_show = load_image(explosion_frame);
+                apply_surface(our_spaceshipx ,our_spaceshipy ,explosion_frame_to_show ,screen);
             }
-            apply_surface(our_spaceshipx ,our_spaceshipy ,explosion_frame_to_show ,screen);
+
             if(our_explo_frame == 27)
             {
                 return 1;

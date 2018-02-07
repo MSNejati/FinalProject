@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void speed_change(int comm)
+void speed_change(int comm ,int * max_enemy_enter_delay)
 {
     if(comm == 1)
     {
@@ -31,6 +31,7 @@ void speed_change(int comm)
                 enemy_arrow[i].y_velocity += 0.5;
             }
         }
+       * max_enemy_enter_delay -= 2;
     }
     if(comm == -1)
     {
@@ -55,6 +56,7 @@ void speed_change(int comm)
                 enemy_arrow[i].y_velocity -= 0.5;
             }
         }
+        *max_enemy_enter_delay += 2;
     }
 }
 
