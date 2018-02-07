@@ -46,6 +46,7 @@ int main(int argc, char *args[]) {
     int boss_size = 200;
     int max_enemies_count = 1;
     int max_enemies_enter_delay = 200;
+    int show_level_frame = 1;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -283,9 +284,20 @@ int main(int argc, char *args[]) {
                 if (boss[0].hitpoint <= 0)
                 {
                     level++;
+                    show_level_frame++;
                     level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
                     boss_fight = false ;
                     destroy_the_boss();
+                }
+            }
+            if(show_level_frame > 0 && show_level_frame <100)
+            {
+                float counter = show_level_frame/2 + 1;
+                show_level_num(level ,show_level_frame ,screen ,counter);
+                show_level_frame++;
+                if(show_level_frame == 99)
+                {
+                    show_level_frame = 0;
                 }
             }
 

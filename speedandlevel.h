@@ -1,6 +1,8 @@
 #include <iostream>
 #include "background.h"
 #include "sensorsandcollision.h"
+#include "sstream"
+#include <SDL/SDL_ttf.h>
 
 using namespace std;
 
@@ -53,6 +55,30 @@ void speed_change(int comm)
                 enemy_arrow[i].y_velocity -= 0.5;
             }
         }
+    }
+}
+
+void show_level_num(int level ,int show_level_frame ,SDL_Surface * screen ,float counter)
+{
+    stringstream level_title_text;
+    SDL_Surface * level_title;
+    TTF_Font * level_title_font = TTF_OpenFont("level_title.ttf",100);
+    int level_apocity;
+    int dist_from_center = 250;
+    level_apocity = show_level_frame * 10;
+    level_title_text << "LEVEL " << level;
+
+    if(level_apocity <= 255)
+    {
+        SDL_Color level_title_font_color={255,255,255};
+        level_title = TTF_RenderText_Solid(level_title_font ,level_title_text.str().c_str() ,level_title_font_color);
+        apply_surface(300 + (dist_from_center - 10*show_level_frame )/ counter,150 ,level_title ,screen);
+    }
+    else
+    {
+        SDL_Color level_title_font_color={255,255,255};
+        level_title = TTF_RenderText_Solid(level_title_font ,level_title_text.str().c_str() ,level_title_font_color);
+        apply_surface(300 ,150 ,level_title ,screen);
     }
 }
 
