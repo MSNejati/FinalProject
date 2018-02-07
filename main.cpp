@@ -49,7 +49,7 @@ int main(int argc, char *args[]) {
     int max_enemies_count = 1;
     int max_enemies_enter_delay = 100;
     int show_level_frame = 1;
-    int power_up_drop_timer = (rand() % 200) + 100;
+    int power_up_drop_timer = (rand() % 300) + 500;
     int power_up_type = (rand() % 3);
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
@@ -246,6 +246,33 @@ int main(int argc, char *args[]) {
             {
                 apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
             }
+            //===========================power up=======================================
+             power_up_drop_timer--;
+            if(power_up_drop_timer == 0)
+            {
+                power_up_drop(power_up_type);
+                power_up_drop_timer = (rand() % 300) + 500;
+                power_up_type = rand() % 3;
+
+            }
+            if(power_ups_effects() == 0)
+            {
+                our_spaceship_heart++;
+                extra_heart[0].ingame = false;
+            }
+            if(power_ups_effects() == 1)
+            {
+                our_spaceship_bullet += 10;
+                extra_bullet[0].ingame = false;
+            }
+            //=========================explosion=======================================
+             if(explosion(screen ,game_over,boss_fight ,our_spaceshipx ,our_spaceshipy ,our_explo_frame ,boss_explo_frame) == 1)
+            {
+                last_menu = true;
+            }
+            //========================================================================
+
+            power_up_move_and_show(screen);
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
@@ -348,10 +375,7 @@ int main(int argc, char *args[]) {
             {
                 game_over = true;
             }
-            if(explosion(screen ,game_over,boss_fight ,our_spaceshipx ,our_spaceshipy ,our_explo_frame ,boss_explo_frame) == 1)
-            {
-                last_menu = true;
-            }
+
             if(game_over)
             {
                 our_explo_frame++;
@@ -371,21 +395,12 @@ int main(int argc, char *args[]) {
                 score++;
             }
 
-            if (score % 10 == 0 && score != 0 && boss_fight == false) {
+            if (score % 30 == 0 && score != 0 && boss_fight == false) {
                 boss_first_initialize(screenwidth, boss_size);
                 boss_fight = true;
             }
 
-            power_up_drop_timer--;
-            if(power_up_drop_timer == 0)
-            {
-                power_up_drop(power_up_type);
-                power_up_drop_timer = (rand() % 200) + 100;
-                power_up_type = rand() % 3;
 
-            }
-
-            power_up_move_and_show(screen);
 
             frame++;
         }

@@ -11,11 +11,12 @@ using namespace std;
 
 struct power_up
 {
-    int x;
-    int y;
+    int x=0;
+    int y=0;
     int xv;
     int yv = 2;
-    bool ingame;
+    int rad =50;
+    bool ingame = false;
 }extra_heart[1] ,extra_bullet[1] ,special_ammu[1];
 
 void power_up_drop(int power_up_type)
@@ -46,22 +47,64 @@ void power_up_move_and_show(SDL_Surface * screen)
     if(extra_heart[0].ingame)
     {
          extra_heart[0].y += extra_heart[0].yv;
-         show_power_up = load_image("heart.png");
-         apply_surface(extra_heart[0].x ,extra_heart[0].y ,show_power_up ,screen);
+        filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad ,0 ,255 ,0 ,255);
+        filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad - 5,0 ,0 ,50 ,255);
     }
     if(extra_bullet[0].ingame)
     {
         extra_bullet[0].y += extra_bullet[0].yv;
-        show_power_up = load_image("heart.png");
-        apply_surface(extra_heart[0].x ,extra_heart[0].y ,show_power_up ,screen);
+        filledCircleRGBA(screen ,extra_bullet[0].x ,extra_bullet[0].y ,extra_bullet[0].rad ,255 ,0 ,0 ,255);
+        filledCircleRGBA(screen ,extra_bullet[0].x ,extra_bullet[0].y ,extra_bullet[0].rad - 5,0 ,0 ,50 ,255);
     }
     if(special_ammu[0].ingame)
     {
         special_ammu[0].y += special_ammu[0].yv;
-        show_power_up = load_image("heart.png");
-        apply_surface(extra_heart[0].x ,extra_heart[0].y ,show_power_up ,screen);
+        filledCircleRGBA(screen ,special_ammu[0].x ,special_ammu[0].y ,special_ammu[0].rad ,0 ,0 ,255 ,255);
+        filledCircleRGBA(screen ,special_ammu[0].x ,special_ammu[0].y ,special_ammu[0].rad - 5,0 ,0 ,50 ,255);
+
     }
 }
 
-void special_ammu_drop() {
+int power_ups_effects()
+{
+    if(extra_heart[0].ingame)
+    {
+        for(int i = 0 ; i < 5 ; i++)
+        {
+            if(our[i].x1 < extra_heart[0].x && our[i].x2 > extra_heart[0].x && our[i].y1 - extra_heart[0].y < extra_heart[0].rad &&  extra_heart[0].y - our[i].y2 < extra_heart[0].rad)
+            {
+                return 0;
+            }
+            if( our[i].y1 < extra_heart[0].y && our[i].y2 > extra_heart[0].y && our[i].x1 - extra_heart[0].x < extra_heart[0].rad &&  extra_heart[0].x - our[i].x2 < extra_heart[0].rad)
+            {
+                return 0;
+            }
+        }
+    }
+    if(extra_bullet[0].ingame)
+    {
+        for(int i = 0 ; i < 5 ; i++)
+        {
+            if(our[i].x1 < extra_bullet[0].x && our[i].x2 > extra_bullet[0].x && our[i].y1 - extra_bullet[0].y < extra_bullet[0].rad &&  extra_bullet[0].y - our[i].y2 < extra_bullet[0].rad)
+            {
+                return 1;
+            }
+            if( our[i].y1 < extra_bullet[0].y && our[i].y2 > extra_bullet[0].y && our[i].x1 - extra_bullet[0].x < extra_bullet[0].rad &&  extra_bullet[0].x - our[i].x2 < extra_bullet[0].rad)
+            {
+                return 1;
+            }
+        }
+    }
+    if(special_ammu[0].ingame)
+    {
+
+    }
+    return 4;
 }
+
+
+
+
+
+
+
