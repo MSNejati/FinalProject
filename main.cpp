@@ -12,6 +12,8 @@
 #include "spaceship_Move.h"
 #include "speedandlevel.h"
 #include "move_pointer.h"
+#include "power_ups.h"
+
 
 using namespace std;
 
@@ -48,6 +50,8 @@ int main(int argc, char *args[]) {
     int max_enemies_count = 1;
     int max_enemies_enter_delay = 100;
     int show_level_frame = 1;
+    int power_up_drop_timer = (rand() % 200) + 100;
+    int power_up_type = (rand() % 3);
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -372,6 +376,17 @@ int main(int argc, char *args[]) {
                 boss_first_initialize(screenwidth, boss_size);
                 boss_fight = true;
             }
+
+            power_up_drop_timer--;
+            if(power_up_drop_timer == 0)
+            {
+                power_up_drop(power_up_type);
+                power_up_drop_timer = (rand() % 200) + 100;
+                power_up_type = rand() % 3;
+
+            }
+
+            power_up_move_and_show(screen);
 
             frame++;
         }
