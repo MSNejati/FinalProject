@@ -43,6 +43,7 @@ int main(int argc, char *args[]) {
     int our_spaceshipx = 450;
     int our_spaceshipy = 870;
     int our_explo_frame = 2;
+    int boss_explo_frame = 0;
     int boss_size = 200;
     int max_enemies_count = 1;
     int max_enemies_enter_delay = 200;
@@ -287,6 +288,7 @@ int main(int argc, char *args[]) {
                     show_level_frame++;
                     level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
                     boss_fight = false ;
+                    boss_explo_frame = 1;
                     destroy_the_boss();
                 }
             }
@@ -339,13 +341,21 @@ int main(int argc, char *args[]) {
             {
                 game_over = true;
             }
-            if(explosion(screen ,game_over ,our_spaceshipx ,our_spaceshipy ,our_explo_frame) == 1)
+            if(explosion(screen ,game_over,boss_fight ,our_spaceshipx ,our_spaceshipy ,our_explo_frame ,boss_explo_frame) == 1)
             {
                 last_menu = true;
             }
             if(game_over)
             {
                 our_explo_frame++;
+            }
+            if(boss_explo_frame > 0)
+            {
+                boss_explo_frame++;
+            }
+            if(boss_explo_frame == 26)
+            {
+                boss_explo_frame = 0;
             }
 
             if(frame >= (100 - (star[0].yv*5)) && boss_fight == false)

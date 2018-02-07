@@ -80,33 +80,33 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
                 if(classic_enemies[i].ingame )
                 {
                     enemies[i][0].x1 = classic_enemies[i].x + 20;
-                    enemies[i][0].y1 = classic_enemies[i].y + 110;
+                    enemies[i][0].y1 = classic_enemies[i].y + 0;
                     enemies[i][0].x2 = classic_enemies[i].x + 80;
-                    enemies[i][0].y2 = classic_enemies[i].y + 147;
+                    enemies[i][0].y2 = classic_enemies[i].y + 37;
                     enemies[i][0].ingame = true;
 
                     enemies[i][1].x1 = classic_enemies[i].x + 0;
-                    enemies[i][1].y1 = classic_enemies[i].y + 80;
+                    enemies[i][1].y1 = classic_enemies[i].y + 37;
                     enemies[i][1].x2 = classic_enemies[i].x + 100;
-                    enemies[i][1].y2 = classic_enemies[i].y + 110;
+                    enemies[i][1].y2 = classic_enemies[i].y + 67;
                     enemies[i][1].ingame = true;
 
                     enemies[i][2].x1 = classic_enemies[i].x + 25;
-                    enemies[i][2].y1 = classic_enemies[i].y + 0;
+                    enemies[i][2].y1 = classic_enemies[i].y + 67;
                     enemies[i][2].x2 = classic_enemies[i].x + 75;
-                    enemies[i][2].y2 = classic_enemies[i].y + 80;
+                    enemies[i][2].y2 = classic_enemies[i].y + 147;
                     enemies[i][2].ingame = true;
 
                     enemies[i][3].x1 = classic_enemies[i].x + 25;
-                    enemies[i][3].y1 = classic_enemies[i].y + 0;
+                    enemies[i][3].y1 = classic_enemies[i].y + 67;
                     enemies[i][3].x2 = classic_enemies[i].x + 75;
-                    enemies[i][3].y2 = classic_enemies[i].y + 80;
+                    enemies[i][3].y2 = classic_enemies[i].y + 147;
                     enemies[i][3].ingame = true;
 
                     enemies[i][4].x1 = classic_enemies[i].x + 25;
-                    enemies[i][4].y1 = classic_enemies[i].y + 0;
+                    enemies[i][4].y1 = classic_enemies[i].y + 67;
                     enemies[i][4].x2 = classic_enemies[i].x + 75;
-                    enemies[i][4].y2 = classic_enemies[i].y + 80;
+                    enemies[i][4].y2 = classic_enemies[i].y + 147;
                     enemies[i][4].ingame = true;
 
                 }
@@ -189,15 +189,17 @@ int collision(bool boss_fight)
     return 0;
 }
 
-int explosion(SDL_Surface * screen ,bool game_over ,int our_spaceshipx ,int our_spaceshipy ,int our_expo_frame)
+int explosion(SDL_Surface * screen ,bool game_over, bool boss_fight ,int our_spaceshipx ,int our_spaceshipy ,int our_explo_frame ,int boss_explo_frame)
 {
-    string explosion_frame = "01.png";
+
+
     SDL_Surface * explosion_frame_to_show;
     for(int i = 0 ; i < 15 ; i++)
     {
         if(classic_enemies[i].ingame == false && classic_enemies[i].explosion_counter > 1)
         {
-            explosion_frame[1] = ((classic_enemies[i].explosion_counter/3 + 1) + '0');
+            string explosion_frame = "01.png";
+            explosion_frame[1] = (char)((classic_enemies[i].explosion_counter/3 + 1) + '0');
             explosion_frame_to_show = load_image(explosion_frame);
             apply_surface(classic_enemies[i].x ,classic_enemies[i].y ,explosion_frame_to_show ,screen);
             classic_enemies[i].explosion_counter++;
@@ -206,20 +208,31 @@ int explosion(SDL_Surface * screen ,bool game_over ,int our_spaceshipx ,int our_
                 classic_enemies[i].explosion_counter = 1;
             }
         }
+
         if(game_over)
         {
-            if((our_expo_frame)/3 >=1 && (our_expo_frame)/3 <= 9)
+            string explosion_frame = "01.png";
+            if((our_explo_frame)/3 >=1 && (our_explo_frame)/3 <= 9)
             {
-                explosion_frame[1] = (((our_expo_frame)/3 + 1) + '0');
+                explosion_frame[1] = (((our_explo_frame)/3 + 1) + '0');
                 explosion_frame_to_show = load_image(explosion_frame);
             }
             apply_surface(our_spaceshipx ,our_spaceshipy ,explosion_frame_to_show ,screen);
-            our_expo_frame++;
-            if(our_expo_frame == 27)
+            if(our_explo_frame == 27)
             {
                 return 1;
             }
         }
+    }
+    if(boss_fight == false && boss_explo_frame > 0)
+    {
+        string boss_explosion_frame = "boss-1.png";
+        if(/*(our_explo_frame)/3 >=1 && (our_explo_frame)/3 <= 9*/true)
+        {
+            boss_explosion_frame[5] = ((boss_explo_frame/3 + 1) + '0');
+            explosion_frame_to_show = load_image(boss_explosion_frame);
+        }
+        apply_surface(boss[0].x ,boss[0].y ,explosion_frame_to_show ,screen);
     }
     return 0;
 }
