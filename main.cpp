@@ -10,10 +10,9 @@
 #include <cmath>
 #include <fstream>
 #include "spaceship_Move.h"
-#include "speedandlevel.h"
+//#include "speedandlevel.h"
 #include "move_pointer.h"
 #include "power_ups.h"
-
 
 using namespace std;
 

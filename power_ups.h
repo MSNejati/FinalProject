@@ -5,6 +5,7 @@
 #include <SDL/SDL_ttf.h>
 #include <cstdlib>
 #include <ctime>
+#include "speedandlevel.h"
 
 using namespace std;
 
@@ -62,4 +63,5 @@ void power_up_move_and_show(SDL_Surface * screen)
     }
 }
 
-void special_ammu_drop()
+void special_ammu_drop() {
+}
