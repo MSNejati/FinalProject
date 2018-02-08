@@ -123,7 +123,7 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
 }
 
 
-int collision(bool boss_fight)
+int collision(bool boss_fight, Mix_Chunk *explosion_sound)
 {
         for(int i = 0 ; i < 15 ; i++)
         {
@@ -143,6 +143,7 @@ int collision(bool boss_fight)
                                     enemies[i][p].ingame = false;
                                 }
                                 classic_enemies[i].ingame = false;
+				Mix_PlayChannel( -1, explosion_sound, 0 );
                                 classic_enemies[i].explosion_counter++;
                                 arrow[k].ingame = false;
                                 break;

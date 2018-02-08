@@ -28,7 +28,11 @@ int main(int argc, char *args[]) {
     Mix_Music *first_menu_music = NULL;
     first_menu_music = Mix_LoadMUS("first_menu_music.wav");
     Mix_Chunk *gameover_sound = NULL;
+    bool last_music_play = true;
     gameover_sound = Mix_LoadWAV("gameover_sound.wav");
+    Mix_Chunk *explosion_sound = NULL;
+    explosion_sound = Mix_LoadWAV("explosion.wav");
+    
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
@@ -50,7 +54,7 @@ int main(int argc, char *args[]) {
     int max_enemies_enter_delay = 100;
     int show_level_frame = 1;
     int power_up_drop_timer = (rand() % 300) + 500;
-    int power_up_type = rand() % 3);
+    int power_up_type = rand() % 3;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -319,7 +323,7 @@ int main(int argc, char *args[]) {
                     boss_x_change(screenwidth, boss_size);
                     enemy_boss_shooting(boss_shot);
 
-                    if (collision( boss_fight) == 1) {
+                    if (collision( boss_fight, explosion_sound) == 1) {
                         our_spaceship_heart--;
                     }
                     show_boss_health_bar(screen);
@@ -333,6 +337,7 @@ int main(int argc, char *args[]) {
                     show_level_frame++;
                     level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
                     boss_fight = false ;
+		    Mix_PlayChannel( -1, explosion_sound, 0 );
                     boss_explo_frame = 1;
                   //  destroy_the_boss();
                 }
@@ -353,12 +358,10 @@ int main(int argc, char *args[]) {
            if(keystates[SDLK_UP])
             {
                 speed_change(1 ,&max_enemies_enter_delay);
-		//change speed of score
             }
             if(keystates[SDLK_DOWN])
             {
                 speed_change(-1 ,&max_enemies_enter_delay);
-		//chnage speed of score
             }
 
             show_toolbar(screen);
@@ -376,17 +379,16 @@ int main(int argc, char *args[]) {
             apply_surface(590, 15, highscore_value, screen);
             sensors_position(screen, our_spaceshipx, our_spaceshipy ,enemy_type);
 
-            if (collision( boss_fight) == 1) {
+            if (collision( boss_fight, explosion_sound) == 1) {
                 our_spaceship_heart--;
             }
-
-
 
             highscore = score;
 
             if (our_spaceship_heart <= 0)
             {
                 game_over = true;
+		Mix_PlayChannel( -1, explosion_sound, 0 );
             }
 
             if(game_over)
@@ -413,14 +415,14 @@ int main(int argc, char *args[]) {
                 boss_fight = true;
             }
 
-
-
             frame++;
         }
 
         if (last_menu == true) {
 
-	    Mix_PlayChannel( -1, gameover_sound, 0 );
+	    if (last_music_play == true) {
+	    	Mix_PlayChannel( -1, gameover_sound, 0 );
+    	    }
 	    score_value = score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             if (gameover_y != 50) {
@@ -429,6 +431,7 @@ int main(int argc, char *args[]) {
             }
 	    if (gameover_y == 50) {
 		apply_surface(250, gameover_y, gameover, screen);
+	 	last_music_play = false;
 	    }
 	    boxRGBA(screen, 190, screenheight - 400, 490, screenheight - 300, 0, 175, 255, 200);
             boxRGBA(screen, 510, screenheight - 400, 810, screenheight - 300, 0, 175, 255, 200);
