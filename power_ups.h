@@ -26,19 +26,19 @@ void power_up_drop(int power_up_type)
     if(power_up_type == 0)
     {
         extra_heart[0].ingame = true;
-        extra_heart[0].x = (rand() % 10) * 100;
+        extra_heart[0].x = ((rand() % 9) + 1) * 100;
         extra_heart[0].y = 0;
     }
     if(power_up_type == 1)
     {
         extra_bullet[0].ingame = true;
-        extra_bullet[0].x = (rand() % 10) * 100;
+        extra_bullet[0].x = ((rand() % 9) + 1) * 100;
         extra_bullet[0].y = 0;
     }
     if(power_up_type == 2)
     {
         special_ammu[0].ingame = true;
-        special_ammu[0].x = (rand() % 10) * 100;
+        special_ammu[0].x = ((rand() % 9) + 1) * 100;
         special_ammu[0].y = 0;
     }
 }

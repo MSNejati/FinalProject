@@ -495,7 +495,43 @@ int main(int argc, char *args[]) {
 		    return 0;
 		}
 		if (last_menu_pointer_y == 775) {
-			//restart (set all data to their first value and save score if it is higher than the last highscore)
+			int arrow_number = 0; // arrow's number that after pressing the space key throw
+    			int our_spaceship_heart = 3; // the spaceship's heart in the beginning
+    			int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
+    			int score = 0;
+    			int level = 1;
+			int enemy_spaceship_delay;
+    			int frame = 0;
+   			int total_stars = 80;// total number of stars that made till now
+    			int our_spaceshipx = 450;
+    			int our_spaceshipy = 870;
+    			int our_explo_frame = 2;
+    			int boss_explo_frame = 0;
+    			int boss_size = 200;
+    			int max_enemies_count = 1;
+    			int max_enemies_enter_delay = 100;
+    			int show_level_frame = 1;
+    			int power_up_drop_timer = (rand() % 300) + 500;
+    			int power_up_type = rand() % 3;
+    			float stars_speed = 2;
+    			float our_spaceship_right_v = 0;
+    			float our_spaceship_left_v = 0;
+    			bool boss_fight = false;
+			enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
+			heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
+    			bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
+    			score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+   			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+    			for (int i = 0; i < 5; i++) {
+        			our[i].ingame = true; //make our spaceship sensor in game
+   			}
+    			bool first_menu = false;
+    			bool last_menu = false;
+    			bool game_over = false;
+			int gameover_y = -400;
+     			int last_menu_pointer_x = 340;
+    			int last_menu_pointer_y = 775;
+
 		}
 	    }
         }
