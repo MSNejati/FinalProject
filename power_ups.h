@@ -46,23 +46,29 @@ void power_up_drop(int power_up_type)
 void power_up_move_and_show(SDL_Surface * screen)
 {
     SDL_Surface * show_power_up;
+    SDL_Surface *powerup_heart = load_image("powerup_heart.png");
+    SDL_Surface *powerup_laser = load_image("powerup_laser.png");
+    SDL_Surface *powerup_bullet = load_image("powerup_bullet.png");
     if(extra_heart[0].ingame)
     {
-         extra_heart[0].y += extra_heart[0].yv;
+        extra_heart[0].y += extra_heart[0].yv;
         filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad ,0 ,255 ,0 ,255);
         filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad - 5,0 ,0 ,50 ,255);
+	apply_surface(extra_heart[0].x - 36 ,extra_heart[0].y - 32, powerup_heart, screen);
     }
     if(extra_bullet[0].ingame)
     {
         extra_bullet[0].y += extra_bullet[0].yv;
         filledCircleRGBA(screen ,extra_bullet[0].x ,extra_bullet[0].y ,extra_bullet[0].rad ,255 ,0 ,0 ,255);
         filledCircleRGBA(screen ,extra_bullet[0].x ,extra_bullet[0].y ,extra_bullet[0].rad - 5,0 ,0 ,50 ,255);
+	apply_surface(extra_bullet[0].x - 35 ,extra_bullet[0].y - 35, powerup_bullet, screen);
     }
     if(special_ammu[0].ingame)
     {
         special_ammu[0].y += special_ammu[0].yv;
         filledCircleRGBA(screen ,special_ammu[0].x ,special_ammu[0].y ,special_ammu[0].rad ,0 ,0 ,255 ,255);
         filledCircleRGBA(screen ,special_ammu[0].x ,special_ammu[0].y ,special_ammu[0].rad - 5,0 ,0 ,50 ,255);
+	apply_surface(special_ammu[0].x - 31 ,special_ammu[0].y - 33, powerup_laser, screen);
 
     }
 }
