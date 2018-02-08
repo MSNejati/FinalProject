@@ -17,7 +17,8 @@ struct enemy_spaceships
     int xv;
     float yv = 3;
     int shoot_delay = (rand() % 70) + 60;
-    int hitpoint = 1;
+    float hitpoint = 1;
+    float max_hitpoint;
     int explosion_counter = 1;
     bool ingame = false;
 }classic_enemies[15],boss[1];
@@ -217,13 +218,14 @@ void move_enemy_arrow (SDL_Surface *screen) {
 	}
 }
 
-void boss_first_initialize(int screenwidth ,int boss_size)
+void boss_first_initialize(int screenwidth ,int boss_size ,int level)
 {
     boss[0].x = (screenwidth - boss_size) / 2;
     boss[0].y = -1*boss_size;
     boss[0].yv = 3;
     boss[0].xv = 2;
-    boss[0].hitpoint = 50;
+    boss[0].hitpoint = 80 + level*20;
+    boss[0].max_hitpoint = boss[0].hitpoint;
     boss[0].ingame = true;
 }
 
@@ -327,9 +329,10 @@ void move_enemy_boss_arrow (SDL_Surface *screen ,int screenheight)
 
 void show_boss_health_bar(SDL_Surface * screen)
 {
+    float visual_HP = (boss[0].hitpoint/boss[0].max_hitpoint);
     boxRGBA(screen ,245 ,115 ,755 ,145 ,255 ,255 ,0 ,200);
     boxRGBA(screen ,250 ,120 ,750 ,140 ,0 ,0 ,0 ,200);
-    boxRGBA(screen ,250 ,120 ,250 + boss[0].hitpoint * 10 ,140 ,255 ,0 ,0 ,200);
+    boxRGBA(screen ,250 ,120 ,250 + visual_HP * 500  ,140 ,255 ,0 ,0 ,200);
 }
 
 void destroy_the_boss()

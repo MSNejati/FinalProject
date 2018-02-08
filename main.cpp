@@ -50,7 +50,7 @@ int main(int argc, char *args[]) {
     int max_enemies_enter_delay = 100;
     int show_level_frame = 1;
     int power_up_drop_timer = (rand() % 300) + 500;
-    int power_up_type = (rand() % 3);
+    int power_up_type = rand() % 3);
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -255,16 +255,29 @@ int main(int argc, char *args[]) {
                 power_up_type = rand() % 3;
 
             }
-            if(power_ups_effects() == 0)
+            if(catch_power_ups() == 0)
             {
                 our_spaceship_heart++;
                 extra_heart[0].ingame = false;
             }
-            if(power_ups_effects() == 1)
+            if(catch_power_ups() == 1)
             {
                 our_spaceship_bullet += 10;
                 extra_bullet[0].ingame = false;
             }
+            if(special_ammu[0].activated)
+            {
+                special_ammu_notice(screen);
+                if(keystates[SDLK_SPACE])
+                {
+                    special_ammu_effect(screen ,our_spaceshipx ,our_spaceshipy ,boss_fight);
+                    special_ammu[0].activated = false;
+                }
+            }
+             power_up_move_and_show(screen);
+            //========================================================================
+
+
             //=========================explosion=======================================
              if(explosion(screen ,game_over,boss_fight ,our_spaceshipx ,our_spaceshipy ,our_explo_frame ,boss_explo_frame) == 1)
             {
@@ -272,7 +285,7 @@ int main(int argc, char *args[]) {
             }
             //========================================================================
 
-            power_up_move_and_show(screen);
+
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
@@ -396,7 +409,7 @@ int main(int argc, char *args[]) {
             }
 
             if (score % 30 == 0 && score != 0 && boss_fight == false) {
-                boss_first_initialize(screenwidth, boss_size);
+                boss_first_initialize(screenwidth, boss_size ,level);
                 boss_fight = true;
             }
 

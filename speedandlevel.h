@@ -32,6 +32,9 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
             }
         }
        * max_enemy_enter_delay -= 2;
+      /* extra_heart[0].yv += 0.5;
+       extra_bullet[0].yv += 0.5;
+       special_ammu[0].yv += 0.5;*/
     }
     if(comm == -1)
     {
@@ -57,6 +60,9 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
             }
         }
         *max_enemy_enter_delay += 2;
+       /*  extra_heart[0].yv -= 0.5;
+         extra_bullet[0].yv -= 0.5;
+         special_ammu[0].yv -= 0.5;*/
     }
 }
 
