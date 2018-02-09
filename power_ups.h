@@ -63,7 +63,7 @@ void power_up_move_and_show(SDL_Surface * screen)
     }
 }
 
-int catch_power_ups()
+int catch_power_ups(int * laser_count)
 {
     if(extra_heart[0].ingame)
     {
@@ -99,12 +99,12 @@ int catch_power_ups()
         {
             if(our[i].x1 < special_ammu[0].x && our[i].x2 > special_ammu[0].x && our[i].y1 - special_ammu[0].y < special_ammu[0].rad + 5 &&  special_ammu[0].y - our[i].y2 < special_ammu[0].rad + 5)
             {
-                special_ammu[0].activated = true;
+                *laser_count += 1;
                 special_ammu[0].ingame = false;
             }
             if( our[i].y1 < special_ammu[0].y && our[i].y2 > special_ammu[0].y && our[i].x1 - special_ammu[0].x < special_ammu[0].rad + 5 &&  special_ammu[0].x - our[i].x2 < special_ammu[0].rad + 5)
             {
-                special_ammu[0].activated = true;
+                *laser_count += 1;
                 special_ammu[0].ingame = false;
             }
         }
@@ -141,7 +141,7 @@ void special_ammu_effect(SDL_Surface * screen ,int our_spaceship_x ,int our_spac
 
 
 
-void special_ammu_notice(SDL_Surface * screen ,TTF_Font * SAN_font )
+void special_ammu_notice(SDL_Surface * screen ,TTF_Font * SAN_font ,int laser_count)
 {
     stringstream S_A_notice;
     SDL_Surface * special_ammu_noticed;
@@ -151,7 +151,10 @@ void special_ammu_notice(SDL_Surface * screen ,TTF_Font * SAN_font )
     special_ammu_noticed = TTF_RenderText_Solid(SAN_font ,S_A_notice.str().c_str() ,SAN_font_color);
     apply_surface(20 ,80 ,special_ammu_noticed ,screen);
     S_A_notice.str("");
-    filledCircleRGBA(screen ,20 ,190 ,10 ,255 ,0 ,0, 255);
+    for(int i = 0 ; i < laser_count ; i++)
+    {
+        filledCircleRGBA(screen ,25*(i + 1) ,120 ,10 ,255 ,0 ,0, 255);
+    }
 }
 
 

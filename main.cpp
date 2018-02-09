@@ -54,6 +54,8 @@ int main(int argc, char *args[]) {
     int show_level_frame = 1;
     int power_up_drop_timer = (rand() % 300) + 500;
     int power_up_type = rand() % 3;
+    int laser_count = 0;
+    int laser_delay_counter = 10;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -62,6 +64,7 @@ int main(int argc, char *args[]) {
     bool last_menu = false;
     bool middle_menu = false;
     bool game_over =false;
+
     string enemy_type = "enemyspaceship.png";
 
     srand(time(0));
@@ -259,12 +262,16 @@ int main(int argc, char *args[]) {
             stars_y_change(total_stars, screenwidth, screenheight);
             draw_stars(screen, total_stars);
             our_spaceship_v_initialize(&our_spaceship_right_v, &our_spaceship_left_v);
+
+            power_up_move_and_show(screen);
+
             our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth, screenheight);
             if(game_over == false)
             {
                 apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
             }
             //===========================power up=======================================
+
             power_up_drop_timer--;
             if(power_up_drop_timer == 0)
             {
@@ -273,26 +280,31 @@ int main(int argc, char *args[]) {
                 power_up_type = rand() % 3;
 
             }
-            if(catch_power_ups() == 0)
+            if(catch_power_ups(&laser_count) == 0)
             {
                 our_spaceship_heart++;
                 extra_heart[0].ingame = false;
             }
-            if(catch_power_ups() == 1)
+            else if(catch_power_ups(&laser_count) == 1)
             {
                 our_spaceship_bullet += 10;
                 extra_bullet[0].ingame = false;
             }
-            if(special_ammu[0].activated)
+            if(laser_count > 0)
             {
-                special_ammu_notice(screen ,SAN_font);
-                if(keystates[SDLK_n])
+                special_ammu_notice(screen ,SAN_font ,laser_count);
+                if(keystates[SDLK_n] && laser_delay_counter == 0)
                 {
                     special_ammu_effect(screen ,our_spaceshipx ,our_spaceshipy ,boss_fight);
-                    special_ammu[0].activated = false;
+                    laser_count--;
+                    laser_delay_counter = 10;
                 }
             }
-             power_up_move_and_show(screen);
+            if(laser_delay_counter > 0)
+            {
+                laser_delay_counter--;
+            }
+
             //========================================================================
 
 
