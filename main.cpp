@@ -572,7 +572,6 @@ int main(int argc, char *args[]) {
     			our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
     			score = 0;
     			level = 1;
-			enemy_spaceship_delay;
     			frame = 0;
    			total_stars = 80;// total number of stars that made till now
     			our_spaceshipx = 450;
@@ -581,7 +580,7 @@ int main(int argc, char *args[]) {
     			boss_explo_frame = 0;
     			boss_size = 200;
     			max_enemies_count = 1;
-    			max_enemies_enter_delay = 100;
+    			max_enemies_enter_delay = 300;
     			show_level_frame = 1;
     			power_up_drop_timer = (rand() % 300) + 500;
     			power_up_type = rand() % 3;
@@ -594,6 +593,9 @@ int main(int argc, char *args[]) {
     			bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
     			score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
    			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+			for( int i = 0 ; i < 15 ; i++)
+			{
+				
     			for (int i = 0; i < 5; i++) {
         			our[i].ingame = true; //make our spaceship sensor in game
    			}
