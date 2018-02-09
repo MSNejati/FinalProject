@@ -155,11 +155,17 @@ int main(int argc, char *args[]) {
     last_menu_score = TTF_RenderText_Solid(menu_font, "SCORE :", menu_color);
     int last_menu_pointer_x = 340;
     int last_menu_pointer_y = 775;
+    bool last_menu_highscore_image = false;
 
     while (true) {
 
         if (first_menu == true)
-         {
+        {
+	    ifstream high_score_in("high_score");
+	    high_score_in >> highscore;
+            high_score_in.close();
+	    //gereftan high score
+
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             apply_surface(meteorite_x, meteorite_y, meteorite, screen);
             meteorite_x = meteorite_x + meteorite_xv;
@@ -246,7 +252,28 @@ int main(int argc, char *args[]) {
             }
 
 	    if (bool_first_menu_highscore == true) {
-		//show highscore
+		first_menu_highscore_value = make_toolbar_informations(first_menu_highscore_value, menu_font, menu_color, highscore);
+		if (highscore < 10) {
+	    		apply_surface(190, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+	    	if (highscore < 100 && score >= 10) {
+			apply_surface(180, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+	    	if (highscore < 1000 && score >= 100) {
+			apply_surface(170, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+	    	if (highscore < 10000 && score >= 1000) {
+			apply_surface(160, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+	    	if (highscore < 100000 && score >= 10000) {
+			apply_surface(150, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+ 	    	if (highscore < 1000000 && score >= 100000) {
+			apply_surface(140, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
+	    	if (highscore < 10000000 && score >= 1000000) {
+			apply_surface(130, screenheight - 247, first_menu_highscore_value, screen);
+	    	}
 	    }
 
 	    if (bool_first_menu_highscore == false) {
@@ -255,6 +282,16 @@ int main(int argc, char *args[]) {
         }
 
         if (first_menu == false && last_menu == false && middle_menu == false) {
+
+	    ofstream high_score_out("high_score");
+	    high_score_out << highscore;
+	    high_score_out.close();
+	    //dadan high score
+	    if(score > highscore)
+	    {	
+		highscore = score;
+		last_menu_highscore_image = true;
+	    }
 
 	    Mix_HaltMusic();
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 0, 0, 50, 250);
@@ -413,8 +450,6 @@ int main(int argc, char *args[]) {
                 our_spaceship_heart--;
             }
 
-            highscore = score;
-
             if (our_spaceship_heart <= 0)
             {
                 game_over = true;
@@ -501,6 +536,7 @@ int main(int argc, char *args[]) {
     			    extra_heart[0].ingame = false;
     			    extra_bullet[0].ingame = false;
 			    last_music_play = true;
+			    last_menu_highscore_image = false;
     			    special_ammu[0].yv = 2;
     			    extra_heart[0].yv = 2;
     			    extra_bullet[0].yv = 2;
@@ -585,7 +621,7 @@ int main(int argc, char *args[]) {
 	    	    Mix_PlayChannel( -1, gameover_sound, 0 );
 		}
     	    }
-	    score_value = score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
+	    score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             if (gameover_y != 50) {
 		gameover_y += 1;
@@ -593,7 +629,9 @@ int main(int argc, char *args[]) {
             }
 	    if (gameover_y == 50) {
 		apply_surface(250, gameover_y, gameover, screen);
-	 	last_music_play = false;
+	    }
+	    if (gameover_y == 0) {
+		last_music_play = false;
 	    }
 	    if (gameover_y == 0) {
 	 	last_music_play = false;
@@ -605,9 +643,9 @@ int main(int argc, char *args[]) {
             apply_surface(278, screenheight - 375, last_menu_score, screen);
             apply_surface(425, screenheight - 248, restart, screen);
 	    apply_surface(460, screenheight - 123, last_menu_exit, screen);
-	    // if new highscore is higher than old highscore
-	    // apply_surface(425, screenheight - 600, new_highscore_image, screen);
-
+	    if (last_menu_highscore_image == true) {
+	        apply_surface(425, screenheight - 600, new_highscore_image, screen);
+	    }
 	    if (score < 10) {
 	    	apply_surface(650, screenheight - 372, score_value, screen);
 	    }
@@ -688,6 +726,7 @@ int main(int argc, char *args[]) {
     			extra_heart[0].ingame = false;
     			extra_bullet[0].ingame = false;
 			last_music_play = true;
+			last_menu_highscore_image = false;
     			special_ammu[0].yv = 2;
     			extra_heart[0].yv = 2;
     			extra_bullet[0].yv = 2;
