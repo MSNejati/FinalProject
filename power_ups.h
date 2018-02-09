@@ -165,7 +165,7 @@ void red_meteorite_place_init()
 void red_meteorite_move()
 {
     red_meteorite[0].x +=  red_meteorite[0].xv;
-    red_meteorite[0].y += (red_meteorite[0].yv;
+    red_meteorite[0].y += (red_meteorite[0].yv);
 }
 
 
