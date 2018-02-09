@@ -123,7 +123,7 @@ void show_enemy_spaceships(SDL_Surface * screen ,string enemy_type)
 }
 
 
-void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
+void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot, bool *volume)
 {
     for(int i = 0 ; i < 15 ; i++)
     {
@@ -141,7 +141,9 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                             enemy_arrow[j].ingame = true;
                             enemy_arrow[j].x = classic_enemies[i].x + 50;
                             enemy_arrow[j].y = classic_enemies[i].y + 80;
-			    Mix_PlayChannel( -1, enemy_shot, 0 );
+			    if (*volume == true) {			    
+				Mix_PlayChannel( -1, enemy_shot, 0 );
+			    }
                             break;
                         }
                     }
@@ -160,7 +162,9 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                                     enemy_arrow[j].x = classic_enemies[i].x + 20;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = -2;
-				    Mix_PlayChannel( -1, enemy_shot, 0 );
+				    if (*volume == true) {
+				    	Mix_PlayChannel( -1, enemy_shot, 0 );
+				    }
                                     break;
                                 }
                             }
@@ -175,9 +179,11 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                                     enemy_arrow[j].x = classic_enemies[i].x + 80;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = 2;
-                                     enemy_arrow[j].x_velocity = 2;
-			  	    Mix_PlayChannel( -1, enemy_shot, 0 );
-                                    break;
+                                    enemy_arrow[j].x_velocity = 2;
+				    if (*volume == true) {			  	    
+					Mix_PlayChannel( -1, enemy_shot, 0 );
+                                    }
+				    break;
                                 }
                             }
                         }
@@ -190,9 +196,11 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                                     enemy_arrow[j].ingame = true;
                                     enemy_arrow[j].x = classic_enemies[i].x + 50;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
-                                     enemy_arrow[j].x_velocity = 2;
-                                     enemy_arrow[j].x_velocity = 0;
-				    Mix_PlayChannel( -1, enemy_shot, 0 );
+                                    enemy_arrow[j].x_velocity = 2;
+                                    enemy_arrow[j].x_velocity = 0;
+				    if (*volume == true) {				    
+					Mix_PlayChannel( -1, enemy_shot, 0 );
+				    }
                                     break;
                                 }
                             }
@@ -261,11 +269,13 @@ void boss_x_change(int screenwidth , int boss_size)
 }
 
 
-void enemy_boss_shooting(Mix_Chunk *boss_shot)
+void enemy_boss_shooting(Mix_Chunk *boss_shot, bool *volume)
 {
             if(boss[0].shoot_delay == 0)
             {
-		Mix_PlayChannel( -1, boss_shot, 0 );
+	        if (*volume == true) {
+		    Mix_PlayChannel( -1, boss_shot, 0 );
+		}
                 boss[0].shoot_delay = (rand() % 70) + 60;
                 for(int i = 0 ; i < 5 ; i++)
                 {
