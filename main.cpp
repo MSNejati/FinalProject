@@ -287,7 +287,7 @@ int main(int argc, char *args[]) {
             }
             else if(catch_power_ups(&laser_count) == 1)
             {
-                our_spaceship_bullet += 10;
+                our_spaceship_bullet += 50;
                 extra_bullet[0].ingame = false;
             }
             if(laser_count > 0)
@@ -319,7 +319,7 @@ int main(int argc, char *args[]) {
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-		    if (volume == true) {	    
+		    if (volume == true) {
 			Mix_PlayChannel( -1, our_shot, 0 );
 		    }
                     arrow_delay = 1;
@@ -510,6 +510,10 @@ int main(int argc, char *args[]) {
     			    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
     			    score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
    			    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+   			    for(int i = 0 ; i < 1000 ; i++)
+                {
+                    arrow[i].ingame = false;
+                }
    			    for(int i = 0; i < 80 ;i++)
    			    {
                          	 star[i].yv = 2;
@@ -519,7 +523,7 @@ int main(int argc, char *args[]) {
                            	classic_enemies[i].ingame = false ;
                			classic_enemies[i].yv = 3;
                  		classic_enemies[i].xv = 0;
-			    }	
+			    }
 			    for(int i = 0 ; i < 1000 ; i++)
 			    {
                 		enemy_arrow[i].ingame = false;
@@ -530,7 +534,7 @@ int main(int argc, char *args[]) {
                 		boss_arrow[i].y_velocity = 6;
 			    }
 
-    			    for (int i = 0; i < 5; i++) 
+    			    for (int i = 0; i < 5; i++)
 			    {
         			our[i].ingame = true; //make our spaceship sensor in game
    			    }
@@ -543,7 +547,7 @@ int main(int argc, char *args[]) {
     			    last_menu_pointer_y = 775;
 
 		        }
-		
+
 			if (middle_menu_pointer_y == 900) {
 		    	    TTF_CloseFont(menu_font);
                     	    TTF_CloseFont(toolbar_font);
@@ -693,6 +697,10 @@ int main(int argc, char *args[]) {
     			bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
     			score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
    			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+   			for(int i = 0 ; i < 1000 ; i++)
+   			{
+                arrow[i].ingame = false;
+   			}
    			for(int i = 0; i < 80 ;i++)
    			{
                			star[i].yv = 2;
@@ -712,7 +720,7 @@ int main(int argc, char *args[]) {
                 		boss_arrow[i].x_velocity = 0;
                 		boss_arrow[i].y_velocity = 6;
 			}
-    			for (int i = 0; i < 5; i++) 
+    			for (int i = 0; i < 5; i++)
 			{
         			our[i].ingame = true; //make our spaceship sensor in game
    			}
