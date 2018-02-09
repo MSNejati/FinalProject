@@ -151,15 +151,15 @@ void special_ammu_effect(SDL_Surface * screen ,int our_spaceship_x ,int our_spac
 
 
 
-void special_ammu_notice(SDL_Surface * screen)
+void special_ammu_notice(SDL_Surface * screen ,TTF_Font * SAN_font )
 {
     stringstream S_A_notice;
     SDL_Surface * special_ammu_noticed;
-    TTF_Font * SAN_font = TTF_OpenFont("laser.ttf",20);
+
     S_A_notice << "LASER ACTIVATED";
     SDL_Color SAN_font_color = {255,255,255};
-    //special_ammu_noticed = TTF_RenderText_Solid(SAN_font ,S_A_notice.str().c_str() ,SAN_font_color);
-   // apply_surface(20 ,80 ,special_ammu_noticed ,screen);
+    special_ammu_noticed = TTF_RenderText_Solid(SAN_font ,S_A_notice.str().c_str() ,SAN_font_color);
+    apply_surface(20 ,80 ,special_ammu_noticed ,screen);
     S_A_notice.str("");
     filledCircleRGBA(screen ,20 ,190 ,10 ,255 ,0 ,0, 255);
 }
