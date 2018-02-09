@@ -607,6 +607,8 @@ int main(int argc, char *args[]) {
 			{
                 enemy_arrow[i].ingame = false;
                 enemy_arrow[i].x_velocity = 0;
+                boss_arrow[i].ingame = false;
+                boss_arrow[i].x_velocity = 0;
 			}
 
     			for (int i = 0; i < 5; i++) {

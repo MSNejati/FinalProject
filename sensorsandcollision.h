@@ -157,6 +157,7 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                         {
                             classic_enemies[i].ingame = false;
                              classic_enemies[i].explosion_counter++;
+                             Mix_PlayChannel( -1, explosion_sound, 0 );
                             return 1;
                         }
                     }
@@ -170,6 +171,7 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                 if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
                 {
                     enemy_arrow[k].ingame = false;
+                    Mix_PlayChannel( -1, explosion_sound, 0 );
                     return 1;
                 }
             }

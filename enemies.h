@@ -29,7 +29,7 @@ struct enemy_shot {
 	int x_velocity = 0;
 	float y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
-}enemy_arrow[1000] ,boss_arrow[10000];
+}enemy_arrow[1000] ,boss_arrow[1000];
 
 
 
@@ -264,7 +264,7 @@ void enemy_boss_shooting(Mix_Chunk *boss_shot)
                 boss[0].shoot_delay = (rand() % 70) + 60;
                 for(int i = 0 ; i < 5 ; i++)
                 {
-                    for(int j = 0 ; j < 10000 ; j++)
+                    for(int j = 0 ; j < 1000 ; j++)
                     {
                         if(boss_arrow[j].ingame == false)
                         {
@@ -313,7 +313,7 @@ void enemy_boss_shooting(Mix_Chunk *boss_shot)
 
 void move_enemy_boss_arrow (SDL_Surface *screen ,int screenheight)
 {
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 1000; i++) {
 		if (boss_arrow[i].y >= 0 && boss_arrow[i].ingame == true)
 		 {
 			boss_arrow[i].y += boss_arrow[i].y_velocity;
