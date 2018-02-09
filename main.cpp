@@ -78,6 +78,7 @@ int main(int argc, char *args[]) {
     SDL_Surface *score_image = load_image("score.png");
     TTF_Init();
     TTF_Font *toolbar_font;
+    TTF_Font * SAN_font = TTF_OpenFont("laser.ttf",20);
     toolbar_font = TTF_OpenFont("toolbar.ttf", 32);
     SDL_Color textcolor = {255, 255, 255};
     SDL_Surface *heart_value;
@@ -284,7 +285,7 @@ int main(int argc, char *args[]) {
             }
             if(special_ammu[0].activated)
             {
-                special_ammu_notice(screen);
+                special_ammu_notice(screen ,SAN_font);
                 if(keystates[SDLK_n])
                 {
                     special_ammu_effect(screen ,our_spaceshipx ,our_spaceshipy ,boss_fight);
