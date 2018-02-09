@@ -60,6 +60,7 @@ int main(int argc, char *args[]) {
     bool boss_fight = false;
     bool first_menu = true;
     bool last_menu = false;
+    bool middle_menu = false;
     bool game_over =false;
     string enemy_type = "enemyspaceship.png";
 
@@ -123,6 +124,19 @@ int main(int argc, char *args[]) {
     bool bool_first_menu_highscore = false;
     int volume_delay = 0;
     Mix_PlayMusic( first_menu_music, -1 );
+
+    SDL_Surface *paused_message;
+    TTF_Font *paused_font;
+    paused_font = TTF_OpenFont("menu.ttf", 80);
+    paused_message = TTF_RenderText_Solid(paused_font, "PAUSED", menu_color);
+    SDL_Surface *middle_menu_exit;
+    middle_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
+    SDL_Surface *middle_menu_restart;
+    middle_menu_restart = TTF_RenderText_Solid(menu_font, "RESTART", menu_color);
+    SDL_Surface *resume;
+    resume = TTF_RenderText_Solid(menu_font, "RESUME", menu_color);
+    int middle_menu_pointer_x = 340;
+    int middle_menu_pointer_y = 650;
 
     int gameover_y = -400;
     SDL_Surface* last_menu_score;
@@ -236,7 +250,7 @@ int main(int argc, char *args[]) {
 	    }
         }
 
-        if (first_menu == false && last_menu == false) {
+        if (first_menu == false && last_menu == false && middle_menu == false) {
 
 	    Mix_HaltMusic();
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 0, 0, 50, 250);
@@ -354,7 +368,7 @@ int main(int argc, char *args[]) {
                 }
             }
 
-           if(keystates[SDLK_UP])
+            if(keystates[SDLK_UP])
             {
                 speed_change(1 ,&max_enemies_enter_delay);
             }
@@ -413,9 +427,65 @@ int main(int argc, char *args[]) {
                 boss_first_initialize(screenwidth, boss_size ,level);
                 boss_fight = true;
             }
+	
+	    if (keystates[SDLK_ESCAPE]) {
+		middle_menu = true;
+	    }
 
             frame++;
         }
+
+	if (middle_menu == true) {
+	 	
+		boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 200);
+        	apply_surface(340, 150, paused_message, screen);	 	
+		boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
+		boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 0, 175, 255, 200);
+		boxRGBA(screen, 350, screenheight - 400, 650, screenheight - 300, 0, 175, 255, 200);
+		apply_surface(430, screenheight - 373, resume, screen);
+		apply_surface(425, screenheight - 248, middle_menu_restart, screen);
+		apply_surface(460, screenheight - 123, middle_menu_exit, screen);
+		middle_menu_move_pointer(&middle_menu_pointer_y);
+       	       	filledCircleRGBA(screen, middle_menu_pointer_x, middle_menu_pointer_y, 5, 0, 254, 0, 200);
+
+
+		if (keystates[SDLK_RCTRL]) {
+			if (middle_menu_pointer_y == 650) {
+		    	    middle_menu = false;
+			    SDL_Delay(1000);
+			}
+			if (middle_menu_pointer_y == 775) {
+			    //restart
+			}
+			if (middle_menu_pointer_y == 900) {
+		    	    TTF_CloseFont(menu_font);
+                    	    TTF_CloseFont(toolbar_font);
+                            SDL_FreeSurface(screen);
+                    	    SDL_FreeSurface(our_spaceship);
+                    	    SDL_FreeSurface(heart_image);
+                    	    SDL_FreeSurface(gun_bullet_image);
+                    	    SDL_FreeSurface(highscore_image);
+                    	    SDL_FreeSurface(score_image);
+		    	    SDL_FreeSurface(heart_value);
+		    	    SDL_FreeSurface(bullet_value);
+		     	    SDL_FreeSurface(highscore_value);
+		    	    SDL_FreeSurface(start);
+		    	    SDL_FreeSurface(first_menu_exit);
+		    	    SDL_FreeSurface(game_name);
+		    	    SDL_FreeSurface(first_menu_highscore);
+		    	    SDL_FreeSurface(meteorite);
+		    	    SDL_FreeSurface(volume_on);
+		    	    SDL_FreeSurface(volume_off);
+		    	    SDL_FreeSurface(last_menu_score);
+		     	    SDL_FreeSurface(restart);
+		    	    SDL_FreeSurface(gameover);
+		    	    SDL_FreeSurface(last_menu_exit);
+		    	    TTF_Quit();
+               	    	    SDL_Quit();
+		    	    return 0;
+			}
+		}
+	}
 
         if (last_menu == true) {
 
@@ -494,6 +564,7 @@ int main(int argc, char *args[]) {
                     SDL_Quit();
 		    return 0;
 		}
+	
 		if (last_menu_pointer_y == 775) {
 			arrow_number = 0; // arrow's number that after pressing the space key throw
     			our_spaceship_heart = 3; // the spaceship's heart in the beginning
@@ -527,6 +598,7 @@ int main(int argc, char *args[]) {
    			}
     			first_menu = false;
     			last_menu = false;
+			middle_menu = false;
     			game_over = false;
 			gameover_y = -400;
      			last_menu_pointer_x = 340;

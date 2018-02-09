@@ -46,3 +46,22 @@ void last_menu_move_pointer(int* pointer_x, int* pointer_y) {
 		}
 	}
 }
+
+void middle_menu_move_pointer(int* pointer_y) {
+	
+	Uint8* keystates4 = SDL_GetKeyState(NULL);
+        SDL_Event middle_menu_pointer_move;
+	if (SDL_PollEvent(&middle_menu_pointer_move)) {
+		if (keystates4[SDLK_DOWN]) {
+			if (*pointer_y != 900) {			
+				*pointer_y += 125;
+			}		
+		}
+		if (keystates4[SDLK_UP]) {
+			if (*pointer_y != 650) {
+				*pointer_y -= 125;
+			}		
+		}
+	}
+}
+
