@@ -17,6 +17,7 @@ using namespace std;
 
 int main(int argc, char *args[]) {
 
+    srand(time(0));
     Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
     Mix_Chunk *our_shot = NULL;
     our_shot = Mix_LoadWAV("our_shoting_sound.wav");
@@ -31,6 +32,8 @@ int main(int argc, char *args[]) {
     gameover_sound = Mix_LoadWAV("gameover_sound.wav");
     Mix_Chunk *explosion_sound = NULL;
     explosion_sound = Mix_LoadWAV("explosion.wav");
+
+
 
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
@@ -56,6 +59,7 @@ int main(int argc, char *args[]) {
     int power_up_type = rand() % 3;
     int laser_count = 0;
     int laser_delay_counter = 10;
+    int red_meteorite_counter = (rand() % 300) + 500;
     float stars_speed = 2;
     float our_spaceship_right_v = 0;
     float our_spaceship_left_v = 0;
@@ -67,7 +71,7 @@ int main(int argc, char *args[]) {
 
     string enemy_type = "enemyspaceship.png";
 
-    srand(time(0));
+
     enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -301,6 +305,17 @@ int main(int argc, char *args[]) {
             our_spaceship_v_initialize(&our_spaceship_right_v, &our_spaceship_left_v);
 
             power_up_move_and_show(screen);
+
+            //=====================red meteorite=====================================
+
+            red_meteorite_counter--;
+            if(red_meteorite_counter == 0)
+            {
+                red_meteorite_counter = (rand() % 300) + 500;
+
+            }
+
+            //=======================================================================
 
             our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth, screenheight);
             if(game_over == false)
