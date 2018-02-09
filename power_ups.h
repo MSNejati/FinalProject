@@ -5,6 +5,7 @@
 #include <SDL/SDL_ttf.h>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include "speedandlevel.h"
 #include "sstream"
 
@@ -44,7 +45,7 @@ void power_up_move_and_show(SDL_Surface * screen)
         extra_heart[0].y += extra_heart[0].yv;
         filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad ,0 ,255 ,0 ,255);
         filledCircleRGBA(screen ,extra_heart[0].x ,extra_heart[0].y ,extra_heart[0].rad - 5,0 ,0 ,50 ,255);
-	apply_surface(extra_heart[0].x - 36 ,extra_heart[0].y - 32, powerup_heart, screen);
+	apply_surface(extra_heart[0].x - 37 ,extra_heart[0].y - 32, powerup_heart, screen);
     }
     if(extra_bullet[0].ingame)
     {
@@ -69,7 +70,7 @@ int catch_power_ups(int * laser_count)
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < extra_heart[0].x && our[i].x2 > extra_heart[0].x && our[i].y1 - extra_heart[0].y < extra_heart[0].rad + 5&&  extra_heart[0].y - our[i].y2 < extra_heart[0].rad + 5)
+            if(pow(our[i].x1 - extra_heart[0].x ,2) + pow(our[i].y1 - extra_heart[0].y ,2) <= pow(extra_heart[0].rad ,2) || pow(our[i].x2 - extra_heart[0].x ,2) + pow(our[i].y1 - extra_heart[0].y ,2) <= pow(extra_heart[0].rad ,2) || pow(our[i].x1 - extra_heart[0].x ,2) + pow(our[i].y2 - extra_heart[0].y ,2) <= pow(extra_heart[0].rad ,2) || pow(our[i].x2 - extra_heart[0].x ,2) + pow(our[i].y2 - extra_heart[0].y ,2) <= pow(extra_heart[0].rad ,2))
             {
                 return 0;
             }
@@ -83,11 +84,7 @@ int catch_power_ups(int * laser_count)
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < extra_bullet[0].x && our[i].x2 > extra_bullet[0].x && our[i].y1 - extra_bullet[0].y < extra_bullet[0].rad + 5 &&  extra_bullet[0].y - our[i].y2 < extra_bullet[0].rad + 5)
-            {
-                return 1;
-            }
-            if( our[i].y1 < extra_bullet[0].y && our[i].y2 > extra_bullet[0].y && our[i].x1 - extra_bullet[0].x < extra_bullet[0].rad + 5 &&  extra_bullet[0].x - our[i].x2 < extra_bullet[0].rad + 5)
+            if(pow(our[i].x1 - extra_bullet[0].x ,2) + pow(our[i].y1 -extra_bullet[0].y ,2) <= pow(extra_bullet[0].rad ,2) || pow(our[i].x2 - extra_bullet[0].x ,2) + pow(our[i].y1 -extra_bullet[0].y ,2) <= pow(extra_bullet[0].rad ,2) || pow(our[i].x1 - extra_bullet[0].x ,2) + pow(our[i].y2 -extra_bullet[0].y ,2) <= pow(extra_bullet[0].rad ,2) || pow(our[i].x2 - extra_bullet[0].x ,2) + pow(our[i].y2 -extra_bullet[0].y ,2) <= pow(extra_bullet[0].rad ,2))
             {
                 return 1;
             }
@@ -97,15 +94,14 @@ int catch_power_ups(int * laser_count)
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < special_ammu[0].x && our[i].x2 > special_ammu[0].x && our[i].y1 - special_ammu[0].y < special_ammu[0].rad + 5 &&  special_ammu[0].y - our[i].y2 < special_ammu[0].rad + 5)
+            if(pow(our[i].x1 - special_ammu[0].x ,2) + pow(our[i].y1 - special_ammu[0].y ,2) <= pow(special_ammu[0].rad ,2) || pow(our[i].x2 - special_ammu[0].x ,2) + pow(our[i].y1 - special_ammu[0].y ,2) <= pow(special_ammu[0].rad ,2) || pow(our[i].x1 - special_ammu[0].x ,2) + pow(our[i].y2 - special_ammu[0].y ,2) <= pow(special_ammu[0].rad ,2) || pow(our[i].x2 - special_ammu[0].x ,2) + pow(our[i].y2 - special_ammu[0].y ,2) <= pow(special_ammu[0].rad ,2))
             {
-                *laser_count += 1;
-                special_ammu[0].ingame = false;
-            }
-            if( our[i].y1 < special_ammu[0].y && our[i].y2 > special_ammu[0].y && our[i].x1 - special_ammu[0].x < special_ammu[0].rad + 5 &&  special_ammu[0].x - our[i].x2 < special_ammu[0].rad + 5)
-            {
-                *laser_count += 1;
-                special_ammu[0].ingame = false;
+                if(*laser_count < 5)
+                {
+                    *laser_count += 1;
+                    special_ammu[0].ingame = false;
+                }
+                break;
             }
         }
     }
@@ -120,16 +116,12 @@ void special_ammu_effect(SDL_Surface * screen ,int our_spaceship_x ,int our_spac
         if(classic_enemies[i].ingame)
         {
             lineRGBA(screen ,our_spaceship_x + 50,our_spaceship_y ,classic_enemies[i].x + 50 ,classic_enemies[i].y + 50 ,255 ,255 ,255 ,255);
-            classic_enemies[i].hitpoint--;
-            if(classic_enemies[i].hitpoint == 0)
+            for(int p = 0 ; p < 5 ; p++)
             {
-                for(int p = 0 ; p < 5 ; p++)
-                {
-                    enemies[i][p].ingame = false;
-                }
-                classic_enemies[i].ingame = false;
-                classic_enemies[i].explosion_counter++;
+                enemies[i][p].ingame = false;
             }
+            classic_enemies[i].ingame = false;
+            classic_enemies[i].explosion_counter++;
         }
     }
     if(boss_fight)

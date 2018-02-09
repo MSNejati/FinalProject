@@ -87,11 +87,11 @@ void enemy_spaceships_move(int screenheight ,int our_spaceshipx, int * heart)
                 classic_enemies[j].ingame = false;
 		*heart -= 1;
             }
-            if(classic_enemies[j].x < our_spaceshipx)
+            if(classic_enemies[j].x < our_spaceshipx && classic_enemies[j].y > 100)
             {
                 classic_enemies[j].xv = 1;
             }
-            if(classic_enemies[j].x > our_spaceshipx)
+            if(classic_enemies[j].x > our_spaceshipx && classic_enemies[j].y > 100)
             {
                 classic_enemies[j].xv = -1;
             }
@@ -99,6 +99,11 @@ void enemy_spaceships_move(int screenheight ,int our_spaceshipx, int * heart)
             {
                 classic_enemies[j].xv = 0;
             }
+            if(classic_enemies[j].y < 100)
+            {
+                classic_enemies[j].xv = 0;
+            }
+
             classic_enemies[j].x += classic_enemies[j].xv;
        }
     }

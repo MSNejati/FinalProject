@@ -53,7 +53,7 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 enemy_arrow[i].y_velocity += 0.5;
             }
         }
-       * max_enemy_enter_delay -= 3;
+       *max_enemy_enter_delay -= 3;
 
     }
     if(comm == -1)
@@ -123,14 +123,15 @@ void show_level_num(int level ,int show_level_frame ,SDL_Surface * screen ,float
 
 void level_difficulity(int level ,int * max_enemies_count ,int * max_enemies_enter_delay ,string * enemy_type)
 {
-    if(level <= 1)
+    if(level <= 2)
     {
         *(max_enemies_count) = level;
-        *(max_enemies_enter_delay) -= level*20;
+        *(max_enemies_enter_delay) -= level*5;
     }
     else
     {
         *(enemy_type) = "enemyspaceship2.png";
+         *(max_enemies_enter_delay) -= level*5;
 
     }
 }

@@ -601,26 +601,37 @@ int main(int argc, char *args[]) {
     			stars_speed = 2;
     			our_spaceship_right_v = 0;
     			our_spaceship_left_v = 0;
-    			special_ammu[0].activated = false;
+    			laser_count = 0;
     			special_ammu[0].ingame = false;
     			extra_heart[0].ingame = false;
     			extra_bullet[0].ingame = false;
+    			special_ammu[0].yv = 2;
+    			extra_heart[0].yv = 2;
+    			extra_bullet[0].yv = 2;
     			boss_fight = false;
 			enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
 			heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
     			bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
     			score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
    			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+   			for(int i = 0; i < 80 ;i++)
+   			{
+                star[i].yv = 2;
+   			}
 			for( int i = 0 ; i < 15 ; i++)
 			{
                 classic_enemies[i].ingame = false ;
+                classic_enemies[i].yv = 3;
+                 classic_enemies[i].xv = 0;
 			}
 			for(int i = 0 ; i < 1000 ; i++)
 			{
                 enemy_arrow[i].ingame = false;
                 enemy_arrow[i].x_velocity = 0;
+                enemy_arrow[i].y_velocity = 6;
                 boss_arrow[i].ingame = false;
                 boss_arrow[i].x_velocity = 0;
+                boss_arrow[i].y_velocity = 6;
 			}
 
     			for (int i = 0; i < 5; i++) {
