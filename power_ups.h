@@ -79,11 +79,11 @@ int catch_power_ups()
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < extra_heart[0].x && our[i].x2 > extra_heart[0].x && our[i].y1 - extra_heart[0].y < extra_heart[0].rad &&  extra_heart[0].y - our[i].y2 < extra_heart[0].rad)
+            if(our[i].x1 < extra_heart[0].x && our[i].x2 > extra_heart[0].x && our[i].y1 - extra_heart[0].y < extra_heart[0].rad + 5&&  extra_heart[0].y - our[i].y2 < extra_heart[0].rad + 5)
             {
                 return 0;
             }
-            if( our[i].y1 < extra_heart[0].y && our[i].y2 > extra_heart[0].y && our[i].x1 - extra_heart[0].x < extra_heart[0].rad &&  extra_heart[0].x - our[i].x2 < extra_heart[0].rad)
+            if( our[i].y1 < extra_heart[0].y && our[i].y2 > extra_heart[0].y && our[i].x1 - extra_heart[0].x < extra_heart[0].rad + 5 &&  extra_heart[0].x - our[i].x2 < extra_heart[0].rad + 5)
             {
                 return 0;
             }
@@ -93,11 +93,11 @@ int catch_power_ups()
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < extra_bullet[0].x && our[i].x2 > extra_bullet[0].x && our[i].y1 - extra_bullet[0].y < extra_bullet[0].rad &&  extra_bullet[0].y - our[i].y2 < extra_bullet[0].rad)
+            if(our[i].x1 < extra_bullet[0].x && our[i].x2 > extra_bullet[0].x && our[i].y1 - extra_bullet[0].y < extra_bullet[0].rad + 5 &&  extra_bullet[0].y - our[i].y2 < extra_bullet[0].rad + 5)
             {
                 return 1;
             }
-            if( our[i].y1 < extra_bullet[0].y && our[i].y2 > extra_bullet[0].y && our[i].x1 - extra_bullet[0].x < extra_bullet[0].rad &&  extra_bullet[0].x - our[i].x2 < extra_bullet[0].rad)
+            if( our[i].y1 < extra_bullet[0].y && our[i].y2 > extra_bullet[0].y && our[i].x1 - extra_bullet[0].x < extra_bullet[0].rad + 5 &&  extra_bullet[0].x - our[i].x2 < extra_bullet[0].rad + 5)
             {
                 return 1;
             }
@@ -107,12 +107,12 @@ int catch_power_ups()
     {
         for(int i = 0 ; i < 5 ; i++)
         {
-            if(our[i].x1 < special_ammu[0].x && our[i].x2 > special_ammu[0].x && our[i].y1 - special_ammu[0].y < special_ammu[0].rad &&  special_ammu[0].y - our[i].y2 < special_ammu[0].rad)
+            if(our[i].x1 < special_ammu[0].x && our[i].x2 > special_ammu[0].x && our[i].y1 - special_ammu[0].y < special_ammu[0].rad + 5 &&  special_ammu[0].y - our[i].y2 < special_ammu[0].rad + 5)
             {
                 special_ammu[0].activated = true;
                 special_ammu[0].ingame = false;
             }
-            if( our[i].y1 < special_ammu[0].y && our[i].y2 > special_ammu[0].y && our[i].x1 - special_ammu[0].x < special_ammu[0].rad &&  special_ammu[0].x - our[i].x2 < special_ammu[0].rad)
+            if( our[i].y1 < special_ammu[0].y && our[i].y2 > special_ammu[0].y && our[i].x1 - special_ammu[0].x < special_ammu[0].rad + 5 &&  special_ammu[0].x - our[i].x2 < special_ammu[0].rad + 5)
             {
                 special_ammu[0].activated = true;
                 special_ammu[0].ingame = false;
@@ -154,12 +154,14 @@ void special_ammu_effect(SDL_Surface * screen ,int our_spaceship_x ,int our_spac
 void special_ammu_notice(SDL_Surface * screen)
 {
     stringstream S_A_notice;
-    SDL_Surface * special_ammu_notice;
-    TTF_Font * SAN_font = TTF_OpenFont("level_title.ttf",20);
+    SDL_Surface * special_ammu_noticed;
+    TTF_Font * SAN_font = TTF_OpenFont("laser.ttf",20);
     S_A_notice << "LASER ACTIVATED";
     SDL_Color SAN_font_color = {255,255,255};
-    special_ammu_notice = TTF_RenderText_Solid(SAN_font ,S_A_notice.str().c_str() ,SAN_font_color);
-    apply_surface(20 ,80 ,special_ammu_notice ,screen);
+    //special_ammu_noticed = TTF_RenderText_Solid(SAN_font ,S_A_notice.str().c_str() ,SAN_font_color);
+   // apply_surface(20 ,80 ,special_ammu_noticed ,screen);
+    S_A_notice.str("");
+    filledCircleRGBA(screen ,20 ,190 ,10 ,255 ,0 ,0, 255);
 }
 
 

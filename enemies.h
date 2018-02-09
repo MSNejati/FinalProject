@@ -170,6 +170,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                                     enemy_arrow[j].x = classic_enemies[i].x + 80;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = 2;
+                                     enemy_arrow[j].x_velocity = 2;
 			  	    Mix_PlayChannel( -1, enemy_shot, 0 );
                                     break;
                                 }
@@ -184,6 +185,8 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                                     enemy_arrow[j].ingame = true;
                                     enemy_arrow[j].x = classic_enemies[i].x + 50;
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
+                                     enemy_arrow[j].x_velocity = 2;
+                                     enemy_arrow[j].x_velocity = 0;
 				    Mix_PlayChannel( -1, enemy_shot, 0 );
                                     break;
                                 }

@@ -81,12 +81,14 @@ void show_level_num(int level ,int show_level_frame ,SDL_Surface * screen ,float
         SDL_Color level_title_font_color={255,255,255};
         level_title = TTF_RenderText_Solid(level_title_font ,level_title_text.str().c_str() ,level_title_font_color);
         apply_surface(300 + (dist_from_center - 10*show_level_frame )/ counter,150 ,level_title ,screen);
+        level_title_text.str("");
     }
     else
     {
         SDL_Color level_title_font_color={255,255,255};
         level_title = TTF_RenderText_Solid(level_title_font ,level_title_text.str().c_str() ,level_title_font_color);
         apply_surface(300 ,150 ,level_title ,screen);
+        level_title_text.str("");
     }
 }
 
