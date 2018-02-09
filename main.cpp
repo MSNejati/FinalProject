@@ -351,7 +351,7 @@ int main(int argc, char *args[]) {
                     boss_x_change(screenwidth, boss_size);
                     enemy_boss_shooting(boss_shot, &volume);
 
-                    if (collision( boss_fight, explosion_sound) == 1) {
+                    if (collision( boss_fight, explosion_sound, &volume) == 1) {
                         our_spaceship_heart--;
                     }
                     show_boss_health_bar(screen);
@@ -409,7 +409,7 @@ int main(int argc, char *args[]) {
             apply_surface(590, 15, highscore_value, screen);
             sensors_position(screen, our_spaceshipx, our_spaceshipy ,enemy_type);
 
-            if (collision( boss_fight, explosion_sound) == 1) {
+            if (collision( boss_fight, explosion_sound, &volume) == 1) {
                 our_spaceship_heart--;
             }
 

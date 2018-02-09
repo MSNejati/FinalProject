@@ -123,7 +123,7 @@ void sensors_position(SDL_Surface * screen ,int our_spaceshipx ,int our_spaceshi
 }
 
 
-int collision(bool boss_fight, Mix_Chunk *explosion_sound)
+int collision(bool boss_fight, Mix_Chunk *explosion_sound, bool *volume)
 {
         for(int i = 0 ; i < 15 ; i++)
         {
@@ -144,7 +144,9 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                                     enemies[i][p].ingame = false;
                                 }
                                 classic_enemies[i].ingame = false;
-				Mix_PlayChannel( -1, explosion_sound, 0 );
+				if (*volume == true) {
+				    Mix_PlayChannel( -1, explosion_sound, 0 );
+				}
                                 classic_enemies[i].explosion_counter++;
 
                                 break;
@@ -156,8 +158,10 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                         if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
                         {
                             classic_enemies[i].ingame = false;
-                             classic_enemies[i].explosion_counter++;
-                             Mix_PlayChannel( -1, explosion_sound, 0 );
+                            classic_enemies[i].explosion_counter++;
+			    if (*volume == true) {                            
+				Mix_PlayChannel( -1, explosion_sound, 0 );
+			    }
                             return 1;
                         }
                     }
@@ -171,8 +175,10 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                 if(enemy_arrow[k].ingame && enemy_arrow[k].y > our[j].y1 && enemy_arrow[k].y < our[j].y2 && enemy_arrow[k].x > our[j].x1 && enemy_arrow[k].x < our[j].x2)
                 {
                     enemy_arrow[k].ingame = false;
-                    Mix_PlayChannel( -1, explosion_sound, 0 );
-                    return 1;
+		    if (volume == true) {
+                    	Mix_PlayChannel( -1, explosion_sound, 0 );
+                    }
+		    return 1;
                 }
             }
         }
