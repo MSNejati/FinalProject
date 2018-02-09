@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
-#include "speedandlevel.h"
+#include "speedandlevel_and_powerup_declare.h"
 #include "sstream"
 
 using namespace std;
