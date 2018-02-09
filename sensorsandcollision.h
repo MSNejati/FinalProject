@@ -156,6 +156,7 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                         if(((enemies[i][j].x1 < our[k].x2 && enemies[i][j].x1 > our[k].x1) || (enemies[i][j].x2 < our[k].x2 && enemies[i][j].x2 > our[k].x1)) && ((enemies[i][j].y1 < our[k].y2 && enemies[i][j].y1 > our[k].y1) || (enemies[i][j].y2 < our[k].y2 && enemies[i][j].y2 > our[k].y1)))
                         {
                             classic_enemies[i].ingame = false;
+                             classic_enemies[i].explosion_counter++;
                             return 1;
                         }
                     }

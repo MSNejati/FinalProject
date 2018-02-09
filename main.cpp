@@ -34,7 +34,7 @@ int main(int argc, char *args[]) {
 
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
-    int our_spaceship_heart = 20; // the spaceship's heart in the beginning
+    int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 1000; // the spaceship's bullet in the beginning
     int score = 0;
     int level = 1;
@@ -579,14 +579,20 @@ int main(int argc, char *args[]) {
     			our_explo_frame = 2;
     			boss_explo_frame = 0;
     			boss_size = 200;
+
     			max_enemies_count = 1;
     			max_enemies_enter_delay = 300;
     			show_level_frame = 1;
     			power_up_drop_timer = (rand() % 300) + 500;
     			power_up_type = rand() % 3;
+                enemy_type = "enemyspaceship.png";
     			stars_speed = 2;
     			our_spaceship_right_v = 0;
     			our_spaceship_left_v = 0;
+    			special_ammu[0].activated = false;
+    			special_ammu[0].ingame = false;
+    			extra_heart[0].ingame = false;
+    			extra_bullet[0].ingame = false;
     			boss_fight = false;
 			enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
 			heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
@@ -595,7 +601,14 @@ int main(int argc, char *args[]) {
    			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
 			for( int i = 0 ; i < 15 ; i++)
 			{
-				
+                classic_enemies[i].ingame = false ;
+			}
+			for(int i = 0 ; i < 1000 ; i++)
+			{
+                enemy_arrow[i].ingame = false;
+                enemy_arrow[i].x_velocity = 0;
+			}
+
     			for (int i = 0; i < 5; i++) {
         			our[i].ingame = true; //make our spaceship sensor in game
    			}
