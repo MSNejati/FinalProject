@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct power_up
+struct power_up_and_meteorite
 {
     int x=0;
     int y=0;
@@ -16,7 +16,7 @@ struct power_up
     int rad =50;
     bool ingame = false;
     bool activated = false;
-}extra_heart[1] ,extra_bullet[1] ,special_ammu[1];
+}extra_heart[1] ,extra_bullet[1] ,special_ammu[1] ,red_meteorite[1];
 
 
 void speed_change(int comm ,int * max_enemy_enter_delay)
@@ -37,6 +37,8 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 extra_heart[0].yv += 0.5;
                 extra_bullet[0].yv += 0.5;
                 special_ammu[0].yv += 0.5;
+                red_meteorite[0].yv += 0.5;
+
 
             }
         for(int i = 0 ; i < 15 ; i++)
@@ -71,6 +73,8 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 extra_heart[0].yv -= 0.5;
                 extra_bullet[0].yv -= 0.5;
                 special_ammu[0].yv -= 0.5;
+                red_meteorite[0].yv -= 0.5;
+
 
             }
         for(int i = 0 ; i < 15 ; i++)
