@@ -10,16 +10,6 @@
 
 using namespace std;
 
-struct power_up
-{
-    int x=0;
-    int y=0;
-    int xv;
-    float yv = 2;
-    int rad =50;
-    bool ingame = false;
-    bool activated = false;
-}extra_heart[1] ,extra_bullet[1] ,special_ammu[1];
 
 void power_up_drop(int power_up_type)
 {

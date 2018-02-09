@@ -428,7 +428,7 @@ int main(int argc, char *args[]) {
                 boss_first_initialize(screenwidth, boss_size ,level);
                 boss_fight = true;
             }
-	
+
 	    if (keystates[SDLK_ESCAPE]) {
 		middle_menu = true;
 	    }
@@ -437,9 +437,9 @@ int main(int argc, char *args[]) {
         }
 
 	if (middle_menu == true) {
-	 	
+
 		boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 200);
-        	apply_surface(340, 150, paused_message, screen);	 	
+        	apply_surface(340, 150, paused_message, screen);
 		boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
 		boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 0, 175, 255, 200);
 		boxRGBA(screen, 350, screenheight - 400, 650, screenheight - 300, 0, 175, 255, 200);
@@ -565,7 +565,7 @@ int main(int argc, char *args[]) {
                     SDL_Quit();
 		    return 0;
 		}
-	
+
 		if (last_menu_pointer_y == 775) {
 			arrow_number = 0; // arrow's number that after pressing the space key throw
     			our_spaceship_heart = 3; // the spaceship's heart in the beginning

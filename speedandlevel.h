@@ -4,7 +4,20 @@
 #include "sstream"
 #include <SDL/SDL_ttf.h>
 
+
 using namespace std;
+
+struct power_up
+{
+    int x=0;
+    int y=0;
+    int xv;
+    float yv = 2;
+    int rad =50;
+    bool ingame = false;
+    bool activated = false;
+}extra_heart[1] ,extra_bullet[1] ,special_ammu[1];
+
 
 void speed_change(int comm ,int * max_enemy_enter_delay)
 {
@@ -15,8 +28,17 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
             if(star[i].yv <= 15)
             {
                 star[i].yv += 0.5;
+
             }
         }
+        if(extra_heart[0].yv <= 15)
+            {
+
+                extra_heart[0].yv += 0.5;
+                extra_bullet[0].yv += 0.5;
+                special_ammu[0].yv += 0.5;
+
+            }
         for(int i = 0 ; i < 15 ; i++)
         {
             if(classic_enemies[i].yv <= 16)
@@ -31,10 +53,8 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 enemy_arrow[i].y_velocity += 0.5;
             }
         }
-       * max_enemy_enter_delay -= 2;
-      /* extra_heart[0].yv += 0.5;
-       extra_bullet[0].yv += 0.5;
-       special_ammu[0].yv += 0.5;*/
+       * max_enemy_enter_delay -= 3;
+
     }
     if(comm == -1)
     {
@@ -45,11 +65,20 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 star[i].yv -= 0.5;
             }
         }
+        if(extra_heart[0].yv > 2)
+            {
+
+                extra_heart[0].yv -= 0.5;
+                extra_bullet[0].yv -= 0.5;
+                special_ammu[0].yv -= 0.5;
+
+            }
         for(int i = 0 ; i < 15 ; i++)
         {
             if(classic_enemies[i].yv > 3)
             {
                 classic_enemies[i].yv -= 0.5;
+
             }
         }
         for(int i = 0 ; i < 100 ; i++)
@@ -59,10 +88,8 @@ void speed_change(int comm ,int * max_enemy_enter_delay)
                 enemy_arrow[i].y_velocity -= 0.5;
             }
         }
-        *max_enemy_enter_delay += 2;
-       /*  extra_heart[0].yv -= 0.5;
-         extra_bullet[0].yv -= 0.5;
-         special_ammu[0].yv -= 0.5;*/
+        *max_enemy_enter_delay += 3;
+
     }
 }
 
