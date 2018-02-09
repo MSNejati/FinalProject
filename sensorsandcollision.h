@@ -136,6 +136,7 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                         if(arrow[k].ingame && arrow[k].y > enemies[i][j].y1 && arrow[k].y < enemies[i][j].y2 && arrow[k].x > enemies[i][j].x1 && arrow[k].x < enemies[i][j].x2)
                         {
                             classic_enemies[i].hitpoint--;
+                            arrow[k].ingame = false;
                             if(classic_enemies[i].hitpoint == 0)
                             {
                                 for(int p = 0 ; p < 5 ; p++)
@@ -145,7 +146,7 @@ int collision(bool boss_fight, Mix_Chunk *explosion_sound)
                                 classic_enemies[i].ingame = false;
 				Mix_PlayChannel( -1, explosion_sound, 0 );
                                 classic_enemies[i].explosion_counter++;
-                                arrow[k].ingame = false;
+
                                 break;
                             }
                         }

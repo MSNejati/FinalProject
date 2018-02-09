@@ -31,11 +31,11 @@ int main(int argc, char *args[]) {
     gameover_sound = Mix_LoadWAV("gameover_sound.wav");
     Mix_Chunk *explosion_sound = NULL;
     explosion_sound = Mix_LoadWAV("explosion.wav");
-    
+
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
-    int our_spaceship_heart = 3; // the spaceship's heart in the beginning
-    int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
+    int our_spaceship_heart = 10; // the spaceship's heart in the beginning
+    int our_spaceship_bullet = 1000; // the spaceship's bullet in the beginning
     int score = 0;
     int level = 1;
     int highscore = score;
@@ -50,7 +50,7 @@ int main(int argc, char *args[]) {
     int boss_explo_frame = 0;
     int boss_size = 200;
     int max_enemies_count = 1;
-    int max_enemies_enter_delay = 100;
+    int max_enemies_enter_delay = 300;
     int show_level_frame = 1;
     int power_up_drop_timer = (rand() % 300) + 500;
     int power_up_type = rand() % 3;
@@ -250,7 +250,7 @@ int main(int argc, char *args[]) {
                 apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
             }
             //===========================power up=======================================
-             power_up_drop_timer--;
+           /*  power_up_drop_timer--;
             if(power_up_drop_timer == 0)
             {
                 power_up_drop(power_up_type);
@@ -277,7 +277,7 @@ int main(int argc, char *args[]) {
                     special_ammu[0].activated = false;
                 }
             }
-             power_up_move_and_show(screen);
+             power_up_move_and_show(screen);*/
             //========================================================================
 
 
