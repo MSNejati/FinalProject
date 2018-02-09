@@ -29,7 +29,7 @@ struct enemy_shot {
 	int x_velocity = 0;
 	float y_velocity = 6; // i don't use it now but maybe we use it later
 	bool ingame = false;
-}enemy_arrow[10000] ,boss_arrow[10000];
+}enemy_arrow[1000] ,boss_arrow[10000];
 
 
 
@@ -129,7 +129,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                 classic_enemies[i].shoot_delay = (rand() % 70) + 60;
                 if(enemy_type == "enemyspaceship.png")
                 {
-                    for(int j = 0 ; j < 10000 ; j++)
+                    for(int j = 0 ; j < 1000 ; j++)
                     {
                         if(enemy_arrow[j].ingame == false)
                         {
@@ -147,7 +147,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                     {
                         if(k == 0)
                         {
-                            for(int j = 0 ; j < 10000 ; j++)
+                            for(int j = 0 ; j < 1000 ; j++)
                             {
                                 if(enemy_arrow[j].ingame == false)
                                 {
@@ -162,7 +162,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                         }
                         if(k == 1)
                         {
-                            for(int j = 0 ; j < 10000 ; j++)
+                            for(int j = 0 ; j < 1000 ; j++)
                             {
                                 if(enemy_arrow[j].ingame == false)
                                 {
@@ -177,7 +177,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
                         }
                         if(k == 2)
                         {
-                            for(int j = 0 ; j < 10000 ; j++)
+                            for(int j = 0 ; j < 1000 ; j++)
                             {
                                 if(enemy_arrow[j].ingame == false)
                                 {
@@ -204,13 +204,13 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot)
 
 void move_enemy_arrow (SDL_Surface *screen) {
 
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 1000; i++) {
 		if (enemy_arrow[i].y >= 0 && enemy_arrow[i].ingame == true) {
 			enemy_arrow[i].y += enemy_arrow[i].y_velocity;
 			enemy_arrow[i].x += enemy_arrow[i].x_velocity;
 			filledCircleRGBA(screen,enemy_arrow[i].x, enemy_arrow[i].y, 3, 255, 255, 0, 255);
 		}
-		if (enemy_arrow[i].y < -2 && enemy_arrow[i].ingame == true)
+		if (enemy_arrow[i].y > 1005 && enemy_arrow[i].ingame == true)
 		{
             enemy_arrow[i].ingame = false;
 

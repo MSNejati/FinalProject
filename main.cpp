@@ -34,7 +34,7 @@ int main(int argc, char *args[]) {
 
 
     int arrow_number = 0; // arrow's number that after pressing the space key throw
-    int our_spaceship_heart = 10; // the spaceship's heart in the beginning
+    int our_spaceship_heart = 20; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 1000; // the spaceship's bullet in the beginning
     int score = 0;
     int level = 1;
@@ -250,7 +250,7 @@ int main(int argc, char *args[]) {
                 apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
             }
             //===========================power up=======================================
-           /*  power_up_drop_timer--;
+            power_up_drop_timer--;
             if(power_up_drop_timer == 0)
             {
                 power_up_drop(power_up_type);
@@ -271,13 +271,13 @@ int main(int argc, char *args[]) {
             if(special_ammu[0].activated)
             {
                 special_ammu_notice(screen);
-                if(keystates[SDLK_SPACE])
+                if(keystates[SDLK_n])
                 {
                     special_ammu_effect(screen ,our_spaceshipx ,our_spaceshipy ,boss_fight);
                     special_ammu[0].activated = false;
                 }
             }
-             power_up_move_and_show(screen);*/
+             power_up_move_and_show(screen);
             //========================================================================
 
 
