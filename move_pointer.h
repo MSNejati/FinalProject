@@ -11,16 +11,24 @@ void first_menu_move_pointer(int* pointer_x, int* pointer_y) {
 		if (keystates2[SDLK_DOWN]) {
 			if (*pointer_y != 900 && *pointer_x == 40) {			
 				*pointer_y += 125;
-			}		
+			}
+			if (*pointer_y != 875 && *pointer_x == 640) {
+				*pointer_x = 800;
+				*pointer_y = 875;
+			}
 		}
 		if (keystates2[SDLK_UP]) {
 			if (*pointer_y != 650 && *pointer_x == 40) {
 				*pointer_y -= 125;
-			}		
+			}
+			if (*pointer_y != 650 && *pointer_x == 800) {
+				*pointer_x = 640;
+				*pointer_y = 650;
+			}
 		}
 		if (keystates2[SDLK_RIGHT]) {
-			*pointer_x = 800;
-			*pointer_y = 875;
+			*pointer_x = 640;
+			*pointer_y = 650;
 		}
 		if (keystates2[SDLK_LEFT]) {
 			*pointer_x = 40;

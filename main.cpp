@@ -34,8 +34,6 @@ int main(int argc, char *args[]) {
     explosion_sound = Mix_LoadWAV("explosion.wav");
 
 
-
-
     int arrow_number = 0; // arrow's number that after pressing the space key throw
     int our_spaceship_heart = 3; // the spaceship's heart in the beginning
     int our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
@@ -67,7 +65,7 @@ int main(int argc, char *args[]) {
     bool first_menu = true;
     bool last_menu = false;
     bool middle_menu = false;
-    bool game_over =false;
+    bool game_over = false;
 
     string enemy_type = "enemyspaceship.png";
 
@@ -85,7 +83,7 @@ int main(int argc, char *args[]) {
     SDL_Surface *score_image = load_image("score.png");
     TTF_Init();
     TTF_Font *toolbar_font;
-    TTF_Font * SAN_font = TTF_OpenFont("laser.ttf",20);
+    TTF_Font *SAN_font = TTF_OpenFont("laser.ttf", 20);
     toolbar_font = TTF_OpenFont("toolbar.ttf", 32);
     SDL_Color textcolor = {255, 255, 255};
     SDL_Surface *heart_value;
@@ -103,6 +101,7 @@ int main(int argc, char *args[]) {
     }
 
     SDL_Surface *start;
+    SDL_Surface *help;
     SDL_Surface *first_menu_exit;
     SDL_Surface *game_name;
     SDL_Surface *first_menu_highscore;
@@ -110,8 +109,14 @@ int main(int argc, char *args[]) {
     SDL_Surface *meteorite;
     SDL_Surface *volume_on;
     SDL_Surface *volume_off;
+    SDL_Surface *special_ammu_key;
+    SDL_Surface *pause_key;
+    SDL_Surface *moving_key;
+    SDL_Surface *shooting_key;
     TTF_Font *menu_font;
+    TTF_Font *help_font;
     menu_font = TTF_OpenFont("menu.ttf", 36);
+    help_font = TTF_OpenFont("menu.ttf", 18);
     SDL_Color menu_color = {255, 255, 255};
     game_name = load_image("game_name.png");
     meteorite = load_image("meteorite.png");
@@ -120,6 +125,11 @@ int main(int argc, char *args[]) {
     start = TTF_RenderText_Solid(menu_font, "NEW GAME", menu_color);
     first_menu_highscore = TTF_RenderText_Solid(menu_font, "HIGH SCORE", menu_color);
     first_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
+    help = TTF_RenderText_Solid(menu_font, "HELP", menu_color);
+    special_ammu_key = TTF_RenderText_Solid(help_font, "N : special ammu", menu_color);
+    pause_key = TTF_RenderText_Solid(help_font, " ESC : paused menu", menu_color);
+    moving_key = TTF_RenderText_Solid(help_font, "ARROW KEYS : moving", menu_color);
+    shooting_key = TTF_RenderText_Solid(help_font, "SPACE : shooting", menu_color);
     int meteorite_x = 1200;
     int meteorite_y = -800;
     int m;
@@ -131,7 +141,8 @@ int main(int argc, char *args[]) {
     int first_menu_pointer_y = 650;
     bool bool_first_menu_highscore = false;
     int volume_delay = 0;
-    Mix_PlayMusic( first_menu_music, -1 );
+    Mix_PlayMusic(first_menu_music, -1);
+    bool help_menu = false;
 
     SDL_Surface *paused_message;
     TTF_Font *paused_font;
@@ -147,11 +158,11 @@ int main(int argc, char *args[]) {
     int middle_menu_pointer_y = 650;
 
     int gameover_y = -400;
-    SDL_Surface* last_menu_score;
-    SDL_Surface* restart;
-    SDL_Surface* gameover;
-    SDL_Surface* last_menu_exit;
-    SDL_Surface* new_highscore_image;
+    SDL_Surface *last_menu_score;
+    SDL_Surface *restart;
+    SDL_Surface *gameover;
+    SDL_Surface *last_menu_exit;
+    SDL_Surface *new_highscore_image;
     last_menu_exit = TTF_RenderText_Solid(menu_font, "EXIT", menu_color);
     gameover = load_image("gameover.png");
     new_highscore_image = load_image("new_highscore.png");
@@ -163,35 +174,37 @@ int main(int argc, char *args[]) {
 
     while (true) {
 
-        if (first_menu == true)
-        {
-	    ifstream high_score_in("high_score");
-	    high_score_in >> highscore;
+        if (first_menu == true) {
+            ifstream high_score_in("high_score");
+            high_score_in >> highscore;
             high_score_in.close();
-	    //gereftan high score
+            //gereftan high score
 
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
             apply_surface(meteorite_x, meteorite_y, meteorite, screen);
             meteorite_x = meteorite_x + meteorite_xv;
             meteorite_y = meteorite_y + meteorite_yv;
-	    boxRGBA(screen, 50, screenheight - 400, 350, screenheight - 300, 255, 75, 0, 200);
+            boxRGBA(screen, 50, screenheight - 400, 350, screenheight - 300, 255, 75, 0, 200);
             boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 255, 75, 0, 200);
             boxRGBA(screen, 50, screenheight - 150, 350, screenheight - 50, 255, 75, 0, 200);
             apply_surface(250, 100, game_name, screen);
             apply_surface(100, screenheight - 373, start, screen);
-	    apply_surface(160, screenheight - 123, first_menu_exit, screen);
-	    first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
-	    filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
+            apply_surface(160, screenheight - 123, first_menu_exit, screen);
+            first_menu_move_pointer(&first_menu_pointer_x, &first_menu_pointer_y);
+            filledCircleRGBA(screen, first_menu_pointer_x, first_menu_pointer_y, 5, 0, 254, 0, 200);
 
             if (keystates[SDLK_RCTRL]) {
-		if (first_menu_pointer_y == 650) {
-		    first_menu = false;
-		}
-		if (first_menu_pointer_y == 775) {
-		    bool_first_menu_highscore = true;
-		}
-		if (first_menu_pointer_y == 900) {
-		    TTF_CloseFont(menu_font);
+                if (first_menu_pointer_y == 650 && first_menu_pointer_x == 40) {
+                    first_menu = false;
+                }
+                if (first_menu_pointer_y == 650 && first_menu_pointer_x == 640) {
+                    help_menu = true;
+                }
+                if (first_menu_pointer_y == 775) {
+                    bool_first_menu_highscore = true;
+                }
+                if (first_menu_pointer_y == 900) {
+                    TTF_CloseFont(menu_font);
                     TTF_CloseFont(toolbar_font);
                     SDL_FreeSurface(screen);
                     SDL_FreeSurface(our_spaceship);
@@ -199,44 +212,42 @@ int main(int argc, char *args[]) {
                     SDL_FreeSurface(gun_bullet_image);
                     SDL_FreeSurface(highscore_image);
                     SDL_FreeSurface(score_image);
-		    SDL_FreeSurface(heart_value);
-		    SDL_FreeSurface(bullet_value);
-		    SDL_FreeSurface(highscore_value);
-		    SDL_FreeSurface(start);
-		    SDL_FreeSurface(first_menu_exit);
-		    SDL_FreeSurface(game_name);
-		    SDL_FreeSurface(first_menu_highscore);
-		    SDL_FreeSurface(meteorite);
-		    SDL_FreeSurface(volume_on);
-		    SDL_FreeSurface(volume_off);
-		    SDL_FreeSurface(last_menu_score);
-		    SDL_FreeSurface(restart);
-		    SDL_FreeSurface(gameover);
-		    SDL_FreeSurface(last_menu_exit);
-		    TTF_Quit();
+                    SDL_FreeSurface(heart_value);
+                    SDL_FreeSurface(bullet_value);
+                    SDL_FreeSurface(highscore_value);
+                    SDL_FreeSurface(start);
+                    SDL_FreeSurface(first_menu_exit);
+                    SDL_FreeSurface(game_name);
+                    SDL_FreeSurface(first_menu_highscore);
+                    SDL_FreeSurface(meteorite);
+                    SDL_FreeSurface(volume_on);
+                    SDL_FreeSurface(volume_off);
+                    SDL_FreeSurface(last_menu_score);
+                    SDL_FreeSurface(restart);
+                    SDL_FreeSurface(gameover);
+                    SDL_FreeSurface(last_menu_exit);
+                    TTF_Quit();
                     SDL_Quit();
-		    return 0;
-		}
-		if (first_menu_pointer_y == 875) {
-		    if (volume_delay % 15 == 0) {
-		    	if (volume == true) {
-		        	volume = false;
-				volume_delay = 1;
-		    	}
-		    	else {
-                    		volume = true;
-                   		volume_delay = 1;
-		    	}
-		    }
-		    else {
-                	volume_delay++;
-		    }
-		}
-	    }
+                    return 0;
+                }
+                if (first_menu_pointer_y == 875) {
+                    if (volume_delay % 15 == 0) {
+                        if (volume == true) {
+                            volume = false;
+                            volume_delay = 1;
+                        } else {
+                            volume = true;
+                            volume_delay = 1;
+                        }
+                    } else {
+                        volume_delay++;
+                    }
+                }
+            }
 
-	    if(!keystates[SDLK_RCTRL]) {
-            volume_delay = 0;
-	    }
+            if (!keystates[SDLK_RCTRL]) {
+                volume_delay = 0;
+            }
 
             if (meteorite_x <= -1 * n) {
                 meteorite_x = 1100;
@@ -245,59 +256,71 @@ int main(int argc, char *args[]) {
                 meteorite_y = -800 + (m * 200);
             }
 
-	    if (volume == true) {
+            if (volume == true) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_on, screen);
-		Mix_ResumeMusic();
+                Mix_ResumeMusic();
             }
 
             if (volume == false) {
                 apply_surface(screenwidth - 200, screenheight - 200, volume_off, screen);
-		Mix_PauseMusic();
+                Mix_PauseMusic();
             }
 
-	    if (bool_first_menu_highscore == true) {
-		first_menu_highscore_value = make_toolbar_informations(first_menu_highscore_value, menu_font, menu_color, highscore);
-		if (highscore < 10) {
-	    		apply_surface(190, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    	if (highscore < 100 && highscore >= 10) {
-			apply_surface(180, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    	if (highscore < 1000 && highscore >= 100) {
-			apply_surface(170, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    	if (highscore < 10000 && highscore >= 1000) {
-			apply_surface(160, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    	if (highscore < 100000 && highscore >= 10000) {
-			apply_surface(150, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
- 	    	if (highscore < 1000000 && highscore >= 100000) {
-			apply_surface(140, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    	if (highscore < 10000000 && highscore >= 1000000) {
-			apply_surface(130, screenheight - 247, first_menu_highscore_value, screen);
-	    	}
-	    }
+            if (bool_first_menu_highscore == true) {
+                first_menu_highscore_value = make_toolbar_informations(first_menu_highscore_value, menu_font,
+                                                                       menu_color, highscore);
+                if (highscore < 10) {
+                    apply_surface(190, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 100 && highscore >= 10) {
+                    apply_surface(180, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 1000 && highscore >= 100) {
+                    apply_surface(170, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 10000 && highscore >= 1000) {
+                    apply_surface(160, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 100000 && highscore >= 10000) {
+                    apply_surface(150, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 1000000 && highscore >= 100000) {
+                    apply_surface(140, screenheight - 247, first_menu_highscore_value, screen);
+                }
+                if (highscore < 10000000 && highscore >= 1000000) {
+                    apply_surface(130, screenheight - 247, first_menu_highscore_value, screen);
+                }
+            }
 
-	    if (bool_first_menu_highscore == false) {
-		apply_surface(95, screenheight - 248, first_menu_highscore, screen);
-	    }
+            if (bool_first_menu_highscore == false) {
+                apply_surface(95, screenheight - 248, first_menu_highscore, screen);
+            }
+
+            if (help_menu == true) {
+                boxRGBA(screen, 650, screenheight - 400, 950, screenheight - 230, 255, 75, 0, 200);
+                apply_surface(700, screenheight - 373, moving_key, screen);
+                apply_surface(700, screenheight - 343, shooting_key, screen);
+                apply_surface(700, screenheight - 313, special_ammu_key, screen);
+                apply_surface(700, screenheight - 283, pause_key, screen);
+            }
+            if (help_menu == false) {
+                boxRGBA(screen, 650, screenheight - 400, 950, screenheight - 300, 255, 75, 0, 200);
+                apply_surface(755, screenheight - 373, help, screen);
+            }
         }
 
         if (first_menu == false && last_menu == false && middle_menu == false) {
 
-	    ofstream high_score_out("high_score");
-	    high_score_out << highscore;
-	    high_score_out.close();
-	    //dadan high score
-	    if(score > highscore)
-	    {	
-		highscore = score;
-		last_menu_highscore_image = true;
-	    }
+            ofstream high_score_out("high_score");
+            high_score_out << highscore;
+            high_score_out.close();
+            //dadan high score
+            if (score > highscore) {
+                highscore = score;
+                last_menu_highscore_image = true;
+            }
 
-	    Mix_HaltMusic();
+            Mix_HaltMusic();
             boxRGBA(screen, 0, 0, screenwidth, screenheight, 0, 0, 50, 250);
             make_new_star_line(total_stars, screenwidth);
             stars_y_change(total_stars, screenwidth, screenheight);
@@ -309,51 +332,43 @@ int main(int argc, char *args[]) {
             //=====================red meteorite=====================================
 
             red_meteorite_counter--;
-            if(red_meteorite_counter == 0)
-            {
+            if (red_meteorite_counter == 0) {
                 red_meteorite_counter = (rand() % 300) + 500;
 
             }
 
             //=======================================================================
 
-            our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth, screenheight);
-            if(game_over == false)
-            {
+            our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth,
+                               screenheight);
+            if (game_over == false) {
                 apply_surface(our_spaceshipx, our_spaceshipy, our_spaceship, screen);
             }
             //===========================power up=======================================
 
             power_up_drop_timer--;
-            if(power_up_drop_timer == 0)
-            {
+            if (power_up_drop_timer == 0) {
                 power_up_drop(power_up_type);
                 power_up_drop_timer = (rand() % 300) + 500;
                 power_up_type = rand() % 3;
 
             }
-            if(catch_power_ups(&laser_count) == 0)
-            {
+            if (catch_power_ups(&laser_count) == 0) {
                 our_spaceship_heart++;
                 extra_heart[0].ingame = false;
-            }
-            else if(catch_power_ups(&laser_count) == 1)
-            {
+            } else if (catch_power_ups(&laser_count) == 1) {
                 our_spaceship_bullet += 50;
                 extra_bullet[0].ingame = false;
             }
-            if(laser_count > 0)
-            {
-                special_ammu_notice(screen ,SAN_font ,laser_count);
-                if(keystates[SDLK_n] && laser_delay_counter == 0)
-                {
-                    special_ammu_effect(screen ,our_spaceshipx ,our_spaceshipy ,boss_fight);
+            if (laser_count > 0) {
+                special_ammu_notice(screen, SAN_font, laser_count);
+                if (keystates[SDLK_n] && laser_delay_counter == 0) {
+                    special_ammu_effect(screen, our_spaceshipx, our_spaceshipy, boss_fight);
                     laser_count--;
                     laser_delay_counter = 10;
                 }
             }
-            if(laser_delay_counter > 0)
-            {
+            if (laser_delay_counter > 0) {
                 laser_delay_counter--;
             }
 
@@ -361,8 +376,8 @@ int main(int argc, char *args[]) {
 
 
             //=========================explosion=======================================
-             if(explosion(screen ,game_over,boss_fight ,our_spaceshipx ,our_spaceshipy ,our_explo_frame ,boss_explo_frame) == 1)
-            {
+            if (explosion(screen, game_over, boss_fight, our_spaceshipx, our_spaceshipy, our_explo_frame,
+                          boss_explo_frame) == 1) {
                 last_menu = true;
             }
             //========================================================================
@@ -371,9 +386,9 @@ int main(int argc, char *args[]) {
             if (keystates[SDLK_SPACE]) {
                 if (arrow_delay % 10 == 0 && our_spaceship_bullet > 0) {
                     arrow_number = make_arrow_ingame(screen, our_spaceshipx, our_spaceshipy, arrow_number);
-		    if (volume == true) {
-			Mix_PlayChannel( -1, our_shot, 0 );
-		    }
+                    if (volume == true) {
+                        Mix_PlayChannel(-1, our_shot, 0);
+                    }
                     arrow_delay = 1;
                     our_spaceship_bullet--;
                 } else {
@@ -388,11 +403,12 @@ int main(int argc, char *args[]) {
             move_arrow(screen);
 
             if (boss_fight == false) {
-                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay , max_enemies_enter_delay ,max_enemies_count ,enemy_type );
+                enemy_spaceships_start_pos(screenwidth, &enemy_spaceship_delay, max_enemies_enter_delay,
+                                           max_enemies_count, enemy_type);
             }
 
             enemy_spaceships_move(screenheight, our_spaceshipx, &our_spaceship_heart);
-            show_enemy_spaceships(screen ,enemy_type);
+            show_enemy_spaceships(screen, enemy_type);
             enemy_shooting(enemy_type, enemy_shot, &volume);
             move_enemy_arrow(screen);
 
@@ -403,7 +419,7 @@ int main(int argc, char *args[]) {
                     boss_x_change(screenwidth, boss_size);
                     enemy_boss_shooting(boss_shot, &volume);
 
-                    if (collision( boss_fight, explosion_sound, &volume) == 1) {
+                    if (collision(boss_fight, explosion_sound, &volume) == 1) {
                         our_spaceship_heart--;
                     }
                     show_boss_health_bar(screen);
@@ -411,39 +427,34 @@ int main(int argc, char *args[]) {
                 show_boss(screen, boss_size);
                 boss_sensors_position(screen);
                 boss_collision_check();
-                if (boss[0].hitpoint <= 0)
-                {
+                if (boss[0].hitpoint <= 0) {
                     level++;
                     show_level_frame++;
-                    level_difficulity(level ,&max_enemies_count ,&max_enemies_enter_delay ,&enemy_type);
-                    boss_fight = false ;
-		    if (volume == true) {
-		    	Mix_PlayChannel( -1, explosion_sound, 0 );
-		    }
+                    level_difficulity(level, &max_enemies_count, &max_enemies_enter_delay, &enemy_type);
+                    boss_fight = false;
+                    if (volume == true) {
+                        Mix_PlayChannel(-1, explosion_sound, 0);
+                    }
                     boss_explo_frame = 1;
-                  //  destroy_the_boss();
+                    //  destroy_the_boss();
                 }
             }
             move_enemy_boss_arrow(screen, screenheight);
 
-            if(show_level_frame > 0 && show_level_frame <100)
-            {
-                float counter = show_level_frame/2 + 1;
-                show_level_num(level ,show_level_frame ,screen ,counter);
+            if (show_level_frame > 0 && show_level_frame < 100) {
+                float counter = show_level_frame / 2 + 1;
+                show_level_num(level, show_level_frame, screen, counter);
                 show_level_frame++;
-                if(show_level_frame == 99)
-                {
+                if (show_level_frame == 99) {
                     show_level_frame = 0;
                 }
             }
 
-            if(keystates[SDLK_UP])
-            {
-                speed_change(1 ,&max_enemies_enter_delay);
+            if (keystates[SDLK_UP]) {
+                speed_change(1, &max_enemies_enter_delay);
             }
-            if(keystates[SDLK_DOWN])
-            {
-                speed_change(-1 ,&max_enemies_enter_delay);
+            if (keystates[SDLK_DOWN]) {
+                speed_change(-1, &max_enemies_enter_delay);
             }
 
             show_toolbar(screen);
@@ -459,235 +470,139 @@ int main(int argc, char *args[]) {
             apply_surface(845, 15, bullet_value, screen);
             apply_surface(240, 15, score_value, screen);
             apply_surface(590, 15, highscore_value, screen);
-            sensors_position(screen, our_spaceshipx, our_spaceshipy ,enemy_type);
+            sensors_position(screen, our_spaceshipx, our_spaceshipy, enemy_type);
 
-            if (collision( boss_fight, explosion_sound, &volume) == 1) {
+            if (collision(boss_fight, explosion_sound, &volume) == 1) {
                 our_spaceship_heart--;
             }
 
-            if (our_spaceship_heart <= 0)
-            {
+            if (our_spaceship_heart <= 0) {
                 game_over = true;
-		if (volume == true) {
-		    Mix_PlayChannel( -1, explosion_sound, 0 );
-            	}
-	    }
+                if (volume == true) {
+                    Mix_PlayChannel(-1, explosion_sound, 0);
+                }
+            }
 
-            if(game_over)
-            {
+            if (game_over) {
                 our_explo_frame++;
             }
-            if(boss_explo_frame > 0)
-            {
+            if (boss_explo_frame > 0) {
                 boss_explo_frame++;
             }
-            if(boss_explo_frame == 26)
-            {
+            if (boss_explo_frame == 26) {
                 boss_explo_frame = 0;
             }
 
-            if(frame >= (100 - (star[0].yv*5)) && boss_fight == false)
-            {
+            if (frame >= (100 - (star[0].yv * 5)) && boss_fight == false) {
                 frame = 0;
                 score++;
             }
 
             if (score % 30 == 0 && score != 0 && boss_fight == false) {
-                boss_first_initialize(screenwidth, boss_size ,level);
+                boss_first_initialize(screenwidth, boss_size, level);
                 boss_fight = true;
             }
 
-	    if (keystates[SDLK_ESCAPE]) {
-		middle_menu = true;
-	    }
+            if (keystates[SDLK_ESCAPE]) {
+                middle_menu = true;
+            }
 
             frame++;
         }
 
-	if (middle_menu == true) {
+        if (middle_menu == true) {
 
-		boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 200);
-        	apply_surface(340, 150, paused_message, screen);
-		boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
-		boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 0, 175, 255, 200);
-		boxRGBA(screen, 350, screenheight - 400, 650, screenheight - 300, 0, 175, 255, 200);
-		apply_surface(430, screenheight - 373, resume, screen);
-		apply_surface(425, screenheight - 248, middle_menu_restart, screen);
-		apply_surface(460, screenheight - 123, middle_menu_exit, screen);
-		middle_menu_move_pointer(&middle_menu_pointer_y);
-       	       	filledCircleRGBA(screen, middle_menu_pointer_x, middle_menu_pointer_y, 5, 0, 254, 0, 200);
+            boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 200);
+            apply_surface(340, 150, paused_message, screen);
+            boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
+            boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 0, 175, 255, 200);
+            boxRGBA(screen, 350, screenheight - 400, 650, screenheight - 300, 0, 175, 255, 200);
+            apply_surface(430, screenheight - 373, resume, screen);
+            apply_surface(425, screenheight - 248, middle_menu_restart, screen);
+            apply_surface(460, screenheight - 123, middle_menu_exit, screen);
+            middle_menu_move_pointer(&middle_menu_pointer_y);
+            filledCircleRGBA(screen, middle_menu_pointer_x, middle_menu_pointer_y, 5, 0, 254, 0, 200);
 
 
-		if (keystates[SDLK_RCTRL]) {
-			if (middle_menu_pointer_y == 650) {
-		    	    middle_menu = false;
-			    SDL_Delay(1000);
-			}
-			if (middle_menu_pointer_y == 775) {
-			    arrow_number = 0; // arrow's number that after pressing the space key throw
-    			    our_spaceship_heart = 3; // the spaceship's heart in the beginning
-    			    our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
-    			    score = 0;
-    			    level = 1;
-    			    frame = 0;
-   			    total_stars = 80;// total number of stars that made till now
-    			    our_spaceshipx = 450;
-    			    our_spaceshipy = 870;
-    			    our_explo_frame = 2;
-    			    boss_explo_frame = 0;
-    			    boss_size = 200;
-
-    			    max_enemies_count = 1;
-    			    max_enemies_enter_delay = 300;
-    			    show_level_frame = 1;
-    			    power_up_drop_timer = (rand() % 300) + 500;
-    			    power_up_type = rand() % 3;
-                	    enemy_type = "enemyspaceship.png";
-    			    stars_speed = 2;
-    			    our_spaceship_right_v = 0;
-    			    our_spaceship_left_v = 0;
-    			    laser_count = 0;
-    			    special_ammu[0].ingame = false;
-    			    extra_heart[0].ingame = false;
-    			    extra_bullet[0].ingame = false;
-			    last_music_play = true;
-			    last_menu_highscore_image = false;
-    			    special_ammu[0].yv = 2;
-    			    extra_heart[0].yv = 2;
-    			    extra_bullet[0].yv = 2;
-    			    boss_fight = false;
-			    enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
-			    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
-    			    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
-    			    score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
-   			    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
-   			    for(int i = 0 ; i < 1000 ; i++)
-                {
-                    arrow[i].ingame = false;
+            if (keystates[SDLK_RCTRL]) {
+                if (middle_menu_pointer_y == 650) {
+                    middle_menu = false;
+                    SDL_Delay(1000);
                 }
-   			    for(int i = 0; i < 80 ;i++)
-   			    {
-                         	 star[i].yv = 2;
-   			    }
-			    for( int i = 0 ; i < 15 ; i++)
-			    {
-                           	classic_enemies[i].ingame = false ;
-               			classic_enemies[i].yv = 3;
-                 		classic_enemies[i].xv = 0;
-			    }
-			    for(int i = 0 ; i < 1000 ; i++)
-			    {
-                		enemy_arrow[i].ingame = false;
-                		enemy_arrow[i].x_velocity = 0;
-                		enemy_arrow[i].y_velocity = 6;
-                		boss_arrow[i].ingame = false;
-                		boss_arrow[i].x_velocity = 0;
-                		boss_arrow[i].y_velocity = 6;
-			    }
+                if (middle_menu_pointer_y == 775) {
+                    arrow_number = 0; // arrow's number that after pressing the space key throw
+                    our_spaceship_heart = 3; // the spaceship's heart in the beginning
+                    our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
+                    score = 0;
+                    level = 1;
+                    frame = 0;
+                    total_stars = 80;// total number of stars that made till now
+                    our_spaceshipx = 450;
+                    our_spaceshipy = 870;
+                    our_explo_frame = 2;
+                    boss_explo_frame = 0;
+                    boss_size = 200;
 
-    			    for (int i = 0; i < 5; i++)
-			    {
-        			our[i].ingame = true; //make our spaceship sensor in game
-   			    }
-    			    first_menu = false;
-    			    last_menu = false;
-			    middle_menu = false;
-    			    game_over = false;
-			    gameover_y = -400;
-     			    last_menu_pointer_x = 340;
-    			    last_menu_pointer_y = 775;
+                    max_enemies_count = 1;
+                    max_enemies_enter_delay = 300;
+                    show_level_frame = 1;
+                    power_up_drop_timer = (rand() % 300) + 500;
+                    power_up_type = rand() % 3;
+                    enemy_type = "enemyspaceship.png";
+                    stars_speed = 2;
+                    our_spaceship_right_v = 0;
+                    our_spaceship_left_v = 0;
+                    laser_count = 0;
+                    special_ammu[0].ingame = false;
+                    extra_heart[0].ingame = false;
+                    extra_bullet[0].ingame = false;
+                    last_music_play = true;
+                    last_menu_highscore_image = false;
+                    special_ammu[0].yv = 2;
+                    extra_heart[0].yv = 2;
+                    extra_bullet[0].yv = 2;
+                    boss_fight = false;
+                    enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
+                    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
+                    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor,
+                                                             our_spaceship_bullet);
+                    score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+                    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+                    for (int i = 0; i < 1000; i++) {
+                        arrow[i].ingame = false;
+                    }
+                    for (int i = 0; i < 80; i++) {
+                        star[i].yv = 2;
+                    }
+                    for (int i = 0; i < 15; i++) {
+                        classic_enemies[i].ingame = false;
+                        classic_enemies[i].yv = 3;
+                        classic_enemies[i].xv = 0;
+                    }
+                    for (int i = 0; i < 1000; i++) {
+                        enemy_arrow[i].ingame = false;
+                        enemy_arrow[i].x_velocity = 0;
+                        enemy_arrow[i].y_velocity = 6;
+                        boss_arrow[i].ingame = false;
+                        boss_arrow[i].x_velocity = 0;
+                        boss_arrow[i].y_velocity = 6;
+                    }
 
-		        }
+                    for (int i = 0; i < 5; i++) {
+                        our[i].ingame = true; //make our spaceship sensor in game
+                    }
+                    first_menu = false;
+                    last_menu = false;
+                    middle_menu = false;
+                    game_over = false;
+                    gameover_y = -400;
+                    last_menu_pointer_x = 340;
+                    last_menu_pointer_y = 775;
 
-			if (middle_menu_pointer_y == 900) {
-		    	    TTF_CloseFont(menu_font);
-                    	    TTF_CloseFont(toolbar_font);
-                            SDL_FreeSurface(screen);
-                    	    SDL_FreeSurface(our_spaceship);
-                    	    SDL_FreeSurface(heart_image);
-                    	    SDL_FreeSurface(gun_bullet_image);
-                    	    SDL_FreeSurface(highscore_image);
-                    	    SDL_FreeSurface(score_image);
-		    	    SDL_FreeSurface(heart_value);
-		    	    SDL_FreeSurface(bullet_value);
-		     	    SDL_FreeSurface(highscore_value);
-		    	    SDL_FreeSurface(start);
-		    	    SDL_FreeSurface(first_menu_exit);
-		    	    SDL_FreeSurface(game_name);
-		    	    SDL_FreeSurface(first_menu_highscore);
-		    	    SDL_FreeSurface(meteorite);
-		    	    SDL_FreeSurface(volume_on);
-		    	    SDL_FreeSurface(volume_off);
-		    	    SDL_FreeSurface(last_menu_score);
-		     	    SDL_FreeSurface(restart);
-		    	    SDL_FreeSurface(gameover);
-		    	    SDL_FreeSurface(last_menu_exit);
-		    	    TTF_Quit();
-               	    	    SDL_Quit();
-		    	    return 0;
-			}
-		}
-	}
+                }
 
-        if (last_menu == true) {
-
-	    if (last_music_play == true) {
-		if (volume == true) {
-	    	    Mix_PlayChannel( -1, gameover_sound, 0 );
-		}
-    	    }
-	    score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
-            boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
-            if (gameover_y != 50) {
-		gameover_y += 1;
-	        apply_surface(250, gameover_y, gameover, screen);
-            }
-	    if (gameover_y == 50) {
-		apply_surface(250, gameover_y, gameover, screen);
-	    }
-	    if (gameover_y == 0) {
-		last_music_play = false;
-	    }
-	    if (gameover_y == 0) {
-	 	last_music_play = false;
-	    }
-	    boxRGBA(screen, 190, screenheight - 400, 490, screenheight - 300, 0, 175, 255, 200);
-            boxRGBA(screen, 510, screenheight - 400, 810, screenheight - 300, 0, 175, 255, 200);
-	    boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 255, 75, 0, 200);
-	    boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
-            apply_surface(278, screenheight - 375, last_menu_score, screen);
-            apply_surface(425, screenheight - 248, restart, screen);
-	    apply_surface(460, screenheight - 123, last_menu_exit, screen);
-	    if (last_menu_highscore_image == true) {
-	        apply_surface(425, screenheight - 600, new_highscore_image, screen);
-	    }
-	    if (score < 10) {
-	    	apply_surface(650, screenheight - 372, score_value, screen);
-	    }
-	    if (score < 100 && score >= 10) {
-		apply_surface(640, screenheight - 372, score_value, screen);
-	    }
-	    if (score < 1000 && score >= 100) {
-		apply_surface(630, screenheight - 372, score_value, screen);
-	    }
-	    if (score < 10000 && score >= 1000) {
-		apply_surface(620, screenheight - 372, score_value, screen);
-	    }
-	    if (score < 100000 && score >= 10000) {
-		apply_surface(610, screenheight - 372, score_value, screen);
-	    }
- 	    if (score < 1000000 && score >= 100000) {
-		apply_surface(600, screenheight - 372, score_value, screen);
-	    }
-	    if (score < 10000000 && score >= 1000000) {
-		apply_surface(590, screenheight - 372, score_value, screen);
-	    }
-	    last_menu_move_pointer(&last_menu_pointer_x, &last_menu_pointer_y);
-	    filledCircleRGBA(screen, last_menu_pointer_x, last_menu_pointer_y, 5, 0, 254, 0, 200);
-
-	    if (keystates[SDLK_RCTRL]) {
-		if (last_menu_pointer_y == 900) {
-		    TTF_CloseFont(menu_font);
+                if (middle_menu_pointer_y == 900) {
+                    TTF_CloseFont(menu_font);
                     TTF_CloseFont(toolbar_font);
                     SDL_FreeSurface(screen);
                     SDL_FreeSurface(our_spaceship);
@@ -695,98 +610,181 @@ int main(int argc, char *args[]) {
                     SDL_FreeSurface(gun_bullet_image);
                     SDL_FreeSurface(highscore_image);
                     SDL_FreeSurface(score_image);
-		    SDL_FreeSurface(heart_value);
-		    SDL_FreeSurface(bullet_value);
-		    SDL_FreeSurface(highscore_value);
-		    SDL_FreeSurface(start);
-		    SDL_FreeSurface(first_menu_exit);
-		    SDL_FreeSurface(game_name);
-		    SDL_FreeSurface(first_menu_highscore);
-		    SDL_FreeSurface(meteorite);
-		    SDL_FreeSurface(volume_on);
-		    SDL_FreeSurface(volume_off);
-		    SDL_FreeSurface(last_menu_score);
-		    SDL_FreeSurface(restart);
-		    SDL_FreeSurface(gameover);
-		    SDL_FreeSurface(last_menu_exit);
-		    TTF_Quit();
+                    SDL_FreeSurface(heart_value);
+                    SDL_FreeSurface(bullet_value);
+                    SDL_FreeSurface(highscore_value);
+                    SDL_FreeSurface(start);
+                    SDL_FreeSurface(first_menu_exit);
+                    SDL_FreeSurface(game_name);
+                    SDL_FreeSurface(first_menu_highscore);
+                    SDL_FreeSurface(meteorite);
+                    SDL_FreeSurface(volume_on);
+                    SDL_FreeSurface(volume_off);
+                    SDL_FreeSurface(last_menu_score);
+                    SDL_FreeSurface(restart);
+                    SDL_FreeSurface(gameover);
+                    SDL_FreeSurface(last_menu_exit);
+                    TTF_Quit();
                     SDL_Quit();
-		    return 0;
-		}
+                    return 0;
+                }
+            }
+        }
 
-		if (last_menu_pointer_y == 775) {
-			arrow_number = 0; // arrow's number that after pressing the space key throw
-    			our_spaceship_heart = 3; // the spaceship's heart in the beginning
-    			our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
-    			score = 0;
-    			level = 1;
-    			frame = 0;
-   			total_stars = 80;// total number of stars that made till now
-    			our_spaceshipx = 450;
-    			our_spaceshipy = 870;
-    			our_explo_frame = 2;
-    			boss_explo_frame = 0;
-    			boss_size = 200;
-    			max_enemies_count = 1;
-    			max_enemies_enter_delay = 300;
-    			show_level_frame = 1;
-    			power_up_drop_timer = (rand() % 300) + 500;
-    			power_up_type = rand() % 3;
-               		enemy_type = "enemyspaceship.png";
-    			stars_speed = 2;
-    			our_spaceship_right_v = 0;
-    			our_spaceship_left_v = 0;
-    			laser_count = 0;
-    			special_ammu[0].ingame = false;
-    			extra_heart[0].ingame = false;
-    			extra_bullet[0].ingame = false;
-			last_music_play = true;
-			last_menu_highscore_image = false;
-    			special_ammu[0].yv = 2;
-    			extra_heart[0].yv = 2;
-    			extra_bullet[0].yv = 2;
-    			boss_fight = false;
-			enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
-			heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
-    			bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor, our_spaceship_bullet);
-    			score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
-   			highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
-   			for(int i = 0 ; i < 1000 ; i++)
-   			{
-                arrow[i].ingame = false;
-   			}
-   			for(int i = 0; i < 80 ;i++)
-   			{
-               			star[i].yv = 2;
-   			}
-			for( int i = 0 ; i < 15 ; i++)
-			{
-                		classic_enemies[i].ingame = false ;
-                		classic_enemies[i].yv = 3;
-                		classic_enemies[i].xv = 0;
-			}
-			for(int i = 0 ; i < 1000 ; i++)
-			{
-                		enemy_arrow[i].ingame = false;
-                		enemy_arrow[i].x_velocity = 0;
-                		enemy_arrow[i].y_velocity = 6;
-                		boss_arrow[i].ingame = false;
-                		boss_arrow[i].x_velocity = 0;
-                		boss_arrow[i].y_velocity = 6;
-			}
-    			for (int i = 0; i < 5; i++)
-			{
-        			our[i].ingame = true; //make our spaceship sensor in game
-   			}
-    			first_menu = false;
-    			last_menu = false;
-			middle_menu = false;
-    			game_over = false;
-			gameover_y = -400;
-     			last_menu_pointer_x = 340;
-    			last_menu_pointer_y = 775;
-		}
-	    }
+        if (last_menu == true) {
+
+            if (last_music_play == true) {
+                if (volume == true) {
+                    Mix_PlayChannel(-1, gameover_sound, 0);
+                }
+            }
+            score_value = make_toolbar_informations(score_value, menu_font, textcolor, score);
+            boxRGBA(screen, 0, 0, screenwidth, screenheight, 45, 45, 45, 255);
+            if (gameover_y != 50) {
+                gameover_y += 1;
+                apply_surface(250, gameover_y, gameover, screen);
+            }
+            if (gameover_y == 50) {
+                apply_surface(250, gameover_y, gameover, screen);
+            }
+            if (gameover_y == 0) {
+                last_music_play = false;
+            }
+            if (gameover_y == 0) {
+                last_music_play = false;
+            }
+            boxRGBA(screen, 190, screenheight - 400, 490, screenheight - 300, 0, 175, 255, 200);
+            boxRGBA(screen, 510, screenheight - 400, 810, screenheight - 300, 0, 175, 255, 200);
+            boxRGBA(screen, 350, screenheight - 275, 650, screenheight - 175, 255, 75, 0, 200);
+            boxRGBA(screen, 350, screenheight - 150, 650, screenheight - 50, 255, 75, 0, 200);
+            apply_surface(278, screenheight - 375, last_menu_score, screen);
+            apply_surface(425, screenheight - 248, restart, screen);
+            apply_surface(460, screenheight - 123, last_menu_exit, screen);
+            if (last_menu_highscore_image == true) {
+                apply_surface(425, screenheight - 600, new_highscore_image, screen);
+            }
+            if (score < 10) {
+                apply_surface(650, screenheight - 372, score_value, screen);
+            }
+            if (score < 100 && score >= 10) {
+                apply_surface(640, screenheight - 372, score_value, screen);
+            }
+            if (score < 1000 && score >= 100) {
+                apply_surface(630, screenheight - 372, score_value, screen);
+            }
+            if (score < 10000 && score >= 1000) {
+                apply_surface(620, screenheight - 372, score_value, screen);
+            }
+            if (score < 100000 && score >= 10000) {
+                apply_surface(610, screenheight - 372, score_value, screen);
+            }
+            if (score < 1000000 && score >= 100000) {
+                apply_surface(600, screenheight - 372, score_value, screen);
+            }
+            if (score < 10000000 && score >= 1000000) {
+                apply_surface(590, screenheight - 372, score_value, screen);
+            }
+            last_menu_move_pointer(&last_menu_pointer_x, &last_menu_pointer_y);
+            filledCircleRGBA(screen, last_menu_pointer_x, last_menu_pointer_y, 5, 0, 254, 0, 200);
+
+            if (keystates[SDLK_RCTRL]) {
+                if (last_menu_pointer_y == 900) {
+                    TTF_CloseFont(menu_font);
+                    TTF_CloseFont(toolbar_font);
+                    SDL_FreeSurface(screen);
+                    SDL_FreeSurface(our_spaceship);
+                    SDL_FreeSurface(heart_image);
+                    SDL_FreeSurface(gun_bullet_image);
+                    SDL_FreeSurface(highscore_image);
+                    SDL_FreeSurface(score_image);
+                    SDL_FreeSurface(heart_value);
+                    SDL_FreeSurface(bullet_value);
+                    SDL_FreeSurface(highscore_value);
+                    SDL_FreeSurface(start);
+                    SDL_FreeSurface(first_menu_exit);
+                    SDL_FreeSurface(game_name);
+                    SDL_FreeSurface(first_menu_highscore);
+                    SDL_FreeSurface(meteorite);
+                    SDL_FreeSurface(volume_on);
+                    SDL_FreeSurface(volume_off);
+                    SDL_FreeSurface(last_menu_score);
+                    SDL_FreeSurface(restart);
+                    SDL_FreeSurface(gameover);
+                    SDL_FreeSurface(last_menu_exit);
+                    TTF_Quit();
+                    SDL_Quit();
+                    return 0;
+                }
+
+                if (last_menu_pointer_y == 775) {
+                    arrow_number = 0; // arrow's number that after pressing the space key throw
+                    our_spaceship_heart = 3; // the spaceship's heart in the beginning
+                    our_spaceship_bullet = 300; // the spaceship's bullet in the beginning
+                    score = 0;
+                    level = 1;
+                    frame = 0;
+                    total_stars = 80;// total number of stars that made till now
+                    our_spaceshipx = 450;
+                    our_spaceshipy = 870;
+                    our_explo_frame = 2;
+                    boss_explo_frame = 0;
+                    boss_size = 200;
+                    max_enemies_count = 1;
+                    max_enemies_enter_delay = 300;
+                    show_level_frame = 1;
+                    power_up_drop_timer = (rand() % 300) + 500;
+                    power_up_type = rand() % 3;
+                    enemy_type = "enemyspaceship.png";
+                    stars_speed = 2;
+                    our_spaceship_right_v = 0;
+                    our_spaceship_left_v = 0;
+                    laser_count = 0;
+                    special_ammu[0].ingame = false;
+                    extra_heart[0].ingame = false;
+                    extra_bullet[0].ingame = false;
+                    last_music_play = true;
+                    last_menu_highscore_image = false;
+                    special_ammu[0].yv = 2;
+                    extra_heart[0].yv = 2;
+                    extra_bullet[0].yv = 2;
+                    boss_fight = false;
+                    enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
+                    heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
+                    bullet_value = make_toolbar_informations(bullet_value, toolbar_font, textcolor,
+                                                             our_spaceship_bullet);
+                    score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
+                    highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
+                    for (int i = 0; i < 1000; i++) {
+                        arrow[i].ingame = false;
+                    }
+                    for (int i = 0; i < 80; i++) {
+                        star[i].yv = 2;
+                    }
+                    for (int i = 0; i < 15; i++) {
+                        classic_enemies[i].ingame = false;
+                        classic_enemies[i].yv = 3;
+                        classic_enemies[i].xv = 0;
+                    }
+                    for (int i = 0; i < 1000; i++) {
+                        enemy_arrow[i].ingame = false;
+                        enemy_arrow[i].x_velocity = 0;
+                        enemy_arrow[i].y_velocity = 6;
+                        boss_arrow[i].ingame = false;
+                        boss_arrow[i].x_velocity = 0;
+                        boss_arrow[i].y_velocity = 6;
+                    }
+                    for (int i = 0; i < 5; i++) {
+                        our[i].ingame = true; //make our spaceship sensor in game
+                    }
+                    first_menu = false;
+                    last_menu = false;
+                    middle_menu = false;
+                    game_over = false;
+                    gameover_y = -400;
+                    last_menu_pointer_x = 340;
+                    last_menu_pointer_y = 775;
+                }
+            }
         }
 
         SDL_Flip(screen);
