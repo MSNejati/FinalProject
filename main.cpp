@@ -349,6 +349,11 @@ int main(int argc, char *args[]) {
                  red_meteorite[0].ingame = false;
             }
 
+            if(red_meteorite_collision() == 1)
+            {
+                our_spaceship_heart--;
+            }
+
             //=======================================================================
 
             our_spaceship_move(&our_spaceshipx, &our_spaceship_right_v, &our_spaceship_left_v, screenwidth,

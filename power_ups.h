@@ -74,10 +74,6 @@ int catch_power_ups(int * laser_count)
             {
                 return 0;
             }
-            if( our[i].y1 < extra_heart[0].y && our[i].y2 > extra_heart[0].y && our[i].x1 - extra_heart[0].x < extra_heart[0].rad + 5 &&  extra_heart[0].x - our[i].x2 < extra_heart[0].rad + 5)
-            {
-                return 0;
-            }
         }
     }
     if(extra_bullet[0].ingame)
@@ -168,6 +164,23 @@ void red_meteorite_move(SDL_Surface * red_meteorite_img ,SDL_Surface * screen)
     red_meteorite[0].x +=  red_meteorite[0].xv;
     red_meteorite[0].y += (red_meteorite[0].yv);
     apply_surface(red_meteorite[0].x , red_meteorite[0].y ,red_meteorite_img ,screen);
+}
+
+
+int red_meteorite_collision()
+{
+    if(red_meteorite[0].ingame == true)
+    {
+        for(int i = 0 ; i < 5 ; i++)
+        {
+            if(pow(our[i].x1 - (red_meteorite[0].x + 180),2) + pow(our[i].y1 - (red_meteorite[0].y + 180),2) <= pow(15 ,2) || pow(our[i].x2 - (red_meteorite[0].x + 180),2) + pow(our[i].y1 - (red_meteorite[0].y + 180),2) <= pow(15 ,2) || pow(our[i].x1 - (red_meteorite[0].x + 180),2) + pow(our[i].y2 - (red_meteorite[0].y + 180),2) <= pow(15 ,2) || pow(our[i].x2 - (red_meteorite[0].x + 180),2) + pow(our[i].y2 - (red_meteorite[0].y + 180),2) <= pow(15 ,2))
+            {
+                red_meteorite[0].ingame = false;
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 
