@@ -152,7 +152,7 @@ void special_ammu_notice(SDL_Surface * screen ,TTF_Font * SAN_font ,int laser_co
 void red_meteorite_speed_init()
 {
     red_meteorite[0].xv = 5;
-    red_meteorite[0].yv = 5;
+    red_meteorite[0].yv = 6;
 
 }
 
@@ -160,12 +160,14 @@ void red_meteorite_place_init()
 {
     red_meteorite[0].x = -200;
     red_meteorite[0].y = (rand() % 700) - 200;
+    red_meteorite[0].ingame = true;
 }
 
-void red_meteorite_move()
+void red_meteorite_move(SDL_Surface * red_meteorite_img ,SDL_Surface * screen)
 {
     red_meteorite[0].x +=  red_meteorite[0].xv;
     red_meteorite[0].y += (red_meteorite[0].yv);
+    apply_surface(red_meteorite[0].x , red_meteorite[0].y ,red_meteorite_img ,screen);
 }
 
 

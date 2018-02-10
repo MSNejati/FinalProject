@@ -81,6 +81,7 @@ int main(int argc, char *args[]) {
     SDL_Surface *gun_bullet_image = load_image("gun_bullet.png");
     SDL_Surface *highscore_image = load_image("highscore.png");
     SDL_Surface *score_image = load_image("score.png");
+    SDL_Surface *red_meteorite_img = load_image("red_meteorite.png");
     TTF_Init();
     TTF_Font *toolbar_font;
     TTF_Font *SAN_font = TTF_OpenFont("laser.ttf", 20);
@@ -95,6 +96,7 @@ int main(int argc, char *args[]) {
     score_value = make_toolbar_informations(score_value, toolbar_font, textcolor, score);
     highscore_value = make_toolbar_informations(highscore_value, toolbar_font, textcolor, highscore);
     SDL_WM_SetCaption("Star Wars", NULL);
+    red_meteorite_speed_init();
 
     for (int i = 0; i < 5; i++) {
         our[i].ingame = true; //make our spaceship sensor in game
@@ -332,9 +334,19 @@ int main(int argc, char *args[]) {
             //=====================red meteorite=====================================
 
             red_meteorite_counter--;
-            if (red_meteorite_counter == 0) {
+            if (red_meteorite_counter == 0 && red_meteorite[0].ingame == false)
+            {
                 red_meteorite_counter = (rand() % 300) + 500;
+                red_meteorite_place_init();
+            }
+            if(red_meteorite[0].ingame == true)
+            {
+                red_meteorite_move(red_meteorite_img ,screen);
+            }
 
+            if(red_meteorite[0].x > screenwidth)
+            {
+                 red_meteorite[0].ingame = false;
             }
 
             //=======================================================================
@@ -556,11 +568,13 @@ int main(int argc, char *args[]) {
                     special_ammu[0].ingame = false;
                     extra_heart[0].ingame = false;
                     extra_bullet[0].ingame = false;
+                    red_meteorite[0].ingame = false;
                     last_music_play = true;
                     last_menu_highscore_image = false;
                     special_ammu[0].yv = 2;
                     extra_heart[0].yv = 2;
                     extra_bullet[0].yv = 2;
+                    red_meteorite[0].yv = 6;
                     boss_fight = false;
                     enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
                     heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
@@ -605,6 +619,7 @@ int main(int argc, char *args[]) {
                     TTF_CloseFont(menu_font);
                     TTF_CloseFont(toolbar_font);
                     SDL_FreeSurface(screen);
+                    SDL_FreeSurface(red_meteorite_img);
                     SDL_FreeSurface(our_spaceship);
                     SDL_FreeSurface(heart_image);
                     SDL_FreeSurface(gun_bullet_image);
