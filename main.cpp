@@ -762,11 +762,13 @@ int main(int argc, char *args[]) {
                     special_ammu[0].ingame = false;
                     extra_heart[0].ingame = false;
                     extra_bullet[0].ingame = false;
+                     red_meteorite[0].ingame = false;
                     last_music_play = true;
                     last_menu_highscore_image = false;
                     special_ammu[0].yv = 2;
                     extra_heart[0].yv = 2;
                     extra_bullet[0].yv = 2;
+                    red_meteorite[0].yv = 6;
                     boss_fight = false;
                     enemy_spaceship_delay = (rand() % max_enemies_enter_delay / 10) + 100;
                     heart_value = make_toolbar_informations(heart_value, toolbar_font, textcolor, our_spaceship_heart);
