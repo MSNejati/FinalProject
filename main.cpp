@@ -433,7 +433,7 @@ int main(int argc, char *args[]) {
                 if (boss[0].y <= 150) {
                     boss_enters();
                 } else {
-                    boss_x_change(screenwidth, boss_size);
+                    boss_x_change(screenwidth, boss_size ,our_spaceshipx);
                     enemy_boss_shooting(boss_shot, &volume);
 
                     if (collision(boss_fight, explosion_sound, &volume) == 1) {

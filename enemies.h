@@ -141,7 +141,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot, bool *volume)
                             enemy_arrow[j].ingame = true;
                             enemy_arrow[j].x = classic_enemies[i].x + 50;
                             enemy_arrow[j].y = classic_enemies[i].y + 80;
-			    if (*volume == true) {			    
+			    if (*volume == true) {
 				Mix_PlayChannel( -1, enemy_shot, 0 );
 			    }
                             break;
@@ -180,7 +180,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot, bool *volume)
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = 2;
                                     enemy_arrow[j].x_velocity = 2;
-				    if (*volume == true) {			  	    
+				    if (*volume == true) {
 					Mix_PlayChannel( -1, enemy_shot, 0 );
                                     }
 				    break;
@@ -198,7 +198,7 @@ void enemy_shooting(string enemy_type, Mix_Chunk *enemy_shot, bool *volume)
                                     enemy_arrow[j].y = classic_enemies[i].y + 100;
                                     enemy_arrow[j].x_velocity = 2;
                                     enemy_arrow[j].x_velocity = 0;
-				    if (*volume == true) {				    
+				    if (*volume == true) {
 					Mix_PlayChannel( -1, enemy_shot, 0 );
 				    }
                                     break;
@@ -258,13 +258,19 @@ void show_boss(SDL_Surface * screen ,int boss_size)
 
 }
 
-void boss_x_change(int screenwidth , int boss_size)
+void boss_x_change(int screenwidth , int boss_size ,int our_spaceshipx)
 {
-    boss[0].x += boss[0].xv;
+    //boss[0].x += boss[0].xv;
 
-    if(boss[0].x <= 0 || boss[0].x >= screenwidth - boss_size)
+    if(boss[0].x < our_spaceshipx)
     {
-        boss[0].xv *= -1;
+        boss[0].x += boss[0].xv;
+        //bossboss[0].x += boss[0].xv;boss[0].x += boss[0].xv;0].xv *= -1;
+    }
+    if(boss[0].x > our_spaceshipx)
+    {
+        boss[0].x -= boss[0].xv;
+        //bossboss[0].x += boss[0].xv;boss[0].x += boss[0].xv;0].xv *= -1;
     }
 }
 
