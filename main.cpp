@@ -260,22 +260,22 @@ int main(int argc, char *args[]) {
 		if (highscore < 10) {
 	    		apply_surface(190, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
-	    	if (highscore < 100 && score >= 10) {
+	    	if (highscore < 100 && highscore >= 10) {
 			apply_surface(180, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
-	    	if (highscore < 1000 && score >= 100) {
+	    	if (highscore < 1000 && highscore >= 100) {
 			apply_surface(170, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
-	    	if (highscore < 10000 && score >= 1000) {
+	    	if (highscore < 10000 && highscore >= 1000) {
 			apply_surface(160, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
-	    	if (highscore < 100000 && score >= 10000) {
+	    	if (highscore < 100000 && highscore >= 10000) {
 			apply_surface(150, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
- 	    	if (highscore < 1000000 && score >= 100000) {
+ 	    	if (highscore < 1000000 && highscore >= 100000) {
 			apply_surface(140, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
-	    	if (highscore < 10000000 && score >= 1000000) {
+	    	if (highscore < 10000000 && highscore >= 1000000) {
 			apply_surface(130, screenheight - 247, first_menu_highscore_value, screen);
 	    	}
 	    }
