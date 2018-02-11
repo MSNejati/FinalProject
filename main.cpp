@@ -199,7 +199,6 @@ int main(int argc, char *args[]) {
             meteorite_x = meteorite_x + meteorite_xv;
             meteorite_y = meteorite_y + meteorite_yv;
             boxRGBA(screen, 50, screenheight - 400, 350, screenheight - 300, 255, 75, 0, 200);
-            boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 255, 75, 0, 200);
             boxRGBA(screen, 50, screenheight - 150, 350, screenheight - 50, 255, 75, 0, 200);
             apply_surface(250, 100, game_name, screen);
             apply_surface(90, screenheight - 367, start, screen);
@@ -296,6 +295,7 @@ int main(int argc, char *args[]) {
             }
 
             if (bool_first_menu_highscore == true) {
+                boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 0, 175, 255, 200);
                 first_menu_highscore_value = make_toolbar_informations(first_menu_highscore_value, menu_font,
                                                                        menu_color, highscore);
                 if (highscore < 10) {
@@ -322,11 +322,12 @@ int main(int argc, char *args[]) {
             }
 
             if (bool_first_menu_highscore == false) {
+                boxRGBA(screen, 50, screenheight - 275, 350, screenheight - 175, 255, 75, 0, 200);
                 apply_surface(85, screenheight - 242, first_menu_highscore, screen);
             }
 
             if (help_menu == true) {
-                boxRGBA(screen, 650, screenheight - 470, 950, screenheight - 300, 255, 75, 0, 200);
+                boxRGBA(screen, 650, screenheight - 470, 950, screenheight - 300, 0, 175, 255, 200);
                 apply_surface(682, screenheight - 443, moving_key, screen);
                 apply_surface(682, screenheight - 413, shooting_key, screen);
                 apply_surface(682, screenheight - 383, special_ammu_key, screen);
